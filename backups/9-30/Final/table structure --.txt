@@ -1,0 +1,34 @@
+table structure --
+
+batting
+
+season, team, g, pa, ab, avg, ops, h, r, hr, rbi, 1b, 2b, 3b, tb, bb, so, hbp, sac, obp, slg, go%, fo%, babip, roba, balls/pa, k%, bb%
+
+pitching
+
+season, team, app, w, l, era, whip, k/bb, w%, sv, holds, gs, gf, ip, bf, tp, r, er, k, bb, hbp, fip, baa, k9, bb9, p/pa, k%, bb%
+
+all batting and pitching tables will have these columns, and they will all be formatted with one row per season, per team, with one row at the bottom for their career.
+
+How stats like this will work:
+
+stats will be sourced from the event files of the database, because the play-by-play level is the most granular. Also, the event files have game ids, which will be connected to the games table. This is also necessary for the advanced stat finder, if people want to have both situational (event level) and game (game level) filters. For example, if someone wanted to see who has the highest batting average during day games in the 9th inning, they will add a situational filter (9th inning) and a game filter (only day games). users can create custom filters in the advanced stat finder.
+
+For individual player pages, the type of splits will determine the filters. These are the current split ideas:
+
+split tables for batting:
+vs lhp, vs rhp, at day, at night, at home, on the road, in wins, in losses
+split tables for pitching:
+in starts, in relief, vs lefties, vs righties, at day, at night, at home, on the road, in wins, in losses
+
+for batting, the lhp split will have the same format, but only with stats from eventfiles where the pitcher is lhp (based on that pitcher's id in the players table) for wins vs losses, only event files where that player's team won (the "team" column in the event table is the same as the winning team column in that game's games table row.) (for pitchers, this would be the opposite, as a pitcher pitching in a win would have the opposite team winning the games table, as the team in the event table is the team of the batter.)
+
+
+
+create a standard table structure for batting and pitching
+
+Create a standard metadata structure for players, teams, games, and ballparks
+
+Since players, teams, and ballparks will both have batting and pitching tables, implement those
+games pages will just be metadata and data parsed from the batting and pitching tables for that game_id
+

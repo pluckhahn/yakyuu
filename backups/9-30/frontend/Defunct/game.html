@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details - yakyuu.jp</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #BC002D;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Error State */
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Metadata Section */
+        .metadata-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .metadata-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .metadata-label {
+            font-weight: bold;
+            color: #BC002D;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .metadata-value {
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        /* Score Section */
+        .score-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .score-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .team-score {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .score {
+            background: #BC002D;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            min-width: 3rem;
+            text-align: center;
+        }
+        
+        .vs {
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        /* Table Toggle */
+        .table-toggle {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .toggle-button {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            color: #666;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-button.active {
+            background: #BC002D;
+            color: white;
+            border-color: #BC002D;
+        }
+        
+        .toggle-button:hover {
+            border-color: #BC002D;
+            color: #BC002D;
+        }
+        
+        .toggle-button.active:hover {
+            background: #a00025;
+            color: white;
+        }
+        
+        /* Table Section */
+        .table-section {
+            margin-bottom: 3rem;
+        }
+        
+        .table-section h2 {
+            color: #BC002D;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Team Section */
+        .team-section {
+            margin-bottom: 2rem;
+        }
+        
+        .team-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 2px solid #BC002D;
+        }
+        
+        /* Stats Table */
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+        
+        .stats-table th {
+            background: #BC002D;
+            color: white;
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            font-weight: 500;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stats-table th:last-child {
+            border-right: none;
+        }
+        
+        .stats-table td {
+            padding: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+        
+        .stats-table td:last-child {
+            border-right: none;
+        }
+        
+        .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .stats-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .stats-table tr:hover {
+            background: #e9ecef;
+        }
+        
+        .player-name {
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+        }
+        
+        .player-name a {
+            color: #BC002D;
+            text-decoration: none;
+        }
+        
+        .player-name a:hover {
+            text-decoration: underline;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        /* Hidden sections */
+        .table-section.hidden {
+            display: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .metadata-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .score-display {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .table-toggle {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Large Header with Logo -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="yakyuu.jp" class="logo-image">
+            </a>
+        </div>
+    </header>
+
+    <!-- Red Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-content">
+            <ul class="nav-menu">
+                <li><a href="/games">Games</a></li>
+                <li><a href="/players">Players</a></li>
+                <li><a href="/teams">Teams/Standings</a></li>
+                <li><a href="/ballparks">Ballparks</a></li>
+                <li><a href="/advanced">Advanced Stat Finder</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-container">
+            <div id="loading" class="loading">Loading game data...</div>
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="game-content" style="display: none;">
+            
+            <h1 id="game-title">Game Details</h1>
+            
+            <!-- Score Section -->
+            <div class="score-section">
+                <div class="score-display">
+                    <div class="team-score">
+                        <span id="away-team">Away Team</span>
+                        <div class="score" id="away-score">0</div>
+                    </div>
+                    <div class="vs">vs</div>
+                    <div class="team-score">
+                        <div class="score" id="home-score">0</div>
+                        <span id="home-team">Home Team</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metadata Section -->
+            <div class="metadata-section">
+                <h2>Game Information</h2>
+                <div class="metadata-grid">
+                    <div class="metadata-item">
+                        <div class="metadata-label">Date</div>
+                        <div class="metadata-value" id="game-date">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Game ID</div>
+                        <div class="metadata-value" id="game-id">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Ballpark</div>
+                        <div class="metadata-value" id="game-ballpark">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Attendance</div>
+                        <div class="metadata-value" id="game-attendance">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Game Type</div>
+                        <div class="metadata-value" id="game-type">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Table Toggle -->
+            <div class="table-toggle">
+                <button class="toggle-button active" data-table="batting">Batting Statistics</button>
+                <button class="toggle-button" data-table="pitching">Pitching Statistics</button>
+            </div>
+            
+            <!-- Batting Stats Section -->
+            <div class="table-section" id="batting-section">
+                <h2>Batting Statistics</h2>
+                
+                <!-- Away Team Batting -->
+                <div class="team-section">
+                    <div class="team-header" id="away-batting-header">Away Team Batting</div>
+                    <div class="table-container">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Pos</th>
+                                    <th>AB</th>
+                                    <th>R</th>
+                                    <th>H</th>
+                                    <th>RBI</th>
+                                    <th>2B</th>
+                                    <th>3B</th>
+                                    <th>HR</th>
+                                    <th>BB</th>
+                                    <th>SO</th>
+                                    <th>AVG</th>
+                                    <th>OBP</th>
+                                    <th>SLG</th>
+                                </tr>
+                            </thead>
+                            <tbody id="away-batting-body">
+                                <!-- Away batting stats will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Home Team Batting -->
+                <div class="team-section">
+                    <div class="team-header" id="home-batting-header">Home Team Batting</div>
+                    <div class="table-container">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Pos</th>
+                                    <th>AB</th>
+                                    <th>R</th>
+                                    <th>H</th>
+                                    <th>RBI</th>
+                                    <th>2B</th>
+                                    <th>3B</th>
+                                    <th>HR</th>
+                                    <th>BB</th>
+                                    <th>SO</th>
+                                    <th>AVG</th>
+                                    <th>OBP</th>
+                                    <th>SLG</th>
+                                </tr>
+                            </thead>
+                            <tbody id="home-batting-body">
+                                <!-- Home batting stats will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pitching Stats Section -->
+            <div class="table-section hidden" id="pitching-section">
+                <h2>Pitching Statistics</h2>
+                
+                <!-- Away Team Pitching -->
+                <div class="team-section">
+                    <div class="team-header" id="away-pitching-header">Away Team Pitching</div>
+                    <div class="table-container">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>IP</th>
+                                    <th>H</th>
+                                    <th>R</th>
+                                    <th>ER</th>
+                                    <th>HR</th>
+                                    <th>BB</th>
+                                    <th>SO</th>
+                                    <th>ERA</th>
+                                    <th>WHIP</th>
+                                    <th>BF</th>
+                                </tr>
+                            </thead>
+                            <tbody id="away-pitching-body">
+                                <!-- Away pitching stats will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Home Team Pitching -->
+                <div class="team-section">
+                    <div class="team-header" id="home-pitching-header">Home Team Pitching</div>
+                    <div class="table-container">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>IP</th>
+                                    <th>H</th>
+                                    <th>R</th>
+                                    <th>ER</th>
+                                    <th>HR</th>
+                                    <th>BB</th>
+                                    <th>SO</th>
+                                    <th>ERA</th>
+                                    <th>WHIP</th>
+                                    <th>BF</th>
+                                </tr>
+                            </thead>
+                            <tbody id="home-pitching-body">
+                                <!-- Home pitching stats will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get game ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameId = urlParams.get('id') || '2025/0730/g-t-01'; // Default for testing
+        
+        // API base URL
+        const API_BASE = 'http://localhost:5000/api';
+        
+        // Load game data
+        async function loadGameData() {
+            try {
+                // Load game metadata
+                const gameResponse = await fetch(`${API_BASE}/games/${gameId}`);
+                if (!gameResponse.ok) {
+                    throw new Error(`Game not found: ${gameResponse.status}`);
+                }
+                const gameData = await gameResponse.json();
+                
+                // Load batting data
+                const battingResponse = await fetch(`${API_BASE}/games/${gameId}/batting`);
+                const battingData = battingResponse.ok ? await battingResponse.json() : { home: [], away: [] };
+                
+                // Load pitching data
+                const pitchingResponse = await fetch(`${API_BASE}/games/${gameId}/pitching`);
+                const pitchingData = pitchingResponse.ok ? await pitchingResponse.json() : { home: [], away: [] };
+                
+                // Populate the page
+                populateGameData(gameData, battingData, pitchingData);
+                
+                // Hide loading, show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('game-content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading game data:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').textContent = `Error loading game data: ${error.message}`;
+            }
+        }
+        
+        function populateGameData(game, batting, pitching) {
+            // Game title and basic info - Updated format with Japanese game numbers and | dividers
+            const gameTitle = game.away_team_name_en && game.home_team_name_en 
+                ? `${game.away_team_name_en} @ ${game.home_team_name_en}` 
+                : `${game.away_team} @ ${game.home_team}`;
+            document.getElementById('game-title').textContent = gameTitle;
+            document.getElementById('away-team').textContent = game.away_team_name_en || game.away_team;
+            document.getElementById('home-team').textContent = game.home_team_name_en || game.home_team;
+            document.getElementById('away-score').textContent = game.visitor_runs || 0;
+            document.getElementById('home-score').textContent = game.home_runs || 0;
+            
+            // Metadata
+            document.getElementById('game-date').textContent = formatDate(game.date);
+            document.getElementById('game-id').textContent = game.game_id;
+            document.getElementById('game-ballpark').textContent = game.ballpark || 'Unknown';
+            document.getElementById('game-attendance').textContent = game.attendance ? game.attendance.toLocaleString() : 'N/A';
+            document.getElementById('game-type').textContent = game.game_type || 'Unknown';
+            
+            // Team headers
+            document.getElementById('away-batting-header').textContent = `${game.away_team} Batting`;
+            document.getElementById('home-batting-header').textContent = `${game.home_team} Batting`;
+            document.getElementById('away-pitching-header').textContent = `${game.away_team} Pitching`;
+            document.getElementById('home-pitching-header').textContent = `${game.home_team} Pitching`;
+            
+            // Populate batting tables
+            populateBattingTable('away-batting-body', batting.away || []);
+            populateBattingTable('home-batting-body', batting.home || []);
+            
+            // Populate pitching tables
+            populatePitchingTable('away-pitching-body', pitching.away || []);
+            populatePitchingTable('home-pitching-body', pitching.home || []);
+        }
+        
+        function populateBattingTable(tableBodyId, players) {
+            const tbody = document.getElementById(tableBodyId);
+            tbody.innerHTML = '';
+            
+            players.forEach(player => {
+                const row = document.createElement('tr');
+                
+                // Calculate stats
+                const avg = player.ab > 0 ? (player.b_h / player.ab).toFixed(3) : '.000';
+                const obp = player.pa > 0 ? ((player.b_h + player.b_bb + player.b_hbp) / player.pa).toFixed(3) : '.000';
+                const slg = player.ab > 0 ? ((player.b_h - player.b_2b - player.b_3b - player.b_hr + 2*player.b_2b + 3*player.b_3b + 4*player.b_hr) / player.ab).toFixed(3) : '.000';
+                
+                row.innerHTML = `
+                    <td class="player-name"><a href="/players?id=${player.player_id}">${player.player_name || 'Unknown'}</a></td>
+                    <td>${player.position || '-'}</td>
+                    <td>${player.ab || 0}</td>
+                    <td>${player.r || 0}</td>
+                    <td>${player.b_h || 0}</td>
+                    <td>${player.rbi || 0}</td>
+                    <td>${player.b_2b || 0}</td>
+                    <td>${player.b_3b || 0}</td>
+                    <td>${player.b_hr || 0}</td>
+                    <td>${player.b_bb || 0}</td>
+                    <td>${player.b_k || 0}</td>
+                    <td>${avg}</td>
+                    <td>${obp}</td>
+                    <td>${slg}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            if (players.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="14" style="text-align: center; color: #666;">No batting data available</td>';
+                tbody.appendChild(row);
+            }
+        }
+        
+        function populatePitchingTable(tableBodyId, players) {
+            const tbody = document.getElementById(tableBodyId);
+            tbody.innerHTML = '';
+            
+            players.forEach(player => {
+                const row = document.createElement('tr');
+                
+                // Calculate stats
+                const era = player.ip > 0 ? ((player.er * 9) / player.ip).toFixed(2) : '0.00';
+                const whip = player.ip > 0 ? ((player.p_h + player.p_bb) / player.ip).toFixed(2) : '0.00';
+                const ip = formatInnings(player.ip);
+                
+                row.innerHTML = `
+                    <td class="player-name"><a href="/players?id=${player.player_id}">${player.player_name || 'Unknown'}</a></td>
+                    <td>${ip}</td>
+                    <td>${player.p_h || 0}</td>
+                    <td>${player.r || 0}</td>
+                    <td>${player.er || 0}</td>
+                    <td>${player.p_hr || 0}</td>
+                    <td>${player.p_bb || 0}</td>
+                    <td>${player.p_k || 0}</td>
+                    <td>${era}</td>
+                    <td>${whip}</td>
+                    <td>${player.batters_faced || 0}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            if (players.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="11" style="text-align: center; color: #666;">No pitching data available</td>';
+                tbody.appendChild(row);
+            }
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return 'Unknown';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+        
+        function formatInnings(ip) {
+            if (!ip) return '0.0';
+            const wholeInnings = Math.floor(ip);
+            const fraction = ip - wholeInnings;
+            
+            if (fraction === 0) return `${wholeInnings}.0`;
+            if (fraction === 0.33 || fraction === 0.333 || fraction === 0.3333) return `${wholeInnings}.1`;
+            if (fraction === 0.67 || fraction === 0.667 || fraction === 0.6667) return `${wholeInnings}.2`;
+            
+            return ip.toFixed(1);
+        }
+        
+        function translateGameType(gameType) {
+            const translations = {
+                '公式戦': 'Regular Season',
+                'オールスターゲーム': 'All-Star Game',
+                'ファーストステージ': 'Postseason First',
+                'ファイナルステージ': 'Postseason Final',
+                '日本シリーズ': 'Japan Series',
+                'クライマックスシリーズ': 'Postseason',
+                '交流戦': 'Interleague',
+                'プレシーズン': 'Preseason'
+            };
+            
+            return translations[gameType] || 'Unknown';
+        }
+        
+        // Table toggle functionality
+        document.querySelectorAll('.toggle-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tableType = this.dataset.table;
+                
+                // Update button states
+                document.querySelectorAll('.toggle-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show/hide table sections
+                document.querySelectorAll('.table-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(tableType + '-section').classList.remove('hidden');
+            });
+        });
+        
+        // Load data when page loads
+        loadGameData();
+    </script>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,15 @@
+New Statistic Idea:
+
+IRC (Individual Run Contribution)
+
+Event-based statistic
+
+There are 24 possible event situations:
+0,1,2 outs
+and
+empty, loaded, 1, 2, 3, 1+2, 1+3, 2+3
+
+Find the "predicted runs scored" for each situation
+Use the common data set (500k event files, 6500 games) to figure out how many runs, on average, the team scored after being in this situation
+then, find the next event after that player's event
+take the change in PRS from before the at bat to after, and add it to RBI (for example, if a player hits a grand slam, the next at bat will be lower because the bases will be empty, so we need to add rbi because an rbi is literally an individual run contributed by a player)

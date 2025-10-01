@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - yakyuu.jp</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #BC002D;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Section Toggle Buttons */
+        .section-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .section-button {
+            background: white;
+            border: 2px solid #BC002D;
+            color: #BC002D;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+        
+        .section-button:hover {
+            background: #BC002D;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(188, 0, 45, 0.3);
+        }
+        
+        .section-button.active {
+            background: #BC002D;
+            color: white;
+            box-shadow: 0 4px 12px rgba(188, 0, 45, 0.3);
+        }
+        
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 400px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #BC002D;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .coming-soon {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+        
+        /* Recent Games Styles */
+        .recent-games-controls {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .split-toggle {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .split-toggle button {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            color: #666;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+        
+        .split-toggle button.active {
+            background: #BC002D;
+            color: white;
+            border-color: #BC002D;
+        }
+        
+        .split-toggle button:hover {
+            border-color: #BC002D;
+            color: #BC002D;
+        }
+        
+        .split-toggle button.active:hover {
+            background: #a00025;
+            color: white;
+        }
+        
+        .section-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Date Selector */
+        .date-selector-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .date-controls {
+            display: inline-flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .date-picker {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+        
+        .date-picker:focus {
+            outline: none;
+            border-color: #BC002D;
+        }
+        
+        /* Game Cards */
+        #recent-games-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .game-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            border-color: #BC002D;
+        }
+        
+        .game-line-score {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+        
+        .game-line-score th {
+            background: #f8f9fa;
+            color: #333;
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 500;
+            border-right: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .game-line-score th:last-child {
+            border-right: none;
+        }
+        
+        .game-line-score td {
+            padding: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+        
+        .game-line-score td:last-child {
+            border-right: none;
+        }
+        
+        .game-line-score tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .game-line-score .team-name {
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+            padding-left: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .game-line-score .winning-score {
+            font-weight: bold;
+            color: #BC002D;
+            font-size: 1.1rem;
+        }
+        
+        .game-info-header {
+            background: #BC002D !important;
+            color: white !important;
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
+            text-align: center !important;
+            padding: 0.75rem !important;
+        }
+        
+        .show-more-button {
+            background: #BC002D;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .show-more-button:hover {
+            background: #a00025;
+        }
+        
+        .show-more-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* Loading and Error Messages */
+        .loading-message, .error-message {
+            text-align: center;
+            padding: 2rem;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .error-message {
+            color: #dc3545;
+        }
+        
+        /* Sortable Column Styles */
+        .sortable {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: background-color 0.2s ease;
+        }
+        
+        .sortable:hover {
+            background-color: #f8f9fa !important;
+        }
+        
+        .sortable .sort-indicator {
+            margin-left: 0.5rem;
+            opacity: 0.5;
+        }
+        
+        .sortable.sort-asc .sort-indicator::after {
+            content: '↑';
+            opacity: 1;
+            color: #BC002D;
+        }
+        
+        .sortable.sort-desc .sort-indicator::after {
+            content: '↓';
+            opacity: 1;
+            color: #BC002D;
+        }
+        
+        /* Advanced Game Lookup Styles */
+        .filter-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #dee2e6;
+        }
+        
+        /* Timeline Slider Styles */
+        .timeline-container {
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .timeline-wrapper {
+            position: relative;
+            padding: 0 1rem;
+        }
+        
+        .timeline-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e9ecef;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            position: relative;
+        }
+        
+        .timeline-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #BC002D;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .timeline-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #BC002D;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .timeline-current {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 500;
+            color: #BC002D;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .dual-range-slider {
+            position: relative;
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .dual-range-slider input[type="range"] {
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            background: transparent;
+            -webkit-appearance: none;
+            appearance: none;
+            pointer-events: none;
+            outline: none;
+        }
+        
+        .dual-range-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #BC002D;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            pointer-events: all;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .dual-range-slider input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #BC002D;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            pointer-events: all;
+        }
+        
+        .range-track {
+            position: absolute;
+            height: 8px;
+            background: #BC002D;
+            border-radius: 4px;
+            top: 0;
+        }
+        
+        .filter-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-row:last-of-type {
+            margin-bottom: 2rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .filter-input, .filter-select {
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+        
+        .filter-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: #BC002D;
+            box-shadow: 0 0 0 3px rgba(188, 0, 45, 0.1);
+        }
+        
+        .filter-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .filter-button {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-button.primary {
+            background: #BC002D;
+            color: white;
+        }
+        
+        .filter-button.primary:hover {
+            background: #a00025;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(188, 0, 45, 0.3);
+        }
+        
+        .filter-button.secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .filter-button.secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+        }
+        
+        /* Dynamic Filter Builder Styles */
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .filter-dropdown-btn {
+            background: #BC002D;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+        
+        .filter-dropdown-btn:hover {
+            background: #a00025;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(188, 0, 45, 0.3);
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            min-width: 200px;
+            margin-top: 0.5rem;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-item:hover {
+            background: #f8f9fa;
+            color: #BC002D;
+        }
+        
+        .clear-all-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: auto;
+        }
+        
+        .clear-all-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+        }
+        
+        /* Active Filters Container */
+        .active-filters-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            min-height: 2rem;
+        }
+        
+        .filter-widget {
+            background: white;
+            border: 2px solid #BC002D;
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(188, 0, 45, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .filter-widget:hover {
+            box-shadow: 0 4px 12px rgba(188, 0, 45, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #BC002D;
+            font-size: 0.9rem;
+        }
+        
+        .filter-operator {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .filter-value {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .filter-remove {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-remove:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+        
+        .date-range-section {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        
+        /* Multi-input filter styles */
+        .team-role-inputs,
+        .team-stat-inputs,
+        .inning-score-inputs {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .filter-team-select,
+        .filter-inning-select {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            min-width: 100px;
+        }
+        
+        .team-stat-inputs .filter-value,
+        .inning-score-inputs .filter-value {
+            min-width: 60px;
+        }
+        
+        /* Results Info */
+        .results-info {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #0066cc;
+            font-weight: 500;
+        }
+        
+        /* Advanced Table Styles */
+        .advanced-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-size: 0.85rem;
+        }
+        
+        .advanced-table th {
+            background: #BC002D;
+            color: white;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .advanced-table th:hover {
+            background: #a00025;
+        }
+        
+        .advanced-table th.sortable {
+            padding-right: 1.5rem;
+        }
+        
+        .sort-indicator {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+        
+        .sort-indicator::after {
+            content: '↕';
+        }
+        
+        .advanced-table th.sort-asc .sort-indicator::after {
+            content: '↑';
+            opacity: 1;
+        }
+        
+        .advanced-table th.sort-desc .sort-indicator::after {
+            content: '↓';
+            opacity: 1;
+        }
+        
+        .advanced-table td {
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+        
+        .advanced-table tbody tr {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .advanced-table tbody tr:hover {
+            background: #e3f2fd !important;
+            transform: scale(1.01);
+        }
+        
+        .advanced-table tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .advanced-table tbody tr:nth-child(even):hover {
+            background: #e3f2fd !important;
+        }
+        
+        /* Pagination Controls */
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding: 1rem;
+        }
+        
+        .pagination-button {
+            background: #BC002D;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-button:hover:not(:disabled) {
+            background: #a00025;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(188, 0, 45, 0.3);
+        }
+        
+        .pagination-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        #page-info {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 1rem;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-toggle {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .split-toggle {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .split-toggle button {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            #recent-games-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-button {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .advanced-table {
+                font-size: 0.75rem;
+            }
+            
+            .advanced-table th,
+            .advanced-table td {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .pagination-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Large Header with Logo -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="yakyuu.jp" class="logo-image">
+            </a>
+        </div>
+    </header>
+
+    <!-- Red Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-content">
+            <ul class="nav-menu">
+                <li><a href="/games" class="active">Games</a></li>
+                <li><a href="/players">Players</a></li>
+                <li><a href="/teams">Teams/Standings</a></li>
+                <li><a href="/ballparks">Ballparks</a></li>
+                <li><a href="/advanced">Advanced Stat Finder</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <!-- Page Header -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="font-size: 3rem; font-weight: bold; color: #BC002D; margin: 0;">Games</h1>
+        </div>
+
+        <!-- Recent Games Section -->
+        <div id="recent-games" class="content-section" style="display: block;">
+            
+            <div class="date-selector-container">
+                <div class="toggle-section">
+                    <div class="section-label">Game Date</div>
+                    <div class="date-controls">
+                        <input type="date" id="game-date-picker" class="date-picker">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="recent-games-container">
+                <!-- Games will be loaded here as individual cards -->
+            </div>
+            
+            <div id="recent-games-loading" class="loading-message" style="display: none;">
+                Loading games...
+            </div>
+            
+            <div id="recent-games-error" class="error-message" style="display: none;">
+                Failed to load games.
+            </div>
+        </div>
+
+        <!-- Advanced Game Lookup Section -->
+        <div id="advanced-lookup" class="content-section" style="display: none;">
+            <h2 class="section-title">Advanced Game Lookup</h2>
+            <p class="section-description">
+                Use powerful filters to find specific games by team, date, season, ballpark, and more.
+            </p>
+            
+            <!-- Dynamic Filter Builder -->
+            <div class="filter-section">
+                <!-- Filter Buttons -->
+                <div class="filter-buttons">
+                    <div class="dropdown-container">
+                        <button class="filter-dropdown-btn" id="game-filter-btn">
+                            Game Filter ▼
+                        </button>
+                        <div class="dropdown-menu" id="game-filter-menu">
+                            <div class="dropdown-item" data-filter="attendance">Attendance</div>
+                            <div class="dropdown-item" data-filter="ballpark">Ballpark</div>
+                            <div class="dropdown-item" data-filter="duration">Duration (minutes)</div>
+                            <div class="dropdown-item" data-filter="gametype">Game Type</div>
+                            <div class="dropdown-item" data-filter="score_differential">Score Differential</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <button class="filter-dropdown-btn" id="team-filter-btn">
+                            Team Filter ▼
+                        </button>
+                        <div class="dropdown-menu" id="team-filter-menu">
+                            <div class="dropdown-item" data-filter="team">Team</div>
+                            <div class="dropdown-item" data-filter="team_hits">Hits</div>
+                            <div class="dropdown-item" data-filter="team_runs">Runs</div>
+                            <div class="dropdown-item" data-filter="team_errors">Errors</div>
+                            <div class="dropdown-item" data-filter="inning_score">Inning Score</div>
+                        </div>
+                    </div>
+                    
+                    <button id="clear-all-filters" class="clear-all-btn">Clear All Filters</button>
+                </div>
+                
+                <!-- Active Filters Container -->
+                <div class="active-filters-container">
+                    <div class="active-filters" id="active-filters">
+                        <!-- Dynamic filters will be added here -->
+                    </div>
+                    
+                    <!-- Date Range (Always Present) -->
+                    <div class="date-range-section">
+                        <div class="timeline-container">
+                            <div class="timeline-label">Date Range</div>
+                            <div class="timeline-wrapper">
+                                <div class="dual-range-slider">
+                                    <input type="range" id="start-date-slider" min="0" max="100" value="0" class="timeline-slider">
+                                    <input type="range" id="end-date-slider" min="0" max="100" value="100" class="timeline-slider">
+                                    <div class="range-track" id="range-track"></div>
+                                </div>
+                                <div class="timeline-labels">
+                                    <span id="min-date-label">Loading...</span>
+                                    <span id="max-date-label">Loading...</span>
+                                </div>
+                                <div class="timeline-current">
+                                    <span id="current-range">Select date range</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Table -->
+            <div id="advanced-results-container">
+                <div id="advanced-loading" class="loading-message" style="display: none;">
+                    Loading games...
+                </div>
+                
+                <div id="advanced-error" class="error-message" style="display: none;">
+                    Failed to load games.
+                </div>
+                
+                <div id="results-info" class="results-info" style="display: none;">
+                    <span id="results-count"></span>
+                    <span id="results-range"></span>
+                </div>
+                
+                <div id="advanced-table-container" style="display: none;">
+                    <table id="advanced-games-table" class="advanced-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-sort="date">Date <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="home_team">Home Team <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="away_team">Away Team <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="home_score">Home Score <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="away_score">Away Score <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="game_number">Game # <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="ballpark">Ballpark <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="game_type">Type <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="attendance">Attendance <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="home_hits">Home Hits <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="away_hits">Away Hits <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="home_errors">Home Errors <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="away_errors">Away Errors <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="duration_minutes">Duration (min) <span class="sort-indicator"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="advanced-games-tbody">
+                        </tbody>
+                    </table>
+                    
+                    <div class="pagination-controls">
+                        <button id="prev-page" class="pagination-button" disabled>Previous 25</button>
+                        <span id="page-info"></span>
+                        <button id="next-page" class="pagination-button" disabled>Next 25</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // API Configuration
+        const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        
+        // Global variables for pagination
+        let currentOffset = 0;
+        
+        // Section toggle functionality
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.section-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Load data for the selected section
+            if (sectionId === 'recent-games') {
+                loadRecentGames();
+            } else if (sectionId === 'advanced-lookup') {
+                loadAdvancedLookupFilters();
+            }
+        }
+        
+        // Load games function
+        function loadRecentGames(selectedDate = null) {
+            const loadingEl = document.getElementById('recent-games-loading');
+            const errorEl = document.getElementById('recent-games-error');
+            const containerEl = document.getElementById('recent-games-container');
+            
+            // Show loading state
+            loadingEl.style.display = 'block';
+            errorEl.style.display = 'none';
+            containerEl.style.display = 'none';
+            
+            // Build API URL
+            let apiUrl = `${API_BASE}/recent-games`;
+            if (selectedDate) {
+                apiUrl += `?date=${selectedDate}`;
+            }
+            
+            // Fetch games
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch games');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Hide loading state
+                    loadingEl.style.display = 'none';
+                    
+                    if (data.games && data.games.length > 0) {
+                        // Show container and populate data
+                        containerEl.style.display = 'grid';
+                        populateRecentGamesCards(data.games);
+                        
+                        // Update section title with the date
+                        if (data.date) {
+                            // Format date directly from the string to avoid timezone issues
+                            const formattedDate = data.date.replace(/-/g, '/');
+                            document.querySelector('.section-title').textContent = `Games from ${formattedDate}`;
+                            
+                            // Update date picker to show the loaded date
+                            const datePicker = document.getElementById('game-date-picker');
+                            if (datePicker) {
+                                datePicker.value = data.date;
+                            }
+                        }
+                    } else {
+                        // Show no games message
+                        const noGamesMsg = selectedDate ? 
+                            `No games found for ${selectedDate}` : 
+                            'No games found for the most recent date';
+                        containerEl.innerHTML = `<div style="text-align: center; padding: 2rem; color: #666; grid-column: 1 / -1;">${noGamesMsg}</div>`;
+                        containerEl.style.display = 'grid';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading games:', error);
+                    loadingEl.style.display = 'none';
+                    errorEl.style.display = 'block';
+                });
+        }
+        
+        // Populate recent games cards
+        function populateRecentGamesCards(games) {
+            const container = document.getElementById('recent-games-container');
+            container.innerHTML = '';
+            
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                
+                // Format date as yyyy/mm/dd - avoid timezone issues by parsing manually
+                const dateParts = game.date.split('-');
+                const date = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`;
+                
+                // Use the enhanced API data structure
+                const homeTeam = game.home_team || 'Home Team';
+                const awayTeam = game.away_team || 'Away Team';
+                const homeRuns = game.home_runs || 0;
+                const awayRuns = game.visitor_runs || 0;
+                const homeHits = game.home_hits || 0;
+                const awayHits = game.visitor_hits || 0;
+                const homeErrors = game.home_errors || 0;
+                const awayErrors = game.visitor_errors || 0;
+                
+                // Determine winning team styling
+                const homeScoreClass = homeRuns > awayRuns ? 'winning-score' : '';
+                const awayScoreClass = awayRuns > homeRuns ? 'winning-score' : '';
+                
+                // Format game type with English translation
+                const gameTypeMap = {
+                    '公式戦': 'Regular Season',
+                    '交流戦': 'Interleague',
+                    'ファーストステージ': 'First Stage',
+                    'ファイナルステージ': 'Final Stage', 
+                    '日本シリーズ': 'Japan Series'
+                };
+                const gameTypeEn = gameTypeMap[game.gametype] || game.gametype;
+                const gameTypeDisplay = game.gametype ? `${game.gametype} (${gameTypeEn})` : '';
+                
+                // Format ballpark info
+                const ballparkDisplay = game.ballpark || '';
+                
+                // Create the game info header
+                const gameInfoHeader = `${date}${gameTypeDisplay ? ' | ' + gameTypeDisplay : ''}${ballparkDisplay ? ' | ' + ballparkDisplay : ''}`;
+                
+                gameCard.innerHTML = `
+                    <table class="game-line-score">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="game-info-header">${gameInfoHeader}</th>
+                            </tr>
+                            <tr>
+                                <th>Team</th>
+                                <th>R</th>
+                                <th>H</th>
+                                <th>E</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="team-name">${awayTeam}</td>
+                                <td class="${awayScoreClass}">${awayRuns}</td>
+                                <td>${awayHits}</td>
+                                <td>${awayErrors}</td>
+                            </tr>
+                            <tr>
+                                <td class="team-name">${homeTeam}</td>
+                                <td class="${homeScoreClass}">${homeRuns}</td>
+                                <td>${homeHits}</td>
+                                <td>${homeErrors}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+                
+                // Add click handler to navigate to game page
+                gameCard.addEventListener('click', function() {
+                    window.location.href = `/games/${game.game_id}`;
+                });
+                
+                container.appendChild(gameCard);
+            });
+        }
+        
+        
+        // Advanced Game Lookup Variables
+        let currentAdvancedOffset = 0;
+        let currentAdvancedSort = 'date';
+        let currentAdvancedSortOrder = 'DESC';
+        let advancedFilters = {};
+        let activeFilters = [];
+        let filterCounter = 0;
+        let dateRange = { min_date: null, max_date: null };
+        let autoFilterTimeout = null;
+        let filterOptions = {};
+        
+        // Load Advanced Lookup Filters
+        function loadAdvancedLookupFilters() {
+            fetch(`${API_BASE}/filter-options`)
+                .then(response => response.json())
+                .then(data => {
+                    populateFilterOptions(data);
+                    setupAdvancedEventListeners();
+                })
+                .catch(error => {
+                    console.error('Error loading filter options:', error);
+                });
+        }
+        
+        // Populate Filter Options
+        function populateFilterOptions(data) {
+            // Store date range and filter options
+            dateRange = data.date_range;
+            filterOptions = data;
+            
+            // Setup timeline slider
+            setupTimelineSlider(data.date_range);
+            
+            // Setup dynamic filter system
+            setupDynamicFilters();
+            
+            // Load all games initially
+            applyAdvancedFilters();
+        }
+        
+        // Setup Dynamic Filter System
+        function setupDynamicFilters() {
+            // Setup dropdown menus
+            setupDropdownMenus();
+            
+            // Setup clear all filters button
+            document.getElementById('clear-all-filters').addEventListener('click', clearAllFilters);
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown-container')) {
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                }
+            });
+        }
+        
+        // Setup Dropdown Menus
+        function setupDropdownMenus() {
+            // Game Filter Dropdown
+            const gameFilterBtn = document.getElementById('game-filter-btn');
+            const gameFilterMenu = document.getElementById('game-filter-menu');
+            
+            gameFilterBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                gameFilterMenu.classList.toggle('show');
+                document.getElementById('team-filter-menu').classList.remove('show');
+            });
+            
+            gameFilterMenu.addEventListener('click', (e) => {
+                if (e.target.classList.contains('dropdown-item')) {
+                    const filterType = e.target.dataset.filter;
+                    createFilter(filterType, 'game');
+                    gameFilterMenu.classList.remove('show');
+                }
+            });
+            
+            // Team Filter Dropdown
+            const teamFilterBtn = document.getElementById('team-filter-btn');
+            const teamFilterMenu = document.getElementById('team-filter-menu');
+            
+            teamFilterBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                teamFilterMenu.classList.toggle('show');
+                document.getElementById('game-filter-menu').classList.remove('show');
+            });
+            
+            teamFilterMenu.addEventListener('click', (e) => {
+                if (e.target.classList.contains('dropdown-item')) {
+                    const filterType = e.target.dataset.filter;
+                    createFilter(filterType, 'team');
+                    teamFilterMenu.classList.remove('show');
+                }
+            });
+        }
+        
+        // Create Filter Widget
+        function createFilter(filterType, category) {
+            const filterId = `filter_${filterCounter++}`;
+            const defaultOperator = isSelectFilter(filterType) ? '=' : '>';
+            const filter = {
+                id: filterId,
+                type: filterType,
+                category: category,
+                operator: defaultOperator,
+                value: ''
+            };
+            
+            // Set default values for team-based filters
+            if (isTeamStatFilter(filterType) || filterType === 'inning_score') {
+                filter.role = 'any';
+                filter.team_id = null;
+            } else if (filterType === 'team') {
+                filter.value = 'any';
+                filter.team_id = null;
+            }
+            
+            activeFilters.push(filter);
+            renderFilterWidget(filter);
+        }
+        
+        // Render Filter Widget
+        function renderFilterWidget(filter) {
+            const activeFiltersContainer = document.getElementById('active-filters');
+            
+            const widget = document.createElement('div');
+            widget.className = 'filter-widget';
+            widget.dataset.filterId = filter.id;
+            
+            // Get filter display name
+            const displayName = getFilterDisplayName(filter.type);
+            
+            // Create widget HTML
+            widget.innerHTML = `
+                <span class="filter-label">${displayName}</span>
+                ${createOperatorSelect(filter)}
+                ${createValueInput(filter)}
+                <button class="filter-remove" data-filter-id="${filter.id}">×</button>
+            `;
+            
+            activeFiltersContainer.appendChild(widget);
+            
+            // Setup event listeners for this widget
+            setupFilterWidgetListeners(widget, filter);
+        }
+        
+        // Create Operator Select
+        function createOperatorSelect(filter) {
+            const operators = getAvailableOperators(filter.type);
+            let html = '<select class="filter-operator">';
+            
+            operators.forEach(op => {
+                const selected = op.value === filter.operator ? 'selected' : '';
+                html += `<option value="${op.value}" ${selected}>${op.label}</option>`;
+            });
+            
+            html += '</select>';
+            return html;
+        }
+        
+        // Create Value Input
+        function createValueInput(filter) {
+            if (filter.type === 'team') {
+                return createTeamRoleInput(filter);
+            } else if (isSelectFilter(filter.type)) {
+                return createSelectInput(filter);
+            } else if (isTeamStatFilter(filter.type)) {
+                return createTeamStatInput(filter);
+            } else if (filter.type === 'inning_score') {
+                return createInningScoreInput(filter);
+            } else if (filter.type === 'duration') {
+                return `<input type="number" class="filter-value" placeholder="Minutes (e.g., 180)" min="0" step="1" value="${filter.value}">`;
+            } else {
+                return `<input type="number" class="filter-value" placeholder="Value" value="${filter.value}">`;
+            }
+        }
+        
+        // Create Select Input for team/ballpark filters
+        function createSelectInput(filter) {
+            let options = [];
+            let html = '<select class="filter-value">';
+            html += '<option value="">Select...</option>';
+            
+            switch (filter.type) {
+                case 'team':
+                    options = filterOptions.teams || [];
+                    options.forEach(option => {
+                        const selected = option.id === filter.value ? 'selected' : '';
+                        html += `<option value="${option.id}" ${selected}>${option.name}</option>`;
+                    });
+                    break;
+                case 'ballpark':
+                    options = filterOptions.ballparks || [];
+                    options.forEach(option => {
+                        const selected = option.id === filter.value ? 'selected' : '';
+                        html += `<option value="${option.id}" ${selected}>${option.name}</option>`;
+                    });
+                    break;
+                case 'gametype':
+                    options = filterOptions.game_types || [];
+                    options.forEach(option => {
+                        const selected = option.id === filter.value ? 'selected' : '';
+                        html += `<option value="${option.id}" ${selected}>${option.name}</option>`;
+                    });
+                    break;
+            }
+            
+            html += '</select>';
+            return html;
+        }
+        
+        // Create Team Role Input (team dropdown + role dropdown)
+        function createTeamRoleInput(filter) {
+            const teamOptions = filterOptions.teams || [];
+            let html = '<div class="team-role-inputs">';
+            
+            // Team selector
+            html += '<select class="filter-team-select">';
+            html += '<option value="">Select Team...</option>';
+            
+            teamOptions.forEach(team => {
+                const selected = team.id === filter.team_id ? 'selected' : '';
+                html += `<option value="${team.id}" ${selected}>${team.name}</option>`;
+            });
+            
+            html += '</select>';
+            
+            // Role selector
+            html += '<select class="filter-value">';
+            html += '<option value="any" ' + (filter.value === 'any' || !filter.value ? 'selected' : '') + '>Any Role</option>';
+            html += '<option value="home" ' + (filter.value === 'home' ? 'selected' : '') + '>Home Team</option>';
+            html += '<option value="away" ' + (filter.value === 'away' ? 'selected' : '') + '>Away Team</option>';
+            html += '</select>';
+            
+            html += '</div>';
+            
+            return html;
+        }
+        
+        // Create Team Stat Input (team dropdown + number input)
+        function createTeamStatInput(filter) {
+            const teamOptions = filterOptions.teams || [];
+            let html = '<div class="team-stat-inputs">';
+            
+            // Team selector
+            html += '<select class="filter-team-select">';
+            html += '<option value="any" ' + (filter.role === 'any' || !filter.role ? 'selected' : '') + '>Any Team</option>';
+            html += '<option value="home" ' + (filter.role === 'home' ? 'selected' : '') + '>Home Team</option>';
+            html += '<option value="away" ' + (filter.role === 'away' ? 'selected' : '') + '>Away Team</option>';
+            
+            teamOptions.forEach(team => {
+                const selected = team.id === filter.team_id ? 'selected' : '';
+                html += `<option value="${team.id}" ${selected}>${team.name}</option>`;
+            });
+            
+            html += '</select>';
+            
+            // Number input
+            html += `<input type="number" class="filter-value" placeholder="Value" value="${filter.value}">`;
+            html += '</div>';
+            
+            return html;
+        }
+        
+        // Create Inning Score Input (team dropdown + inning dropdown + number input)
+        function createInningScoreInput(filter) {
+            const teamOptions = filterOptions.teams || [];
+            let html = '<div class="inning-score-inputs">';
+            
+            // Team selector
+            html += '<select class="filter-team-select">';
+            html += '<option value="any" ' + (filter.role === 'any' || !filter.role ? 'selected' : '') + '>Any Team</option>';
+            html += '<option value="home" ' + (filter.role === 'home' ? 'selected' : '') + '>Home Team</option>';
+            html += '<option value="away" ' + (filter.role === 'away' ? 'selected' : '') + '>Away Team</option>';
+            
+            teamOptions.forEach(team => {
+                const selected = team.id === filter.team_id ? 'selected' : '';
+                html += `<option value="${team.id}" ${selected}>${team.name}</option>`;
+            });
+            
+            html += '</select>';
+            
+            // Inning selector
+            html += '<select class="filter-inning-select">';
+            html += '<option value="">Inning...</option>';
+            for (let i = 1; i <= 12; i++) {
+                const selected = i === filter.inning ? 'selected' : '';
+                html += `<option value="${i}" ${selected}>${i}</option>`;
+            }
+            html += '</select>';
+            
+            // Number input
+            html += `<input type="number" class="filter-value" placeholder="Runs" value="${filter.value}">`;
+            html += '</div>';
+            
+            return html;
+        }
+        
+        // Check if filter is a team stat filter
+        function isTeamStatFilter(filterType) {
+            return ['team_hits', 'team_runs', 'team_errors'].includes(filterType);
+        }
+        
+        // Setup Filter Widget Listeners
+        function setupFilterWidgetListeners(widget, filter) {
+            const operatorSelect = widget.querySelector('.filter-operator');
+            const valueInput = widget.querySelector('.filter-value');
+            const removeButton = widget.querySelector('.filter-remove');
+            const teamSelect = widget.querySelector('.filter-team-select');
+            const inningSelect = widget.querySelector('.filter-inning-select');
+            
+            operatorSelect.addEventListener('change', (e) => {
+                filter.operator = e.target.value;
+                applyAdvancedFiltersDebounced();
+            });
+            
+            if (valueInput) {
+                valueInput.addEventListener('change', (e) => {
+                    filter.value = e.target.value;
+                    applyAdvancedFiltersDebounced();
+                });
+                
+                if (valueInput.type === 'number') {
+                    valueInput.addEventListener('input', (e) => {
+                        filter.value = e.target.value;
+                        applyAdvancedFiltersDebounced();
+                    });
+                }
+            }
+            
+            if (teamSelect) {
+                teamSelect.addEventListener('change', (e) => {
+                    const value = e.target.value;
+                    // Check if it's a role or a specific team ID
+                    if (['any', 'winning', 'losing', 'home', 'away'].includes(value)) {
+                        filter.role = value;
+                        filter.team_id = null; // Clear team_id when using role
+                        // For team filters, also set the value for consistency
+                        if (filter.type === 'team') {
+                            filter.value = value;
+                        }
+                    } else {
+                        filter.team_id = value;
+                        filter.role = null; // Clear role when using specific team
+                        // Clear value when selecting specific team
+                        if (filter.type === 'team') {
+                            filter.value = '';
+                        }
+                    }
+                    applyAdvancedFiltersDebounced();
+                });
+            }
+            
+            if (inningSelect) {
+                inningSelect.addEventListener('change', (e) => {
+                    filter.inning = parseInt(e.target.value);
+                    applyAdvancedFiltersDebounced();
+                });
+            }
+            
+            removeButton.addEventListener('click', () => {
+                removeFilter(filter.id);
+            });
+        }
+        
+        // Remove Filter
+        function removeFilter(filterId) {
+            // Remove from activeFilters array
+            activeFilters = activeFilters.filter(f => f.id !== filterId);
+            
+            // Remove widget from DOM
+            const widget = document.querySelector(`[data-filter-id="${filterId}"]`);
+            if (widget) {
+                widget.remove();
+            }
+            
+            // Reapply filters
+            applyAdvancedFiltersDebounced();
+        }
+        
+        // Clear All Filters
+        function clearAllFilters() {
+            activeFilters = [];
+            document.getElementById('active-filters').innerHTML = '';
+            
+            // Reset timeline to full range
+            const startSlider = document.getElementById('start-date-slider');
+            const endSlider = document.getElementById('end-date-slider');
+            if (startSlider && endSlider) {
+                startSlider.value = 0;
+                endSlider.value = endSlider.max;
+                updateTimelineDisplay();
+                updateRangeTrack();
+            }
+            
+            applyAdvancedFilters();
+        }
+        
+        // Helper Functions
+        function getFilterDisplayName(filterType) {
+            const names = {
+                // Game filters
+                'attendance': 'Attendance',
+                'ballpark': 'Ballpark',
+                'duration': 'Duration (minutes)',
+                'gametype': 'Game Type',
+                'score_differential': 'Score Differential',
+                // Team filters
+                'team': 'Team',
+                'team_hits': 'Team Hits',
+                'team_runs': 'Team Runs',
+                'team_errors': 'Team Errors',
+                'inning_score': 'Inning Score'
+            };
+            return names[filterType] || filterType;
+        }
+        
+        function getAvailableOperators(filterType) {
+            if (filterType === 'team') {
+                return [
+                    { value: '=', label: '=' },
+                    { value: '!=', label: '≠' }
+                ];
+            } else if (isSelectFilter(filterType)) {
+                return [
+                    { value: '=', label: '=' },
+                    { value: '!=', label: '≠' }
+                ];
+            } else {
+                return [
+                    { value: '>', label: '>' },
+                    { value: '<', label: '<' },
+                    { value: '=', label: '=' },
+                    { value: '>=', label: '≥' },
+                    { value: '<=', label: '≤' },
+                    { value: '!=', label: '≠' }
+                ];
+            }
+        }
+        
+        function isSelectFilter(filterType) {
+            return ['ballpark', 'gametype', 'team'].includes(filterType);
+        }
+        
+        function applyAdvancedFiltersDebounced() {
+            clearTimeout(autoFilterTimeout);
+            autoFilterTimeout = setTimeout(() => {
+                currentAdvancedOffset = 0;
+                applyAdvancedFilters();
+            }, 300);
+        }
+        
+        // Setup Timeline Slider
+        function setupTimelineSlider(dateRange) {
+            if (!dateRange || !dateRange.min_date || !dateRange.max_date) return;
+            
+            const minDate = new Date(dateRange.min_date);
+            const maxDate = new Date(dateRange.max_date);
+            const totalDays = Math.floor((maxDate - minDate) / (1000 * 60 * 60 * 24));
+            
+            // Update labels
+            document.getElementById('min-date-label').textContent = formatDateYMD(minDate);
+            document.getElementById('max-date-label').textContent = formatDateYMD(maxDate);
+            
+            // Setup sliders
+            const startSlider = document.getElementById('start-date-slider');
+            const endSlider = document.getElementById('end-date-slider');
+            
+            startSlider.min = 0;
+            startSlider.max = totalDays;
+            startSlider.value = 0;
+            
+            endSlider.min = 0;
+            endSlider.max = totalDays;
+            endSlider.value = totalDays;
+            
+            // Update current range display
+            updateTimelineDisplay();
+            updateRangeTrack();
+            
+            // Add event listeners
+            startSlider.addEventListener('input', handleTimelineChange);
+            endSlider.addEventListener('input', handleTimelineChange);
+        }
+        
+        // Handle Timeline Change
+        function handleTimelineChange() {
+            const startSlider = document.getElementById('start-date-slider');
+            const endSlider = document.getElementById('end-date-slider');
+            
+            // Ensure start is not greater than end
+            if (parseInt(startSlider.value) > parseInt(endSlider.value)) {
+                if (event.target === startSlider) {
+                    endSlider.value = startSlider.value;
+                } else {
+                    startSlider.value = endSlider.value;
+                }
+            }
+            
+            updateTimelineDisplay();
+            updateRangeTrack();
+            
+            // Auto-apply filters with debounce
+            clearTimeout(autoFilterTimeout);
+            autoFilterTimeout = setTimeout(() => {
+                applyAdvancedFilters();
+            }, 300);
+        }
+        
+        // Update Timeline Display
+        function updateTimelineDisplay() {
+            if (!dateRange.min_date || !dateRange.max_date) return;
+            
+            const startSlider = document.getElementById('start-date-slider');
+            const endSlider = document.getElementById('end-date-slider');
+            const minDate = new Date(dateRange.min_date);
+            const maxDate = new Date(dateRange.max_date);
+            
+            const startDays = parseInt(startSlider.value);
+            const endDays = parseInt(endSlider.value);
+            
+            const startDate = new Date(minDate.getTime() + startDays * 24 * 60 * 60 * 1000);
+            const endDate = new Date(minDate.getTime() + endDays * 24 * 60 * 60 * 1000);
+            
+            document.getElementById('current-range').textContent = 
+                `${formatDateYMD(startDate)} to ${formatDateYMD(endDate)}`;
+        }
+        
+        // Update Range Track
+        function updateRangeTrack() {
+            const startSlider = document.getElementById('start-date-slider');
+            const endSlider = document.getElementById('end-date-slider');
+            const track = document.getElementById('range-track');
+            
+            const min = parseInt(startSlider.min);
+            const max = parseInt(startSlider.max);
+            const startVal = parseInt(startSlider.value);
+            const endVal = parseInt(endSlider.value);
+            
+            const startPercent = ((startVal - min) / (max - min)) * 100;
+            const endPercent = ((endVal - min) / (max - min)) * 100;
+            
+            track.style.left = startPercent + '%';
+            track.style.width = (endPercent - startPercent) + '%';
+        }
+        
+        // Setup Advanced Event Listeners
+        function setupAdvancedEventListeners() {
+            // Remove existing event listeners to prevent duplicates
+            const prevButton = document.getElementById('prev-page');
+            const nextButton = document.getElementById('next-page');
+            
+            // Clone buttons to remove all event listeners
+            const newPrevButton = prevButton.cloneNode(true);
+            const newNextButton = nextButton.cloneNode(true);
+            prevButton.parentNode.replaceChild(newPrevButton, prevButton);
+            nextButton.parentNode.replaceChild(newNextButton, nextButton);
+            
+            // Add fresh event listeners
+            newPrevButton.addEventListener('click', () => {
+                if (currentAdvancedOffset > 0) {
+                    currentAdvancedOffset -= 25;
+                    loadAdvancedGames();
+                }
+            });
+            
+            newNextButton.addEventListener('click', () => {
+                currentAdvancedOffset += 25;
+                loadAdvancedGames();
+            });
+            
+            // Sort headers - remove existing listeners and add fresh ones
+            document.querySelectorAll('.sortable').forEach(header => {
+                // Clone to remove existing event listeners
+                const newHeader = header.cloneNode(true);
+                header.parentNode.replaceChild(newHeader, header);
+                
+                newHeader.addEventListener('click', () => {
+                    const sortBy = newHeader.dataset.sort;
+                    
+                    // Toggle sort order if same column
+                    if (currentAdvancedSort === sortBy) {
+                        currentAdvancedSortOrder = currentAdvancedSortOrder === 'DESC' ? 'ASC' : 'DESC';
+                    } else {
+                        currentAdvancedSort = sortBy;
+                        currentAdvancedSortOrder = 'DESC';
+                    }
+                    
+                    // Update sort indicators
+                    updateSortIndicators();
+                    
+                    // Reset offset and reload
+                    currentAdvancedOffset = 0;
+                    loadAdvancedGames();
+                });
+            });
+        }
+        
+        // Apply Advanced Filters
+        function applyAdvancedFilters() {
+            // Get dates from timeline slider
+            let startDate = '';
+            let endDate = '';
+            
+            if (dateRange.min_date && dateRange.max_date) {
+                const startSlider = document.getElementById('start-date-slider');
+                const endSlider = document.getElementById('end-date-slider');
+                const minDate = new Date(dateRange.min_date);
+                
+                const startDays = parseInt(startSlider.value);
+                const endDays = parseInt(endSlider.value);
+                
+                const selectedStartDate = new Date(minDate.getTime() + startDays * 24 * 60 * 60 * 1000);
+                const selectedEndDate = new Date(minDate.getTime() + endDays * 24 * 60 * 60 * 1000);
+                
+                startDate = selectedStartDate.toISOString().split('T')[0];
+                endDate = selectedEndDate.toISOString().split('T')[0];
+            }
+            
+            // Start with date filters
+            advancedFilters = {
+                start_date: startDate,
+                end_date: endDate
+            };
+            
+            // Add dynamic filters
+            activeFilters.forEach(filter => {
+                if (filter.value !== '') {
+                    // Convert filter to API format
+                    const apiFilter = convertFilterToAPI(filter);
+                    if (apiFilter) {
+                        Object.assign(advancedFilters, apiFilter);
+                    }
+                }
+            });
+            
+            // Load games
+            loadAdvancedGames();
+        }
+        
+        // Convert Dynamic Filter to API Format
+        function convertFilterToAPI(filter) {
+            // The backend expects filters in a specific JSON format for complex filters
+            // Simple filters can be passed as URL parameters
+            
+            // Handle simple filters that map directly to API parameters
+            switch (filter.type) {
+                case 'ballpark':
+                    if (filter.operator === '=' && filter.value) return { ballpark: filter.value };
+                    break;
+                case 'gametype':
+                    if (filter.operator === '=' && filter.value) return { game_type: filter.value };
+                    break;
+                case 'team':
+                    // Handle specific team filters
+                    if (filter.team_id && filter.value) {
+                        if (filter.value === 'home') {
+                            return { home_team: filter.team_id };
+                        } else if (filter.value === 'away') {
+                            return { away_team: filter.team_id };
+                        }
+                        // For "any" role, return null to use complex filters
+                    }
+                    // Handle role-based filters (Home Team, Away Team without specific team ID)
+                    if (filter.role && !filter.team_id) {
+                        // These are handled as complex filters in JSON format
+                        return null;
+                    }
+                    // Handle when both team_id and role are set
+                    if (filter.team_id && filter.role) {
+                        if (filter.role === 'home') {
+                            return { home_team: filter.team_id };
+                        } else if (filter.role === 'away') {
+                            return { away_team: filter.team_id };
+                        }
+                    }
+                    break;
+            }
+            
+            // All other filters are handled as complex filters in the JSON format
+            return null;
+        }
+        
+
+        
+        // Load Advanced Games
+        function loadAdvancedGames() {
+            const loadingEl = document.getElementById('advanced-loading');
+            const errorEl = document.getElementById('advanced-error');
+            const tableContainer = document.getElementById('advanced-table-container');
+            const resultsInfo = document.getElementById('results-info');
+            
+            // Show loading state
+            loadingEl.style.display = 'block';
+            errorEl.style.display = 'none';
+            tableContainer.style.display = 'none';
+            resultsInfo.style.display = 'none';
+            
+            // Build query parameters
+            const params = new URLSearchParams({
+                sort_by: currentAdvancedSort,
+                sort_order: currentAdvancedSortOrder,
+                offset: currentAdvancedOffset,
+                limit: 25
+            });
+            
+            // Add all simple filters from advancedFilters
+            Object.keys(advancedFilters).forEach(key => {
+                if (advancedFilters[key]) {
+                    params.append(key, advancedFilters[key]);
+                }
+            });
+            
+            // Add complex filters as JSON
+            if (activeFilters.length > 0) {
+                // Filter out any filters that don't have values
+                const validFilters = activeFilters.filter(filter => {
+                    if (filter.type === 'inning_score') {
+                        return filter.value && filter.inning;
+                    } else if (filter.type === 'team') {
+                        // Team filter is valid if it has either:
+                        // 1. A specific team_id with a role/value, or
+                        // 2. Just a role (for "Home Team", "Away Team", etc.)
+                        return (filter.team_id && (filter.role || filter.value)) || 
+                               (filter.role && !filter.team_id);
+                    } else if (isTeamStatFilter(filter.type)) {
+                        return filter.value && (filter.role || filter.team_id); // Team stat filters need a value and either a role or team_id
+                    }
+                    return filter.value;
+                });
+                
+                // Keep duration in minutes (no conversion needed)
+                const processedFilters = validFilters;
+                
+                if (processedFilters.length > 0) {
+                    params.append('filters', JSON.stringify(processedFilters));
+                }
+            }
+            
+            // Fetch games
+            fetch(`${API_BASE}/games/advanced?${params}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch games');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    loadingEl.style.display = 'none';
+                    displayAdvancedGames(data);
+                })
+                .catch(error => {
+                    console.error('Error loading advanced games:', error);
+                    loadingEl.style.display = 'none';
+                    errorEl.style.display = 'block';
+                    errorEl.textContent = 'Failed to load games. Please try again.';
+                });
+        }
+        
+        // Display Advanced Games
+        function displayAdvancedGames(data) {
+            const tbody = document.getElementById('advanced-games-tbody');
+            const tableContainer = document.getElementById('advanced-table-container');
+            const resultsInfo = document.getElementById('results-info');
+            const resultsCount = document.getElementById('results-count');
+            const resultsRange = document.getElementById('results-range');
+            const pageInfo = document.getElementById('page-info');
+            const prevButton = document.getElementById('prev-page');
+            const nextButton = document.getElementById('next-page');
+            
+            // Clear existing rows
+            tbody.innerHTML = '';
+            
+            // Populate table
+            data.games.forEach(game => {
+                const row = document.createElement('tr');
+                row.style.cursor = 'pointer';
+                
+                // Determine winning team for styling
+                const homeWon = game.home_score > game.away_score;
+                const awayWon = game.away_score > game.home_score;
+                
+                // Apply bold styling to winning team and score
+                const homeTeamStyle = homeWon ? 'font-weight: bold;' : '';
+                const awayTeamStyle = awayWon ? 'font-weight: bold;' : '';
+                const homeScoreStyle = homeWon ? 'font-weight: bold;' : '';
+                const awayScoreStyle = awayWon ? 'font-weight: bold;' : '';
+                
+                row.innerHTML = `
+                    <td>${formatDateYMD(game.date)}</td>
+                    <td style="${homeTeamStyle}">${game.home_team}</td>
+                    <td style="${awayTeamStyle}">${game.away_team}</td>
+                    <td style="${homeScoreStyle}">${game.home_score}</td>
+                    <td style="${awayScoreStyle}">${game.away_score}</td>
+                    <td>${game.game_number != null ? game.game_number : '-'}</td>
+                    <td>${game.ballpark || '-'}</td>
+                    <td>${game.game_type || '-'}</td>
+                    <td>${game.attendance != null ? game.attendance.toLocaleString() : '-'}</td>
+                    <td>${game.home_hits != null ? game.home_hits : '-'}</td>
+                    <td>${game.away_hits != null ? game.away_hits : '-'}</td>
+                    <td>${game.home_errors != null ? game.home_errors : '-'}</td>
+                    <td>${game.away_errors != null ? game.away_errors : '-'}</td>
+                    <td>${game.duration_minutes != null ? game.duration_minutes : '-'}</td>
+
+                `;
+                
+                // Add click handler to navigate to game page
+                row.addEventListener('click', function() {
+                    window.location.href = `/games/${game.game_id}`;
+                });
+                
+                tbody.appendChild(row);
+            });
+            
+            // Update results info
+            const startRange = currentAdvancedOffset + 1;
+            const endRange = Math.min(currentAdvancedOffset + data.games.length, data.total);
+            
+            resultsCount.textContent = `${data.total} games found`;
+            resultsRange.textContent = `Showing ${startRange}-${endRange}`;
+            
+            // Update pagination
+            pageInfo.textContent = `Page ${Math.floor(currentAdvancedOffset / 25) + 1} of ${Math.ceil(data.total / 25)}`;
+            prevButton.disabled = currentAdvancedOffset === 0;
+            nextButton.disabled = !data.has_more;
+            
+            // Show results
+            tableContainer.style.display = 'block';
+            resultsInfo.style.display = 'block';
+            
+            // Update sort indicators
+            updateSortIndicators();
+        }
+        
+        // Update Sort Indicators
+        function updateSortIndicators() {
+            // Remove all sort classes
+            document.querySelectorAll('.sortable').forEach(header => {
+                header.classList.remove('sort-asc', 'sort-desc');
+            });
+            
+            // Add sort class to current column
+            const currentHeader = document.querySelector(`[data-sort="${currentAdvancedSort}"]`);
+            if (currentHeader) {
+                currentHeader.classList.add(currentAdvancedSortOrder === 'ASC' ? 'sort-asc' : 'sort-desc');
+            }
+        }
+        
+        // Format Date Helper (for recent games)
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+        
+        // Format Date Helper (yyyy/mm/dd format for advanced lookup)
+        function formatDateYMD(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}/${month}/${day}`;
+        }
+        
+        // Setup Date Range
+        function setupDateRange() {
+            if (!dateRange || !dateRange.min_date || !dateRange.max_date) return;
+            
+            const minDate = new Date(dateRange.min_date);
+            const maxDate = new Date(dateRange.max_date);
+            const totalDays = Math.floor((maxDate - minDate) / (1000 * 60 * 60 * 24));
+            
+            // Update labels
+            document.getElementById('min-date-label').textContent = formatDateYMD(minDate);
+            document.getElementById('max-date-label').textContent = formatDateYMD(maxDate);
+            
+            // Setup sliders
+            const startSlider = document.getElementById('start-date-slider');
+            const endSlider = document.getElementById('end-date-slider');
+            
+            if (startSlider && endSlider) {
+                startSlider.min = 0;
+                startSlider.max = totalDays;
+                startSlider.value = 0;
+                
+                endSlider.min = 0;
+                endSlider.max = totalDays;
+                endSlider.value = totalDays;
+                
+                // Update current range display
+                updateTimelineDisplay();
+                updateRangeTrack();
+            }
+        }
+        
+        // Initialize Advanced Games
+        function initializeAdvancedGames() {
+            // Load filter options and setup date range
+            fetch(`${API_BASE}/filter-options`)
+                .then(response => response.json())
+                .then(data => {
+                    filterOptions = data;
+                    
+                    // Setup date range if available
+                    if (data.date_range && data.date_range.min_date && data.date_range.max_date) {
+                        dateRange = data.date_range;
+                        setupDateRange();
+                    }
+                    
+                    // Setup event listeners
+                    setupAdvancedEventListeners();
+                    
+                    // Setup timeline event listeners
+                    const startSlider = document.getElementById('start-date-slider');
+                    const endSlider = document.getElementById('end-date-slider');
+                    
+                    if (startSlider && endSlider) {
+                        startSlider.addEventListener('input', handleTimelineChange);
+                        endSlider.addEventListener('input', handleTimelineChange);
+                    }
+                    
+                    // Load initial games to show count and results
+                    applyAdvancedFilters();
+                })
+                .catch(error => {
+                    console.error('Failed to load filter options:', error);
+                });
+        }
+        
+
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize recent games (existing functionality)
+            loadRecentGames();
+            
+            // Add event listener for date picker
+            const datePicker = document.getElementById('game-date-picker');
+            if (datePicker) {
+                datePicker.addEventListener('change', function() {
+                    const selectedDate = datePicker.value;
+                    if (selectedDate) {
+                        loadRecentGames(selectedDate);
+                    } else {
+                        loadRecentGames(); // Load default recent games if no date selected
+                    }
+                });
+            }
+            
+            // Initialize advanced games
+            initializeAdvancedGames();
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 yakyuu.jp</p>
+            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
+            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+        </div>
+    </footer>
+</body>
+</html>

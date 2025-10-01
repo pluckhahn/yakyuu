@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballparks - yakyuu.jp</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #BC002D;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Search Section */
+        .search-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .search-section h2 {
+            color: #BC002D;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-bar {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #BC002D;
+        }
+        
+        .search-button {
+            padding: 0.75rem 1.5rem;
+            background: #BC002D;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-button:hover {
+            background: #9a0024;
+        }
+        
+        .search-results {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .search-result-item {
+            display: block;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.3s;
+        }
+        
+        .search-result-item:hover {
+            background: #e9ecef;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .search-result-name {
+            font-weight: bold;
+            color: #BC002D;
+        }
+        
+        .search-result-details {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stats-section h2 {
+            color: #BC002D;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Toggle Buttons */
+        .toggle-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .toggle-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #BC002D;
+            background: white;
+            color: #BC002D;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn.active {
+            background: #BC002D;
+            color: white;
+        }
+        
+        .toggle-btn:hover {
+            background: #BC002D;
+            color: white;
+        }
+        
+        /* Stats Table */
+        .stats-table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+        
+        .stats-table th {
+            background: #BC002D;
+            color: white;
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            font-weight: 500;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+        }
+        
+        .stats-table th:hover {
+            background: #a0001f;
+        }
+        
+        .stats-table th.sortable::after {
+            content: ' ↕';
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+        }
+        
+        .stats-table th.sort-asc::after {
+            content: ' ↑';
+            color: #fff;
+        }
+        
+        .stats-table th.sort-desc::after {
+            content: ' ↓';
+            color: #fff;
+        }
+        
+        .stats-table th:first-child {
+            text-align: left;
+            min-width: 150px;
+        }
+        
+        .stats-table th:last-child {
+            border-right: none;
+        }
+        
+        .stats-table td {
+            padding: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+        
+        .stats-table td:first-child {
+            text-align: left;
+            font-weight: bold;
+            color: #BC002D;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .stats-table td:first-child:hover {
+            background: #f8f9fa;
+        }
+        
+        .stats-table td:last-child {
+            border-right: none;
+        }
+        
+        .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .stats-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .stats-table tr:hover {
+            background: #e9ecef;
+        }
+        
+        /* Loading and Error States */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #BC002D;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 1rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .toggle-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats-table {
+                font-size: 0.8rem;
+            }
+            
+            .stats-table th,
+            .stats-table td {
+                padding: 0.5rem 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Large Header with Logo -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="yakyuu.jp" class="logo-image">
+            </a>
+        </div>
+    </header>
+
+    <!-- Red Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-content">
+            <ul class="nav-menu">
+                <li><a href="/games">Games</a></li>
+                <li><a href="/players">Players</a></li>
+                <li><a href="/teams">Teams/Standings</a></li>
+                <li><a href="/ballparks" class="active">Ballparks</a></li>
+                <li><a href="/advanced">Advanced Stat Finder</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Ballparks</h1>
+        </div>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <h2>Ballpark Search</h2>
+            <div class="search-container">
+                <input type="text" class="search-bar" id="ballparkSearch" placeholder="Search for ballparks by name...">
+                <button class="search-button" onclick="searchBallparks()">Search</button>
+            </div>
+            <div class="search-results" id="searchResults" style="display: none;"></div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <h2>Ballpark Stats</h2>
+            
+            <!-- Toggle Buttons -->
+            <div class="toggle-buttons">
+                <button id="current-season-btn" class="toggle-btn active" onclick="showCurrentSeason()">Current Season</button>
+                <button id="all-time-btn" class="toggle-btn" onclick="showAllTime()">All-Time</button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="loading">
+                Loading ballpark stats...
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="error" style="display: none;">
+                Error loading ballpark stats
+            </div>
+
+            <!-- Stats Table -->
+            <div id="stats-container" class="stats-table-container" style="display: none;">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="sortable" data-column="g">G</th>
+                            <th class="sortable" data-column="pf">PF</th>
+                            <th class="sortable" data-column="pa">PA</th>
+                            <th class="sortable" data-column="ab">AB</th>
+                            <th class="sortable" data-column="h">H</th>
+                            <th class="sortable" data-column="r">R</th>
+                            <th class="sortable" data-column="hr">HR</th>
+                            <th class="sortable" data-column="rbi">RBI</th>
+                            <th class="sortable" data-column="k">K</th>
+                            <th class="sortable" data-column="bb">BB</th>
+                            <th class="sortable" data-column="avg">AVG</th>
+                            <th class="sortable" data-column="slg">SLG</th>
+                            <th class="sortable" data-column="babip">BABIP</th>
+                            <th class="sortable" data-column="era">ERA</th>
+                            <th class="sortable" data-column="whip">WHIP</th>
+                            <th class="sortable" data-column="ip">IP</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stats-tbody">
+                        <!-- Stats rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        let allBallparksForSearch = [];
+        let currentStatsData = [];
+        let currentSeason = 'current';
+        let currentSort = { column: 'g', direction: 'desc' };
+        
+        // Load ballpark stats
+        async function loadBallparkStats(season = 'current') {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('error').style.display = 'none';
+                document.getElementById('stats-container').style.display = 'none';
+                
+                const response = await fetch(`${API_BASE}/ballparks/stats?season=${season}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load ballpark stats: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                populateStatsTable(data.ballparks);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('stats-container').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading ballpark stats:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').textContent = `Error loading ballpark stats: ${error.message}`;
+            }
+        }
+        
+        // Load ballparks for search
+        async function loadBallparksForSearch() {
+            try {
+                const response = await fetch(`${API_BASE}/ballparks`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load ballparks: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                allBallparksForSearch = data.ballparks;
+                
+            } catch (error) {
+                console.error('Error loading ballparks for search:', error);
+            }
+        }
+        
+        // Populate stats table
+        function populateStatsTable(ballparks) {
+            const tbody = document.getElementById('stats-tbody');
+            tbody.innerHTML = '';
+            
+            // Store current data for sorting
+            currentStatsData = ballparks;
+            
+            ballparks.forEach(ballpark => {
+                const row = createStatsRow(ballpark);
+                tbody.appendChild(row);
+            });
+            
+            // Set initial sort indicator
+            const gHeader = document.querySelector('[data-column="g"]');
+            if (gHeader && currentSort.column === 'g') {
+                gHeader.classList.add('sort-desc');
+            }
+        }
+        
+        // Create stats table row
+        function createStatsRow(ballpark) {
+            const row = document.createElement('tr');
+            
+            // Format numbers for display
+            const formatNumber = (num, decimals = 0) => {
+                if (num === null || num === undefined) return '-';
+                return typeof num === 'number' ? num.toFixed(decimals) : num;
+            };
+            
+            const formatAvg = (num) => {
+                if (num === null || num === undefined) return '.000';
+                return num.toFixed(3);
+            };
+            
+            row.innerHTML = `
+                <td onclick="goToBallpark('${ballpark.name}')">${ballpark.name || 'Unknown'}</td>
+                <td>${formatNumber(ballpark.g)}</td>
+                <td>${formatNumber(ballpark.pf, 3)}</td>
+                <td>${formatNumber(ballpark.pa)}</td>
+                <td>${formatNumber(ballpark.ab)}</td>
+                <td>${formatNumber(ballpark.h)}</td>
+                <td>${formatNumber(ballpark.r)}</td>
+                <td>${formatNumber(ballpark.hr)}</td>
+                <td>${formatNumber(ballpark.rbi)}</td>
+                <td>${formatNumber(ballpark.k)}</td>
+                <td>${formatNumber(ballpark.bb)}</td>
+                <td>${formatAvg(ballpark.avg)}</td>
+                <td>${formatAvg(ballpark.slg)}</td>
+                <td>${formatAvg(ballpark.babip)}</td>
+                <td>${formatNumber(ballpark.era, 2)}</td>
+                <td>${formatAvg(ballpark.whip)}</td>
+                <td>${ballpark.ip || '0.0'}</td>
+            `;
+            
+            return row;
+        }
+        
+        // Toggle functions
+        function showCurrentSeason() {
+            currentSeason = 'current';
+            document.getElementById('current-season-btn').classList.add('active');
+            document.getElementById('all-time-btn').classList.remove('active');
+            loadBallparkStats('current');
+        }
+        
+        function showAllTime() {
+            currentSeason = 'all';
+            document.getElementById('all-time-btn').classList.add('active');
+            document.getElementById('current-season-btn').classList.remove('active');
+            loadBallparkStats('all');
+        }
+        
+        // Search functionality
+        function searchBallparks() {
+            const searchTerm = document.getElementById('ballparkSearch').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (searchTerm.length < 2) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+            
+            const filteredBallparks = allBallparksForSearch.filter(ballpark => {
+                const name = (ballpark.park_name || '').toLowerCase();
+                const nameEn = (ballpark.park_name_en || '').toLowerCase();
+                const city = (ballpark.city || '').toLowerCase();
+                
+                return name.includes(searchTerm) || 
+                       nameEn.includes(searchTerm) || 
+                       city.includes(searchTerm);
+            });
+            
+            if (filteredBallparks.length === 0) {
+                resultsContainer.innerHTML = '<div style="padding: 1rem; text-align: center; color: #666;">No ballparks found</div>';
+            } else {
+                resultsContainer.innerHTML = filteredBallparks.map(ballpark => `
+                    <a href="/ballparks/${encodeURIComponent(ballpark.park_name_en || ballpark.park_name)}" class="search-result-item">
+                        <div class="search-result-name">${ballpark.park_name || 'Unknown'}</div>
+                        <div class="search-result-details">
+                            ${ballpark.park_name_en ? ballpark.park_name_en + ' • ' : ''}${ballpark.city || ''} • ${ballpark.team_name_en || ballpark.team_name || 'No home team'}
+                        </div>
+                    </a>
+                `).join('');
+            }
+            
+            resultsContainer.style.display = 'block';
+        }
+        
+        // Navigate to ballpark page
+        function goToBallpark(ballparkName) {
+            window.location.href = `/ballparks/${encodeURIComponent(ballparkName)}`;
+        }
+        
+        // Sorting functionality
+        function sortTable(column) {
+            if (currentSort.column === column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.direction = 'desc';
+            }
+            
+            // Update header classes
+            document.querySelectorAll('.stats-table th').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+            });
+            
+            const currentHeader = document.querySelector(`[data-column="${column}"]`);
+            if (currentHeader) {
+                currentHeader.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+            }
+            
+            // Sort the data
+            const sortedBallparks = [...currentStatsData].sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+                
+                // Handle null/undefined values
+                if (aVal === null || aVal === undefined) aVal = 0;
+                if (bVal === null || bVal === undefined) bVal = 0;
+                
+                // Convert to numbers for numeric columns
+                if (typeof aVal === 'string' && !isNaN(aVal)) aVal = parseFloat(aVal);
+                if (typeof bVal === 'string' && !isNaN(bVal)) bVal = parseFloat(bVal);
+                
+                if (currentSort.direction === 'asc') {
+                    return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+                } else {
+                    return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
+                }
+            });
+            
+            populateStatsTable(sortedBallparks);
+        }
+        
+        // Search on Enter key
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fix logo path for localhost
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                const logoImg = document.querySelector('.logo-image');
+                if (logoImg) {
+                    logoImg.src = '/logo.png';
+                }
+            }
+            
+            const searchInput = document.getElementById('ballparkSearch');
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchBallparks();
+                }
+            });
+            
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-section')) {
+                    document.getElementById('searchResults').style.display = 'none';
+                }
+            });
+            
+            // Add click handlers for sortable headers
+            document.querySelectorAll('.stats-table th.sortable').forEach(header => {
+                header.addEventListener('click', function() {
+                    const column = this.getAttribute('data-column');
+                    sortTable(column);
+                });
+            });
+            
+            // Load initial data
+            loadBallparksForSearch();
+            loadBallparkStats('current');
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 yakyuu.jp</p>
+            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
+            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+        </div>
+    </footer>
+</body>
+</html>

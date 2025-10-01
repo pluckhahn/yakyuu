@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Stat Finder - yakyuu.jp</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #BC002D;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Stats Table Styling */
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 1rem;
+        }
+
+        .stats-table {
+            width: 100%;
+            min-width: 1200px; /* Ensures table doesn't get too compressed */
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.9rem;
+        }
+        
+        .stats-table th {
+            background: #BC002D;
+            color: white;
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            font-weight: 500;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+        }
+        
+        .stats-table th:hover {
+            background: #a0001f;
+        }
+        
+        .stats-table th.sortable::after {
+            content: ' ↕';
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+        }
+        
+        .stats-table th.sort-asc::after {
+            content: ' ↑';
+            color: #fff;
+        }
+        
+        .stats-table th.sort-desc::after {
+            content: ' ↓';
+            color: #fff;
+        }
+        
+        .stats-table th:last-child {
+            border-right: none;
+        }
+        
+        .stats-table td {
+            padding: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+        
+        .stats-table td:last-child {
+            border-right: none;
+        }
+        
+        .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .stats-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .stats-table tr:hover {
+            background: #e9ecef;
+        }
+        
+        /* Player name styling */
+        .player-name {
+            color: #BC002D;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .player-name:hover {
+            text-decoration: underline;
+        }
+        
+        /* Name column styling for wider display */
+        .name-cell {
+            width: 200px;
+            min-width: 180px;
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .stats-table th[data-column="name"] {
+            width: 200px;
+            min-width: 180px;
+            max-width: 250px;
+        }
+
+        /* Results section */
+        .results-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .results-title {
+            color: #BC002D;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Pagination styles */
+        .pagination-controls {
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            background-color: #fafafa;
+        }
+        
+        .pagination-info {
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        #show-more-btn {
+            background: linear-gradient(135deg, #007acc, #0056b3);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        #show-more-btn:hover {
+            background: linear-gradient(135deg, #0056b3, #004080);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+        }
+        
+        #show-more-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Main Action Buttons */
+        .main-action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .main-btn {
+            background: #f8f9fa;
+            border: 3px solid #e9ecef;
+            color: #666;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .main-btn.active {
+            background: #BC002D;
+            color: white;
+            border-color: #BC002D;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(188, 0, 45, 0.3);
+        }
+
+        .main-btn:hover {
+            border-color: #BC002D;
+            color: #BC002D;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        .main-btn.active:hover {
+            background: #a00025;
+            color: white;
+        }
+
+        /* Filter Controls - Compact Layout */
+        .filter-controls {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filter-section-title {
+            color: #BC002D;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .filter-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .filter-button {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            color: #666;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .filter-button:hover {
+            border-color: #BC002D;
+            color: #BC002D;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-button.active {
+            background: #BC002D;
+            color: white;
+            border-color: #BC002D;
+        }
+
+        .filter-button.has-values {
+            border-color: #28a745;
+            color: #28a745;
+            background: #f8fff9;
+        }
+
+        .filter-button.has-values::after {
+            content: '✓';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .modal-title {
+            color: #BC002D;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #f8f9fa;
+        }
+
+        /* Modal sections for complex filters */
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h4 {
+            color: #BC002D;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+
+
+        .modal-content {
+            margin-bottom: 2rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #f8f9fa;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #BC002D;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #a00025;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        /* Checkbox Lists */
+        .checkbox-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #f8f9fa;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 0.7rem;
+            transform: scale(1.2);
+            accent-color: #BC002D;
+        }
+
+        /* Range Inputs */
+        .range-container {
+            margin-bottom: 1rem;
+        }
+
+        .range-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .range-inputs {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            width: 100%;
+        }
+        
+        .input-group label {
+            font-weight: 500;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        
+        .input-group input {
+            padding: 0.6rem;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #BC002D;
+            box-shadow: 0 0 0 3px rgba(188, 0, 45, 0.1);
+        }
+
+        .range-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .range-input:focus {
+            outline: none;
+            border-color: #BC002D;
+        }
+
+        .range-separator {
+            color: #666;
+            font-weight: bold;
+        }
+
+        /* Select Lists */
+        .select-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+
+        .select-item {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #f8f9fa;
+            transition: all 0.2s ease;
+        }
+
+        .select-item:last-child {
+            border-bottom: none;
+        }
+
+        .select-item:hover {
+            background: #f8f9fa;
+        }
+
+        .select-item.selected {
+            background: #BC002D;
+            color: white;
+        }
+
+        /* Multi-Select Lists (checkbox-style but with select-item styling) */
+        .multi-select-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+
+        .multi-select-item {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #f8f9fa;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .multi-select-item:last-child {
+            border-bottom: none;
+        }
+
+        .multi-select-item:hover {
+            background: #f8f9fa;
+        }
+
+        .multi-select-item.selected {
+            background: #BC002D;
+            color: white;
+        }
+
+        .multi-select-item .checkmark {
+            opacity: 0;
+            font-weight: bold;
+            transition: opacity 0.2s ease;
+        }
+
+        .multi-select-item.selected .checkmark {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .modal {
+                width: 95%;
+                padding: 1.5rem;
+            }
+            
+            .filter-grid {
+                flex-direction: column;
+            }
+            
+            .filter-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .checkbox-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Large Header with Logo -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="yakyuu.jp" class="logo-image">
+            </a>
+        </div>
+    </header>
+
+    <!-- Red Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-content">
+            <ul class="nav-menu">
+                <li><a href="/games">Games</a></li>
+                <li><a href="/players">Players</a></li>
+                <li><a href="/teams">Teams/Standings</a></li>
+                <li><a href="/ballparks">Ballparks</a></li>
+                <li><a href="/advanced" class="active">Advanced Stat Finder</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Advanced Stat Finder</h1>
+        </div>
+
+        <!-- Main Action Buttons -->
+        <div class="main-action-buttons">
+            <button class="main-btn active" id="individual-toggle">Individual Stats</button>
+            <button class="main-btn" id="team-toggle">Team Stats</button>
+            <button class="main-btn active" id="batting-toggle">Batting Stats</button>
+            <button class="main-btn" id="pitching-toggle">Pitching Stats</button>
+        </div>
+
+        <!-- Game Filters -->
+        <div class="filter-controls">
+            <h3 class="filter-section-title">Game Filters</h3>
+            <div class="filter-grid">
+                <button class="filter-button" id="game-types-btn">Game Types</button>
+                <button class="filter-button" id="splits-btn">Splits</button>
+                <button class="filter-button" id="date-range-btn">Date Range</button>
+                <button class="filter-button" id="ballpark-btn">Ballpark</button>
+                <button class="filter-button" id="attendance-btn">Attendance</button>
+                <button class="filter-button" id="start-time-btn">Start Time</button>
+                <button class="filter-button" id="season-toggle">Season by Season</button>
+                <button class="filter-button active" id="career-toggle">Career Totals</button>
+            </div>
+        </div>
+
+        <!-- Situational Filters -->
+        <div class="filter-controls" id="situational-filters-section">
+            <h3 class="filter-section-title">Situational Filters (Batting Only)</h3>
+            <div class="filter-grid">
+                <button class="filter-button" id="inning-btn">Inning</button>
+                <button class="filter-button" id="outs-btn">Outs</button>
+                <button class="filter-button" id="on-base-btn">On Base</button>
+                <button class="filter-button" id="count-btn">Count</button>
+                <button class="filter-button" id="handedness-btn">Handedness</button>
+            </div>
+        </div>
+
+        <!-- Qualifiers -->
+        <div class="filter-controls" id="qualifiers-section">
+            <h3 class="filter-section-title">Qualifiers (Individual Only)</h3>
+            <div class="filter-grid">
+                <button class="filter-button active has-values" id="ab-btn">At Bats (AB): 100+</button>
+                <button class="filter-button" id="g-btn">Games (G)</button>
+
+                <button class="filter-button" id="ip-btn">Innings Pitched (IP)</button>
+                <button class="filter-button" id="pa-btn">Plate Appearances (PA)</button>
+                <button class="filter-button" id="h-btn">Hits (H)</button>
+                <button class="filter-button" id="avg-btn">Batting Average (AVG)</button>
+                <button class="filter-button" id="era-btn">ERA</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results-section">
+            <h2 class="results-title">NPB Player Statistics</h2>
+            <div class="loading" id="loading" style="display: none;">Loading player statistics...</div>
+            <div class="no-results" id="no-results" style="display: none;">No players found.</div>
+            
+            <!-- Batting Results Table -->
+            <div class="table-container" id="batting-container">
+                <table class="stats-table" id="batting-results">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-column="season">Season</th>
+                            <th class="sortable" data-column="name">Name</th>
+                            <th class="sortable" data-column="g" id="g-header">G</th>
+                            <th class="sortable" data-column="pa">PA</th>
+                            <th class="sortable" data-column="ab">AB</th>
+                            <th class="sortable" data-column="h">H</th>
+                            <th class="sortable" data-column="r" id="batting-r-header">R</th>
+                            <th class="sortable" data-column="doubles">2B</th>
+                            <th class="sortable" data-column="triples">3B</th>
+                            <th class="sortable" data-column="hr">HR</th>
+                            <th class="sortable" data-column="tb">TB</th>
+                            <th class="sortable" data-column="rbi">RBI</th>
+                            <th class="sortable" data-column="k">K</th>
+                            <th class="sortable" data-column="bb">BB</th>
+                            <th class="sortable" data-column="hbp">HBP</th>
+                            <th class="sortable" data-column="sac">SAC</th>
+                            <th class="sortable" data-column="gidp">GIDP</th>
+                            <th class="sortable" data-column="avg">AVG</th>
+                            <th class="sortable" data-column="slg">SLG</th>
+                            <th class="sortable" data-column="iso">ISO</th>
+                            <th class="sortable" data-column="woba">wOBA</th>
+                            <th class="sortable" data-column="wrc_plus">wRC+</th>
+                            <th class="sortable" data-column="babip">BABIP</th>
+                            <th class="sortable" data-column="k_pct">K%</th>
+                            <th class="sortable" data-column="bb_pct">BB%</th>
+                            <th class="sortable" data-column="xbh_pct">XBH%</th>
+                        </tr>
+                    </thead>
+                    <tbody id="batting-results-body">
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pitching Results Table -->
+            <div class="table-container" style="display: none;" id="pitching-container">
+                <table class="stats-table" id="pitching-results">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-column="season">Season</th>
+                            <th class="sortable" data-column="name">Name</th>
+                            <th class="sortable" data-column="app">App</th>
+                            <th class="sortable" data-column="ip">IP</th>
+                            <th class="sortable" data-column="gs">GS</th>
+                            <th class="sortable" data-column="gf">GF</th>
+                            <th class="sortable" data-column="cg">CG</th>
+                            <th class="sortable" data-column="sho">SHO</th>
+                            <th class="sortable" data-column="w">W</th>
+                            <th class="sortable" data-column="l">L</th>
+                            <th class="sortable" data-column="w_pct">W%</th>
+                            <th class="sortable" data-column="sv">SV</th>
+                            <th class="sortable" data-column="hld">HLD</th>
+                            <th class="sortable" data-column="k">K</th>
+                            <th class="sortable" data-column="bb">BB</th>
+                            <th class="sortable" data-column="bk">BK</th>
+                            <th class="sortable" data-column="hbp">HBP</th>
+                            <th class="sortable" data-column="r" id="pitching-r-header">R</th>
+                            <th class="sortable" data-column="er">ER</th>
+                            <th class="sortable" data-column="h">H</th>
+                            <th class="sortable" data-column="doubles">2B</th>
+                            <th class="sortable" data-column="triples">3B</th>
+                            <th class="sortable" data-column="hr">HR</th>
+                            <th class="sortable" data-column="era">ERA</th>
+                            <th class="sortable" data-column="fip">FIP</th>
+                            <th class="sortable" data-column="era_plus">ERA+</th>
+                            <th class="sortable" data-column="whip">WHIP</th>
+                            <th class="sortable" data-column="baa">BAA</th>
+                            <th class="sortable" data-column="babip">BABIP</th>
+                            <th class="sortable" data-column="k9">K/9</th>
+                            <th class="sortable" data-column="bb9">BB/9</th>
+                            <th class="sortable" data-column="gidp_pct">GIDP%</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pitching-results-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Overlays -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Filter Title</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-content" id="modal-content">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="modal-apply">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStatType = 'batting';
+        let currentDataType = 'individual';
+        let currentAggregation = 'career';  // Changed default to career totals
+        let currentSort = { column: null, direction: 'desc' };
+        let currentResults = [];
+        let currentModalType = '';  // Track modal type for handling different modals
+        
+        // Filter state - Updated to support multiple selections for all filters
+        let filterState = {
+            gameTypes: ['公式戦'],  // Use Japanese game type names
+            splits: { winLoss: ['overall'], homeRoad: ['overall'], month: ['all'] },
+            dateRange: { start: '', end: '' },
+            ballparks: [],
+            attendance: { min: '', max: '' },
+            startTime: { start: '', end: '' },
+            inning: ['all'],
+            outs: ['all'],
+            onBase: ['all'],  // Renamed from runners
+            count: ['all'],
+            handedness: ['all'],  // Unified handedness filter
+            qualifiers: { ab: { min: 100 } }  // Default 100 AB qualifier
+        };
+
+        // Dynamic data loaded from API
+        let availableGameTypes = [];
+        let availableBallparks = [];
+
+        // Load available options from database
+        async function loadAvailableOptions() {
+            try {
+                // Load game types
+                const gameTypesResponse = await fetch('/api/options/game-types');
+                if (gameTypesResponse.ok) {
+                    const gameTypesData = await gameTypesResponse.json();
+                    availableGameTypes = gameTypesData.game_types || [];
+                    // Update default game type if available
+                    if (availableGameTypes.length > 0 && !availableGameTypes.includes('公式戦')) {
+                        filterState.gameTypes = [availableGameTypes[0]];
+                    }
+                }
+
+                // Load ballparks
+                const ballparksResponse = await fetch('/api/options/ballparks');
+                if (ballparksResponse.ok) {
+                    const ballparksData = await ballparksResponse.json();
+                    availableBallparks = ballparksData.ballparks || [];
+                }
+            } catch (error) {
+                console.error('Error loading options:', error);
+                // Fallback to sample data
+                availableGameTypes = ['公式戦', '日本シリーズ', 'オールスターゲーム', 'ファイナルステージ', 'ファーストステージ'];
+                availableBallparks = [
+                    'Tokyo Dome', 'Yokohama Stadium', 'Mazda Zoom Zoom Stadium', 'Koshien Stadium',
+                    'Kyocera Dome Osaka', 'Vantelin Dome Nagoya', 'PayPay Dome', 'Rakuten Seimei Park',
+                    'Zozo Marine Stadium', 'MetLife Dome', 'Es Con Field Hokkaido', 'Belluna Dome'
+                ];
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main button toggle listeners
+            document.getElementById('individual-toggle').addEventListener('click', () => switchDataType('individual'));
+            document.getElementById('team-toggle').addEventListener('click', () => switchDataType('team'));
+            document.getElementById('batting-toggle').addEventListener('click', () => switchStatType('batting'));
+            document.getElementById('pitching-toggle').addEventListener('click', () => switchStatType('pitching'));
+            
+            // Aggregation toggle listeners
+            document.getElementById('season-toggle').addEventListener('click', () => switchAggregation('season'));
+            document.getElementById('career-toggle').addEventListener('click', () => switchAggregation('career'));
+            
+            // Filter button listeners
+            document.getElementById('game-types-btn').addEventListener('click', () => openGameTypesModal());
+            document.getElementById('splits-btn').addEventListener('click', () => openSplitsModal());
+            document.getElementById('date-range-btn').addEventListener('click', () => openDateRangeModal());
+            document.getElementById('ballpark-btn').addEventListener('click', () => openBallparkModal());
+            document.getElementById('attendance-btn').addEventListener('click', () => openAttendanceModal());
+            document.getElementById('start-time-btn').addEventListener('click', () => openStartTimeModal());
+            document.getElementById('inning-btn').addEventListener('click', () => openInningModal());
+            document.getElementById('outs-btn').addEventListener('click', () => openOutsModal());
+            document.getElementById('on-base-btn').addEventListener('click', () => openOnBaseModal());
+            document.getElementById('count-btn').addEventListener('click', () => openCountModal());
+            document.getElementById('handedness-btn').addEventListener('click', () => openHandednessModal());
+            
+            // Qualifier button listeners
+            document.getElementById('ab-btn').addEventListener('click', () => openQualifierModal('ab', 'At Bats'));
+            document.getElementById('g-btn').addEventListener('click', () => openQualifierModal('g', 'Games'));
+
+            document.getElementById('ip-btn').addEventListener('click', () => openQualifierModal('ip', 'Innings Pitched'));
+            document.getElementById('pa-btn').addEventListener('click', () => openQualifierModal('pa', 'Plate Appearances'));
+            document.getElementById('h-btn').addEventListener('click', () => openQualifierModal('h', 'Hits'));
+            document.getElementById('avg-btn').addEventListener('click', () => openQualifierModal('avg', 'Batting Average'));
+            document.getElementById('era-btn').addEventListener('click', () => openQualifierModal('era', 'ERA'));
+            
+            // Modal listeners
+            document.getElementById('modal-close').addEventListener('click', closeModal);
+            document.getElementById('modal-cancel').addEventListener('click', closeModal);
+            document.getElementById('modal-apply').addEventListener('click', applyModalFilter);
+            document.getElementById('modal-overlay').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('modal-overlay')) closeModal();
+            });
+            
+            // Initial load
+            loadAvailableOptions().then(() => {
+                updateFilterButtonStates();
+                loadPlayerStats();
+            });
+        });
+
+        // Modal Management
+        function openModal(title, content) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-content').innerHTML = content;
+            document.getElementById('modal-overlay').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('show');
+            currentModalType = '';
+            currentQualifier = '';
+        }
+
+        function applyModalFilter() {
+            const activeFilter = document.getElementById('modal-title').textContent;
+            
+            // Handle qualifier modals
+            if (currentModalType === 'qualifier') {
+                const minVal = document.getElementById('qualifier-min').value;
+                const maxVal = document.getElementById('qualifier-max').value;
+                
+                if (minVal || maxVal) {
+                    if (!filterState.qualifiers[currentQualifier]) {
+                        filterState.qualifiers[currentQualifier] = {};
+                    }
+                    if (minVal) filterState.qualifiers[currentQualifier].min = parseFloat(minVal);
+                    if (maxVal) filterState.qualifiers[currentQualifier].max = parseFloat(maxVal);
+                } else {
+                    // Remove qualifier if no values set
+                    delete filterState.qualifiers[currentQualifier];
+                }
+                
+                updateQualifierButtonStates();
+                closeModal();
+                loadPlayerStats();
+                return;
+            }
+            
+            switch(activeFilter) {
+                case 'Game Types':
+                    filterState.gameTypes = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
+                    break;
+                case 'Splits':
+                    filterState.splits.winLoss = Array.from(document.querySelectorAll('#win-loss .multi-select-item.selected')).map(item => item.dataset.value);
+                    filterState.splits.homeRoad = Array.from(document.querySelectorAll('#home-road .multi-select-item.selected')).map(item => item.dataset.value);
+                    filterState.splits.month = Array.from(document.querySelectorAll('#month .multi-select-item.selected')).map(item => item.dataset.value);
+                    break;
+                case 'Date Range':
+                    filterState.dateRange.start = document.getElementById('start-date').value;
+                    filterState.dateRange.end = document.getElementById('end-date').value;
+                    break;
+                case 'Ballpark':
+                    filterState.ballparks = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
+                    break;
+                case 'Attendance':
+                    filterState.attendance.min = document.getElementById('attendance-min').value;
+                    filterState.attendance.max = document.getElementById('attendance-max').value;
+                    break;
+                case 'Start Time':
+                    filterState.startTime.start = document.getElementById('start-time-start').value;
+                    filterState.startTime.end = document.getElementById('start-time-end').value;
+                    break;
+                case 'Inning':
+                    filterState.inning = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
+                    break;
+                case 'Outs':
+                    filterState.outs = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
+                    break;
+                case 'On Base':
+                    filterState.onBase = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
+                    break;
+                case 'Count':
+                    filterState.count = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
+                    break;
+                case 'Handedness Filter':
+                    // Save handedness selections
+                    filterState.handedness = Array.from(document.querySelectorAll('.handedness-list .multi-select-item.selected')).map(item => item.dataset.value);
+                    break;
+            }
+            
+            updateFilterButtonStates();
+            closeModal();
+            loadPlayerStats();
+        }
+
+        // Modal Content Generators
+        function openGameTypesModal() {
+            const content = `
+                <div class="multi-select-list">
+                    ${availableGameTypes.map(gameType => `
+                        <div class="multi-select-item ${filterState.gameTypes.includes(gameType) ? 'selected' : ''}" data-value="${gameType}">
+                            <span>${gameType}</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            openModal('Game Types', content);
+            addMultiSelectListeners();
+        }
+
+        function openSplitsModal() {
+            const winLossOptions = [
+                { value: 'overall', label: 'All Games' },
+                { value: 'wins', label: 'Team Wins' },
+                { value: 'losses', label: 'Team Losses' }
+            ];
+            
+            const homeRoadOptions = [
+                { value: 'overall', label: 'All Games' },
+                { value: 'home', label: 'Home Games' },
+                { value: 'road', label: 'Road Games' }
+            ];
+            
+            const monthOptions = [
+                { value: 'all', label: 'All Months' },
+                { value: '4', label: 'April' },
+                { value: '5', label: 'May' },
+                { value: '6', label: 'June' },
+                { value: '7', label: 'July' },
+                { value: '8', label: 'August' },
+                { value: '9', label: 'September' },
+                { value: '10', label: 'October' }
+            ];
+
+            const content = `
+                <div class="range-container">
+                    <label class="range-label">Win/Loss Split</label>
+                    <div class="multi-select-list" id="win-loss">
+                        ${winLossOptions.map(option => `
+                            <div class="multi-select-item ${filterState.splits.winLoss.includes(option.value) ? 'selected' : ''}" data-value="${option.value}">
+                                <span>${option.label}</span>
+                                <span class="checkmark">✓</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="range-container">
+                    <label class="range-label">Home/Road Split</label>
+                    <div class="multi-select-list" id="home-road">
+                        ${homeRoadOptions.map(option => `
+                            <div class="multi-select-item ${filterState.splits.homeRoad.includes(option.value) ? 'selected' : ''}" data-value="${option.value}">
+                                <span>${option.label}</span>
+                                <span class="checkmark">✓</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="range-container">
+                    <label class="range-label">Month</label>
+                    <div class="multi-select-list" id="month">
+                        ${monthOptions.map(option => `
+                            <div class="multi-select-item ${filterState.splits.month.includes(option.value) ? 'selected' : ''}" data-value="${option.value}">
+                                <span>${option.label}</span>
+                                <span class="checkmark">✓</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            openModal('Splits', content);
+            addMultiSelectListeners();
+        }
+
+        function openDateRangeModal() {
+            const content = `
+                <div class="range-container">
+                    <label class="range-label">Date Range</label>
+                    <div class="range-inputs">
+                        <input type="date" id="start-date" class="range-input" value="${filterState.dateRange.start}" placeholder="Start Date">
+                        <span class="range-separator">to</span>
+                        <input type="date" id="end-date" class="range-input" value="${filterState.dateRange.end}" placeholder="End Date">
+                    </div>
+                </div>
+            `;
+            openModal('Date Range', content);
+        }
+
+        function openBallparkModal() {
+            const content = `
+                <div class="multi-select-list">
+                    ${availableBallparks.map(ballpark => `
+                        <div class="multi-select-item ${filterState.ballparks.includes(ballpark) ? 'selected' : ''}" data-value="${ballpark}">
+                            <span>${ballpark}</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            openModal('Ballpark', content);
+            addMultiSelectListeners();
+        }
+
+        function openAttendanceModal() {
+            const content = `
+                <div class="range-container">
+                    <label class="range-label">Attendance Range</label>
+                    <div class="range-inputs">
+                        <input type="number" id="attendance-min" class="range-input" value="${filterState.attendance.min}" placeholder="Min">
+                        <span class="range-separator">to</span>
+                        <input type="number" id="attendance-max" class="range-input" value="${filterState.attendance.max}" placeholder="Max">
+                    </div>
+                </div>
+            `;
+            openModal('Attendance', content);
+        }
+
+        function openStartTimeModal() {
+            const content = `
+                <div class="range-container">
+                    <label class="range-label">Start Time Range (24-hour format)</label>
+                    <div class="range-inputs">
+                        <input type="time" id="start-time-start" class="range-input" value="${filterState.startTime.start}" placeholder="Start">
+                        <span class="range-separator">to</span>
+                        <input type="time" id="start-time-end" class="range-input" value="${filterState.startTime.end}" placeholder="End">
+                    </div>
+                </div>
+            `;
+            openModal('Start Time', content);
+        }
+
+        function openInningModal() {
+            const innings = [
+                { value: 'all', label: 'All Innings' },
+                { value: '1T', label: '1st Inning Top' },
+                { value: '1B', label: '1st Inning Bottom' },
+                { value: '2T', label: '2nd Inning Top' },
+                { value: '2B', label: '2nd Inning Bottom' },
+                { value: '3T', label: '3rd Inning Top' },
+                { value: '3B', label: '3rd Inning Bottom' },
+                { value: '4T', label: '4th Inning Top' },
+                { value: '4B', label: '4th Inning Bottom' },
+                { value: '5T', label: '5th Inning Top' },
+                { value: '5B', label: '5th Inning Bottom' },
+                { value: '6T', label: '6th Inning Top' },
+                { value: '6B', label: '6th Inning Bottom' },
+                { value: '7T', label: '7th Inning Top' },
+                { value: '7B', label: '7th Inning Bottom' },
+                { value: '8T', label: '8th Inning Top' },
+                { value: '8B', label: '8th Inning Bottom' },
+                { value: '9T', label: '9th Inning Top' },
+                { value: '9B', label: '9th Inning Bottom' },
+                { value: '10T', label: '10th Inning Top' },
+                { value: '10B', label: '10th Inning Bottom' },
+                { value: '11T', label: '11th Inning Top' },
+                { value: '11B', label: '11th Inning Bottom' },
+                { value: '12T', label: '12th Inning Top' },
+                { value: '12B', label: '12th Inning Bottom' }
+            ];
+            
+            const content = `
+                <div class="multi-select-list">
+                    ${innings.map(inning => `
+                        <div class="multi-select-item ${filterState.inning.includes(inning.value) ? 'selected' : ''}" data-value="${inning.value}">
+                            <span>${inning.label}</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            openModal('Inning', content);
+            addMultiSelectListeners();
+        }
+
+        function openOutsModal() {
+            const outsOptions = [
+                { value: 'all', label: 'All Outs' },
+                { value: '0', label: '0 Outs' },
+                { value: '1', label: '1 Out' },
+                { value: '2', label: '2 Outs' },
+                { value: '3', label: '3 Outs' }
+            ];
+            
+            const content = `
+                <div class="multi-select-list">
+                    ${outsOptions.map(out => `
+                        <div class="multi-select-item ${filterState.outs.includes(out.value) ? 'selected' : ''}" data-value="${out.value}">
+                            <span>${out.label}</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            openModal('Outs', content);
+            addMultiSelectListeners();
+        }
+
+        function openOnBaseModal() {
+            const onBaseOptions = [
+                { value: 'all', label: 'All Situations' },
+                { value: '', label: 'Bases Empty' },
+                { value: '1B', label: '1st Base' },
+                { value: '2B', label: '2nd Base' },
+                { value: '3B', label: '3rd Base' },
+                { value: '12B', label: '1st & 2nd' },
+                { value: '13B', label: '1st & 3rd' },
+                { value: '23B', label: '2nd & 3rd' },
+                { value: '123B', label: 'Bases Loaded' }
+            ];
+            
+            const content = `
+                <div class="multi-select-list">
+                    ${onBaseOptions.map(base => `
+                        <div class="multi-select-item ${filterState.onBase.includes(base.value) ? 'selected' : ''}" data-value="${base.value}">
+                            <span>${base.label}</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            openModal('On Base', content);
+            addMultiSelectListeners();
+        }
+
+        function openCountModal() {
+            const counts = [
+                { value: 'all', label: 'All Counts' },
+                { value: '0-0', label: '0-0' }, { value: '0-1', label: '0-1' }, { value: '0-2', label: '0-2' },
+                { value: '1-0', label: '1-0' }, { value: '1-1', label: '1-1' }, { value: '1-2', label: '1-2' },
+                { value: '2-0', label: '2-0' }, { value: '2-1', label: '2-1' }, { value: '2-2', label: '2-2' },
+                { value: '3-0', label: '3-0' }, { value: '3-1', label: '3-1' }, { value: '3-2', label: '3-2' }
+            ];
+            
+            const content = `
+                <div class="multi-select-list">
+                    ${counts.map(count => `
+                        <div class="multi-select-item ${filterState.count.includes(count.value) ? 'selected' : ''}" data-value="${count.value}">
+                            <span>${count.label}</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            openModal('Count', content);
+            addMultiSelectListeners();
+        }
+
+        function openHandednessModal() {
+            const content = `
+                <div class="modal-section">
+                    <h4>Pitcher Handedness</h4>
+                    <div class="multi-select-list handedness-list">
+                        <div class="multi-select-item ${filterState.handedness.includes('all') ? 'selected' : ''}" data-value="all">
+                            <span>All Handedness</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                        <div class="multi-select-item ${filterState.handedness.includes('L') ? 'selected' : ''}" data-value="L">
+                            <span>Left</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                        <div class="multi-select-item ${filterState.handedness.includes('R') ? 'selected' : ''}" data-value="R">
+                            <span>Right</span>
+                            <span class="checkmark">✓</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            openModal('Pitcher Handedness', content);
+            addMultiSelectListeners();
+        }
+
+        function addSelectListeners() {
+            document.querySelectorAll('.select-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove selected from siblings
+                    this.parentElement.querySelectorAll('.select-item').forEach(i => i.classList.remove('selected'));
+                    // Add selected to clicked item
+                    this.classList.add('selected');
+                });
+            });
+        }
+
+        function addMultiSelectListeners() {
+            document.querySelectorAll('.multi-select-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Toggle selected state
+                    this.classList.toggle('selected');
+                    
+                    // Special handling for 'all' and 'overall' options
+                    const value = this.getAttribute('data-value');
+                    const container = this.parentElement;
+                    
+                    if (value === 'all' || value === 'overall') {
+                        // If 'all'/'overall' is selected, deselect all other options
+                        if (this.classList.contains('selected')) {
+                            container.querySelectorAll('.multi-select-item:not([data-value="all"]):not([data-value="overall"])').forEach(i => i.classList.remove('selected'));
+                        }
+                    } else {
+                        // If any specific option is selected, deselect 'all'/'overall'
+                        if (this.classList.contains('selected')) {
+                            const allItem = container.querySelector('.multi-select-item[data-value="all"]');
+                            if (allItem) allItem.classList.remove('selected');
+                            const overallItem = container.querySelector('.multi-select-item[data-value="overall"]');
+                            if (overallItem) overallItem.classList.remove('selected');
+                        }
+                    }
+                    
+                    // If no items are selected, auto-select 'all'/'overall'
+                    const selectedItems = container.querySelectorAll('.multi-select-item.selected');
+                    if (selectedItems.length === 0) {
+                        const allItem = container.querySelector('.multi-select-item[data-value="all"]');
+                        if (allItem) {
+                            allItem.classList.add('selected');
+                        } else {
+                            const overallItem = container.querySelector('.multi-select-item[data-value="overall"]');
+                            if (overallItem) overallItem.classList.add('selected');
+                        }
+                    }
+                });
+            });
+        }
+
+
+
+        function updateFilterButtonStates() {
+            // Game Types - only show checkmark if not default (公式戦) or multiple selections
+            const gameTypesBtn = document.getElementById('game-types-btn');
+            if (filterState.gameTypes.length > 1 || (filterState.gameTypes.length === 1 && !filterState.gameTypes.includes('公式戦'))) {
+                gameTypesBtn.classList.add('has-values');
+            } else {
+                gameTypesBtn.classList.remove('has-values');
+            }
+            
+            // Splits - only show checkmark if specific splits are selected (not default overall/all)
+            const splitsBtn = document.getElementById('splits-btn');
+            const hasWinLossFilter = !filterState.splits.winLoss.includes('overall') || filterState.splits.winLoss.length > 1;
+            const hasHomeRoadFilter = !filterState.splits.homeRoad.includes('overall') || filterState.splits.homeRoad.length > 1;
+            const hasMonthFilter = !filterState.splits.month.includes('all') || filterState.splits.month.length > 1;
+            if (hasWinLossFilter || hasHomeRoadFilter || hasMonthFilter) {
+                splitsBtn.classList.add('has-values');
+            } else {
+                splitsBtn.classList.remove('has-values');
+            }
+            
+            // Date Range
+            const dateRangeBtn = document.getElementById('date-range-btn');
+            if (filterState.dateRange.start || filterState.dateRange.end) {
+                dateRangeBtn.classList.add('has-values');
+            } else {
+                dateRangeBtn.classList.remove('has-values');
+            }
+            
+            // Ballpark
+            const ballparkBtn = document.getElementById('ballpark-btn');
+            if (filterState.ballparks.length > 0) {
+                ballparkBtn.classList.add('has-values');
+            } else {
+                ballparkBtn.classList.remove('has-values');
+            }
+            
+            // Attendance
+            const attendanceBtn = document.getElementById('attendance-btn');
+            if (filterState.attendance.min || filterState.attendance.max) {
+                attendanceBtn.classList.add('has-values');
+            } else {
+                attendanceBtn.classList.remove('has-values');
+            }
+            
+            // Start Time
+            const startTimeBtn = document.getElementById('start-time-btn');
+            if (filterState.startTime.start || filterState.startTime.end) {
+                startTimeBtn.classList.add('has-values');
+            } else {
+                startTimeBtn.classList.remove('has-values');
+            }
+            
+            // Situational filters - only show checkmark if not default 'all'
+            
+            // Inning filter
+            const inningBtn = document.getElementById('inning-btn');
+            if (!filterState.inning.includes('all') || filterState.inning.length > 1) {
+                inningBtn.classList.add('has-values');
+            } else {
+                inningBtn.classList.remove('has-values');
+            }
+            
+            // Outs filter
+            const outsBtn = document.getElementById('outs-btn');
+            if (!filterState.outs.includes('all') || filterState.outs.length > 1) {
+                outsBtn.classList.add('has-values');
+            } else {
+                outsBtn.classList.remove('has-values');
+            }
+            
+            // On Base filter
+            const onBaseBtn = document.getElementById('on-base-btn');
+            if (!filterState.onBase.includes('all') || filterState.onBase.length > 1) {
+                onBaseBtn.classList.add('has-values');
+            } else {
+                onBaseBtn.classList.remove('has-values');
+            }
+            
+            // Count filter
+            const countBtn = document.getElementById('count-btn');
+            if (!filterState.count.includes('all') || filterState.count.length > 1) {
+                countBtn.classList.add('has-values');
+            } else {
+                countBtn.classList.remove('has-values');
+            }
+            
+            // Handedness filter
+            const handednessBtn = document.getElementById('handedness-btn');
+            const hasHandednessFilter = !filterState.handedness.includes('all') || filterState.handedness.length > 1;
+            if (hasHandednessFilter) {
+                handednessBtn.classList.add('has-values');
+            } else {
+                handednessBtn.classList.remove('has-values');
+            }
+        }
+
+        // Main toggle functions
+        function switchDataType(dataType) {
+            currentDataType = dataType;
+            document.querySelectorAll('#individual-toggle, #team-toggle').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(dataType + '-toggle').classList.add('active');
+            
+            // Show/hide qualifiers section based on data type
+            const qualifiersSection = document.getElementById('qualifiers-section');
+            if (dataType === 'team') {
+                qualifiersSection.style.display = 'none';
+                // Clear qualifiers for team stats
+                filterState.qualifiers = {};
+            } else {
+                qualifiersSection.style.display = 'block';
+                // Restore default AB qualifier for individual stats
+                if (Object.keys(filterState.qualifiers).length === 0) {
+                    filterState.qualifiers = { ab: { min: 100 } };
+                }
+                updateQualifierButtonStates();
+            }
+            
+            loadPlayerStats();
+        }
+
+        function switchAggregation(aggregation) {
+            currentAggregation = aggregation;
+            document.querySelectorAll('#season-toggle, #career-toggle').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(aggregation + '-toggle').classList.add('active');
+            loadPlayerStats();
+        }
+
+        function switchStatType(statType) {
+            currentStatType = statType;
+            document.querySelectorAll('#batting-toggle, #pitching-toggle').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(statType + '-toggle').classList.add('active');
+            
+            // Hide/show situational filters based on stat type
+            const situationalFiltersSection = document.getElementById('situational-filters-section');
+            if (statType === 'pitching') {
+                situationalFiltersSection.style.display = 'none';
+                // Clear situational filters when switching to pitching
+                filterState.inning = ['all'];
+                filterState.outs = ['all'];
+                filterState.onBase = ['all'];
+                filterState.count = ['all'];
+                filterState.handedness = ['all'];
+            } else {
+                situationalFiltersSection.style.display = 'block';
+            }
+            
+            loadPlayerStats();
+        }
+
+        function loadPlayerStats() {
+            const loading = document.getElementById('loading');
+            const noResults = document.getElementById('no-results');
+            
+            loading.style.display = 'block';
+            noResults.style.display = 'none';
+            hideAllTables();
+            
+            // Build game filters
+            const gameFilters = {
+                game_types: filterState.gameTypes,
+                win_loss: filterState.splits.winLoss,
+                home_road: filterState.splits.homeRoad,
+                month: filterState.splits.month,
+                ballpark: filterState.ballparks.length > 0 ? filterState.ballparks : 'all',
+                date_range: filterState.dateRange,
+                attendance: filterState.attendance,
+                start_time: filterState.startTime
+            };
+            
+            // Build situational filters (only for batting)
+            const situationalFilters = currentStatType === 'batting' ? {
+                inning: filterState.inning,
+                outs: filterState.outs,
+                on_base: filterState.onBase,  // Fixed: use on_base to match backend
+                count: filterState.count,
+                pitcher: { players: [], handedness: filterState.handedness }  // Use unified handedness for pitcher filter
+            } : {};
+            
+            // Determine if we have situational filters (only for batting)
+            const hasSituationalFilters = currentStatType === 'batting' ? (() => {
+                // Check array filters (inning, outs, on_base, count)
+                const arrayFilters = ['inning', 'outs', 'on_base', 'count'];
+                for (let filter of arrayFilters) {
+                    const value = situationalFilters[filter];
+                    if (value && Array.isArray(value) && value.length > 0 && 
+                        !(value.length === 1 && value[0] === 'all')) {
+                        return true;
+                    }
+                }
+                
+                // Check pitcher filter (complex object)
+                const pitcher = situationalFilters.pitcher;
+                if (pitcher) {
+                    // Check if players are selected
+                    if (pitcher.players && pitcher.players.length > 0) {
+                        return true;
+                    }
+                    // Check if handedness is filtered (not just default 'all')
+                    const handedness = pitcher.handedness;
+                    if (handedness && Array.isArray(handedness) && handedness.length > 0 &&
+                        !(handedness.length === 1 && handedness[0] === 'all')) {
+                        return true;
+                    }
+                }
+                
+                return false;
+            })() : false;
+            
+            // Determine if we have game filters (excluding default 'all' values)
+            const hasGameFilters = gameFilters.game_types.length > 0 ||
+                                   gameFilters.win_loss !== 'all' ||
+                                   gameFilters.home_road !== 'all' ||
+                                   gameFilters.month !== 'all' ||
+                                   gameFilters.ballpark !== 'all' ||
+                                   (gameFilters.date_range.start && gameFilters.date_range.end) ||
+                                   (gameFilters.attendance.min || gameFilters.attendance.max) ||
+                                   (gameFilters.start_time.start || gameFilters.start_time.end);
+            
+            const searchData = {
+                stat_type: currentStatType,
+                data_type: currentDataType,
+                aggregate_by_season: (currentAggregation === 'season'),
+                game_filters: gameFilters,
+                situational_filters: situationalFilters,
+                qualifiers: filterState.qualifiers,
+                has_situational: hasSituationalFilters,
+                has_game_filters: hasGameFilters
+            };
+            
+            let endpoint;
+            if (currentDataType === 'team') {
+                // Use team endpoints
+                endpoint = currentStatType === 'batting' ? '/api/advanced-stats/teams/batting' : '/api/advanced-stats/teams/pitching';
+            } else {
+                // Use individual player endpoints
+                endpoint = (hasSituationalFilters || hasGameFilters) ? '/api/advanced-stats/filtered' : '/api/advanced-stats/standard';
+            }
+            
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(searchData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                currentResults = data.results || [];
+                displayResults(currentResults);
+            })
+            .catch(error => {
+                console.error('Load error:', error);
+                showError('An error occurred while loading player statistics. Please try again.');
+            })
+            .finally(() => {
+                loading.style.display = 'none';
+            });
+        }
+
+        let displayedCount = 0;
+        const PAGE_SIZE = 25;
+        
+        function displayResults(results) {
+            const noResults = document.getElementById('no-results');
+            
+            if (!results || results.length === 0) {
+                noResults.style.display = 'block';
+                hideAllTables();
+                hidePaginationControls();
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            hideAllTables();
+            
+            // Show the appropriate table container
+            if (currentStatType === 'batting') {
+                document.getElementById('batting-container').style.display = 'block';
+                document.getElementById('pitching-container').style.display = 'none';
+            } else {
+                document.getElementById('batting-container').style.display = 'none';
+                document.getElementById('pitching-container').style.display = 'block';
+            }
+            
+            const bodyId = currentStatType === 'batting' ? 'batting-results-body' : 'pitching-results-body';
+            const tbody = document.getElementById(bodyId);
+            tbody.innerHTML = '';
+            
+            // Update column visibility based on filters
+            updateColumnVisibility();
+            
+            // Reset display count and show first page
+            displayedCount = 0;
+            showMoreResults(results);
+            
+            addSortListeners();
+        }
+        
+        function showMoreResults(results) {
+            const bodyId = currentStatType === 'batting' ? 'batting-results-body' : 'pitching-results-body';
+            const tbody = document.getElementById(bodyId);
+            
+            const startIndex = displayedCount;
+            const endIndex = Math.min(displayedCount + PAGE_SIZE, results.length);
+            
+            // Add new rows
+            for (let i = startIndex; i < endIndex; i++) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = createRowHTML(results[i]);
+                tbody.appendChild(tr);
+            }
+            
+            displayedCount = endIndex;
+            
+            // Show/hide pagination controls
+            updatePaginationControls(results.length);
+        }
+        
+        function updatePaginationControls(totalCount) {
+            let paginationDiv = document.getElementById('pagination-controls');
+            
+            // Create pagination controls if they don't exist
+            if (!paginationDiv) {
+                paginationDiv = document.createElement('div');
+                paginationDiv.id = 'pagination-controls';
+                paginationDiv.className = 'pagination-controls';
+                
+                const containerId = currentStatType === 'batting' ? 'batting-container' : 'pitching-container';
+                const container = document.getElementById(containerId);
+                container.appendChild(paginationDiv);
+            }
+            
+            if (displayedCount < totalCount) {
+                const remaining = totalCount - displayedCount;
+                paginationDiv.innerHTML = `
+                    <div class="pagination-info">
+                        Showing ${displayedCount} of ${totalCount} players
+                    </div>
+                    <button class="btn btn-secondary" onclick="showMoreResults(currentResults)" id="show-more-btn">
+                        Show ${Math.min(PAGE_SIZE, remaining)} More Players
+                    </button>
+                `;
+                paginationDiv.style.display = 'block';
+            } else {
+                paginationDiv.innerHTML = `
+                    <div class="pagination-info">
+                        Showing all ${totalCount} players
+                    </div>
+                `;
+                // Keep showing the info but hide after 3 seconds
+                setTimeout(() => {
+                    if (paginationDiv) paginationDiv.style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        function hidePaginationControls() {
+            const paginationDiv = document.getElementById('pagination-controls');
+            if (paginationDiv) {
+                paginationDiv.style.display = 'none';
+            }
+        }
+
+        function hasSituationalFilters() {
+            // Check array filters (inning, outs, onBase, count)
+            const arrayFilters = ['inning', 'outs', 'onBase', 'count'];
+            for (let filter of arrayFilters) {
+                const value = filterState[filter];
+                if (value && Array.isArray(value) && value.length > 0 && 
+                    !(value.length === 1 && value[0] === 'all')) {
+                    return true;
+                }
+            }
+            
+            // Check handedness filter
+            const handedness = filterState.handedness;
+            if (handedness && Array.isArray(handedness) && handedness.length > 0 &&
+                !(handedness.length === 1 && handedness[0] === 'all')) {
+                return true;
+            }
+            
+            return false;
+        }
+
+        function updateColumnVisibility() {
+            const gHeader = document.getElementById('g-header');
+            const rHeader = document.getElementById('batting-r-header');
+            
+            if (gHeader) {
+                gHeader.style.display = hasSituationalFilters() ? 'none' : '';
+            }
+            if (rHeader) {
+                rHeader.style.display = hasSituationalFilters() ? 'none' : '';
+            }
+        }
+
+        function createRowHTML(row) {
+            // Determine URL, link and name fields based on data type (individual vs team)
+            let linkUrl, displayName, nameJp, nameEn;
+            
+            if (currentDataType === 'team') {
+                // For team stats, use team_name and team_name_en for display, team_id for URL
+                nameJp = row.team_name || '';
+                nameEn = row.team_name_en || '';
+                linkUrl = `/teams/${encodeURIComponent(row.team_id || '')}`;
+                displayName = formatPlayerName(nameJp, nameEn);
+            } else {
+                // For individual stats, use name and name_en, link to player_id
+                nameJp = row.name || '';
+                nameEn = row.name_en || '';
+                linkUrl = `/players/${encodeURIComponent(row.player_id || '')}`;
+                displayName = formatPlayerName(nameJp, nameEn);
+            }
+            
+            const nameCell = `<td class="name-cell"><a href="${linkUrl}" class="player-name">${displayName}</a></td>`;
+            
+            if (currentStatType === 'batting') {
+                const gColumn = hasSituationalFilters() ? '' : `<td>${row.g || 0}</td>`;
+                const rColumn = hasSituationalFilters() ? '' : `<td>${row.r || 0}</td>`;
+                return `
+                    <td>${row.season || ''}</td>
+                    ${nameCell}
+                    ${gColumn}
+                    <td>${row.pa || 0}</td>
+                    <td>${row.ab || 0}</td>
+                    <td>${row.h || 0}</td>
+                    ${rColumn}
+                    <td>${row.doubles || 0}</td>
+                    <td>${row.triples || 0}</td>
+                    <td>${row.hr || 0}</td>
+                    <td>${row.tb || 0}</td>
+                    <td>${row.rbi || 0}</td>
+                    <td>${row.k || 0}</td>
+                    <td>${row.bb || 0}</td>
+                    <td>${row.hbp || 0}</td>
+                    <td>${row.sac || 0}</td>
+                    <td>${row.gidp || 0}</td>
+                    <td>${formatNumber(row.avg, 3)}</td>
+                    <td>${formatNumber(row.slg, 3)}</td>
+                    <td>${formatNumber(row.iso, 3)}</td>
+                    <td>${formatNumber(row.woba, 3)}</td>
+                    <td>${row.wrc_plus || 0}</td>
+                    <td>${formatNumber(row.babip, 3)}</td>
+                    <td>${formatNumber(row.k_pct, 1)}%</td>
+                    <td>${formatNumber(row.bb_pct, 1)}%</td>
+                    <td>${formatPercentage(row.xbh_pct)}</td>
+                `;
+            } else {
+                return `
+                    <td>${row.season || ''}</td>
+                    ${nameCell}
+                    <td>${row.app || 0}</td>
+                    <td>${formatIP(row.ip)}</td>
+                    <td>${row.gs || 0}</td>
+                    <td>${row.gf || 0}</td>
+                    <td>${row.cg || 0}</td>
+                    <td>${row.sho || 0}</td>
+                    <td>${row.w || 0}</td>
+                    <td>${row.l || 0}</td>
+                    <td>${formatNumber(row.w_pct, 3)}</td>
+                    <td>${row.sv || 0}</td>
+                    <td>${row.hld || 0}</td>
+                    <td>${row.k || 0}</td>
+                    <td>${row.bb || 0}</td>
+                    <td>${row.bk || 0}</td>
+                    <td>${row.hbp || 0}</td>
+                    <td>${row.r || 0}</td>
+                    <td>${row.er || 0}</td>
+                    <td>${row.h || 0}</td>
+                    <td>${row.doubles || 0}</td>
+                    <td>${row.triples || 0}</td>
+                    <td>${row.hr || 0}</td>
+                    <td>${formatNumber(row.era, 2)}</td>
+                    <td>${formatNumber(row.fip, 2)}</td>
+                    <td>${row.era_plus || 100}</td>
+                    <td>${formatNumber(row.whip, 3)}</td>
+                    <td>${formatNumber(row.baa, 3)}</td>
+                    <td>${formatNumber(row.babip, 3)}</td>
+                    <td>${formatNumber(row.k9, 2)}</td>
+                    <td>${formatNumber(row.bb9, 2)}</td>
+                    <td>${formatPercentage(row.gidp_pct)}</td>
+                `;
+            }
+        }
+
+        function formatNumber(value, decimals) {
+            if (value === null || value === undefined || value === '') return '';
+            return parseFloat(value).toFixed(decimals);
+        }
+        
+        function formatPercentage(value) {
+            if (value === null || value === undefined || value === '') return '';
+            if (isNaN(parseFloat(value))) return '';
+            return parseFloat(value).toFixed(1) + '%';
+        }
+
+        function formatIP(ip) {
+            if (!ip) return '0.0';
+            const ipFloat = parseFloat(ip);
+            const wholeInnings = Math.floor(ipFloat);
+            const fractionalPart = ipFloat - wholeInnings;
+            const outs = Math.round(fractionalPart * 3);
+            
+            if (outs >= 3) {
+                return `${wholeInnings + 1}.0`;
+            } else if (outs === 0) {
+                return `${wholeInnings}.0`;
+            } else {
+                return `${wholeInnings}.${outs}`;
+            }
+        }
+
+        function formatPlayerName(japName, engName) {
+            // Format: "Japanese Name (English Name)"
+            const jap = japName || '';
+            const eng = engName || '';
+            
+            if (jap && eng && jap !== eng) {
+                return `${jap} (${eng})`;
+            } else if (jap) {
+                return jap;
+            } else if (eng) {
+                return eng;
+            } else {
+                return '';
+            }
+        }
+
+        function hideAllTables() {
+            // Hide batting container
+            const battingContainer = document.getElementById('batting-container');
+            if (battingContainer) {
+                battingContainer.style.display = 'none';
+            }
+            
+            // Hide pitching container
+            const pitchingContainer = document.getElementById('pitching-container');
+            if (pitchingContainer) {
+                pitchingContainer.style.display = 'none';
+            }
+        }
+
+        function showError(message) {
+            const noResults = document.getElementById('no-results');
+            noResults.innerHTML = `<span style="color: #BC002D;">Error: ${message}</span>`;
+            noResults.style.display = 'block';
+            hideAllTables();
+        }
+
+        function addSortListeners() {
+            document.querySelectorAll('.sortable').forEach(header => {
+                const newHeader = header.cloneNode(true);
+                header.parentNode.replaceChild(newHeader, header);
+                
+                newHeader.addEventListener('click', function() {
+                    const column = this.dataset.column;
+                    sortResults(column);
+                });
+            });
+        }
+
+        function sortResults(column) {
+            if (currentSort.column === column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.direction = 'desc';
+            }
+            
+            document.querySelectorAll('.sortable').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+            
+            const currentHeader = document.querySelector(`[data-column="${column}"]`);
+            if (currentHeader) {
+                currentHeader.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+            }
+            
+            const sortedResults = [...currentResults].sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+                
+                if (aVal === null || aVal === undefined) aVal = 0;
+                if (bVal === null || bVal === undefined) bVal = 0;
+                
+                if (!isNaN(aVal) && !isNaN(bVal)) {
+                    aVal = parseFloat(aVal);
+                    bVal = parseFloat(bVal);
+                }
+                
+                if (currentSort.direction === 'asc') {
+                    return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+                } else {
+                    return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
+                }
+            });
+            
+            displayResults(sortedResults);
+        }
+
+        console.log('Advanced Stat Finder with Popup Filters initialized');
+
+        // Qualifier functions
+
+        function openQualifierModal(qualifier, label) {
+            currentModalType = 'qualifier';
+            currentQualifier = qualifier;
+            
+            const currentValue = filterState.qualifiers[qualifier] || {};
+            // Default At Bats (AB) minimum to 100 if no current value exists
+            const minValue = currentValue.min || (qualifier === 'ab' ? 100 : '');
+            const maxValue = currentValue.max || '';
+            
+            const content = `
+                <div class="range-inputs">
+                    <div class="input-group">
+                        <label for="qualifier-min">Minimum:</label>
+                        <input type="number" id="qualifier-min" placeholder="Min ${label}" value="${minValue}" step="${qualifier === 'avg' || qualifier === 'era' ? '0.001' : '1'}">
+                    </div>
+                    <div class="input-group">
+                        <label for="qualifier-max">Maximum:</label>
+                        <input type="number" id="qualifier-max" placeholder="Max ${label}" value="${maxValue}" step="${qualifier === 'avg' || qualifier === 'era' ? '0.001' : '1'}">
+                    </div>
+                </div>
+            `;
+            
+            openModal(`Set ${label} Range`, content);
+        }
+
+        function updateQualifierButtonStates() {
+            // Clear all qualifier button active states
+            document.querySelectorAll('#qualifiers-section .filter-button').forEach(btn => {
+                btn.classList.remove('active', 'has-values');
+            });
+            
+            // Update button text and states based on current qualifiers
+            Object.keys(filterState.qualifiers).forEach(qualifier => {
+                const btn = document.getElementById(`${qualifier}-btn`);
+                if (btn && filterState.qualifiers[qualifier]) {
+                    const qual = filterState.qualifiers[qualifier];
+                    btn.classList.add('has-values');
+                    
+                    // Update button text for AB qualifier
+                    if (qualifier === 'ab') {
+                        let text = 'At Bats (AB)';
+                        if (qual.min && qual.max) {
+                            text = `At Bats (AB): ${qual.min}-${qual.max}`;
+                        } else if (qual.min) {
+                            text = `At Bats (AB): ${qual.min}+`;
+                        } else if (qual.max) {
+                            text = `At Bats (AB): ≤${qual.max}`;
+                        }
+                        btn.textContent = text;
+                        btn.classList.add('active');
+                    }
+                }
+            });
+            
+            // Set default AB qualifier if no qualifiers exist
+            if (Object.keys(filterState.qualifiers).length === 0) {
+                filterState.qualifiers = { ab: { min: 100 } };
+                const abBtn = document.getElementById('ab-btn');
+                if (abBtn) {
+                    abBtn.textContent = 'At Bats (AB): 100+';
+                    abBtn.classList.add('active', 'has-values');
+                }
+            }
+        }
+
+        let currentQualifier = '';
+    </script>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 yakyuu.jp</p>
+            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
+            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+        </div>
+    </footer>
+</body>
+</html>

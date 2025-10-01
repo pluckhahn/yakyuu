@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - yakyuu.jp</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #BC002D;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 400px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #BC002D;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        /* Date Selector */
+        .date-selector-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .date-controls {
+            display: inline-flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .date-picker {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+        
+        .date-picker:focus {
+            outline: none;
+            border-color: #BC002D;
+        }
+        
+        .section-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Game Cards */
+        #recent-games-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .game-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            border-color: #BC002D;
+        }
+        
+        .game-line-score {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+        
+        .game-line-score th {
+            background: #f8f9fa;
+            color: #333;
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 500;
+            border-right: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .game-line-score th:last-child {
+            border-right: none;
+        }
+        
+        .game-line-score td {
+            padding: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+        
+        .game-line-score td:last-child {
+            border-right: none;
+        }
+        
+        .game-line-score tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .game-line-score .team-name {
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+            padding-left: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .game-line-score .winning-score {
+            font-weight: bold;
+            color: #BC002D;
+            font-size: 1.1rem;
+        }
+        
+        .game-info-header {
+            background: #BC002D !important;
+            color: white !important;
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
+            text-align: center !important;
+            padding: 0.75rem !important;
+        }
+        
+        /* Loading and Error Messages */
+        .loading-message, .error-message {
+            text-align: center;
+            padding: 2rem;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .error-message {
+            color: #dc3545;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #recent-games-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-container {
+                padding: 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="logo.png" alt="yakyuu.jp" class="nav-logo">
+                    <span class="brand-text">yakyuu.jp</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="players.html" class="nav-link">Players</a>
+                <a href="games.html" class="nav-link active">Games</a>
+                <a href="ballparks.html" class="nav-link">Ballparks</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Games</h1>
+                <p class="page-subtitle">Explore game results, statistics, and detailed matchup information</p>
+            </div>
+
+            <!-- Recent Games Section -->
+            <div id="recent-games" class="content-section">
+                <h2 class="section-title">Recent Games</h2>
+                <p class="section-description">
+                    View game results and scores. Select a date to see games from that day.
+                </p>
+                
+                <div class="date-selector-container">
+                    <div class="section-label">Game Date</div>
+                    <div class="date-controls">
+                        <input type="date" id="game-date-picker" class="date-picker">
+                    </div>
+                </div>
+                
+                <div id="recent-games-container">
+                    <!-- Games will be loaded here as individual cards -->
+                </div>
+                
+                <div id="recent-games-loading" class="loading-message" style="display: none;">
+                    Loading games...
+                </div>
+                
+                <div id="recent-games-error" class="error-message" style="display: none;">
+                    Failed to load games.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // API Configuration
+        const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        
+        // Load Recent Games
+        function loadRecentGames() {
+            const containerEl = document.getElementById('recent-games-container');
+            const loadingEl = document.getElementById('recent-games-loading');
+            const errorEl = document.getElementById('recent-games-error');
+            const selectedDate = document.getElementById('game-date-picker').value;
+            
+            // Reset display states
+            containerEl.innerHTML = '';
+            loadingEl.style.display = 'block';
+            errorEl.style.display = 'none';
+            
+            // Build API URL
+            let apiUrl = `${API_BASE}/recent-games`;
+            if (selectedDate) {
+                apiUrl += `?date=${selectedDate}`;
+            }
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    loadingEl.style.display = 'none';
+                    
+                    if (!data || data.length === 0) {
+                        containerEl.innerHTML = '<div class="loading-message">No games found for the selected date.</div>';
+                        return;
+                    }
+                    
+                    // Display games
+                    displayRecentGames(data);
+                })
+                .catch(error => {
+                    console.error('Error loading recent games:', error);
+                    loadingEl.style.display = 'none';
+                    errorEl.style.display = 'block';
+                    errorEl.textContent = 'Failed to load games. Please try again.';
+                });
+        }
+        
+        // Display Recent Games
+        function displayRecentGames(games) {
+            const container = document.getElementById('recent-games-container');
+            
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.onclick = () => window.open(`game_page.html?game_id=${encodeURIComponent(game.game_id)}`, '_blank');
+                
+                // Create line score table
+                const lineScoreTable = createLineScoreTable(game);
+                
+                gameCard.appendChild(lineScoreTable);
+                container.appendChild(gameCard);
+            });
+        }
+        
+        // Create Line Score Table
+        function createLineScoreTable(game) {
+            const table = document.createElement('table');
+            table.className = 'game-line-score';
+            
+            // Create header with game info
+            const headerRow = document.createElement('tr');
+            const headerCell = document.createElement('th');
+            headerCell.className = 'game-info-header';
+            headerCell.colSpan = 14;
+            
+            const gameDate = formatDate(game.date);
+            const ballpark = game.ballpark || 'Unknown';
+            const gameType = game.gametype || '';
+            
+            headerCell.textContent = `${gameDate} • ${ballpark}${gameType ? ' • ' + gameType : ''}`;
+            headerRow.appendChild(headerCell);
+            table.appendChild(headerRow);
+            
+            // Create column headers
+            const colHeaderRow = document.createElement('tr');
+            const headers = ['Team', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'R', 'H', 'E'];
+            
+            // Add extra innings if needed
+            if (game.visitor_10 !== null || game.home_10 !== null) headers.splice(10, 0, '10');
+            if (game.visitor_11 !== null || game.home_11 !== null) headers.splice(11, 0, '11');
+            if (game.visitor_12 !== null || game.home_12 !== null) headers.splice(12, 0, '12');
+            
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                colHeaderRow.appendChild(th);
+            });
+            table.appendChild(colHeaderRow);
+            
+            // Away team row
+            const awayRow = document.createElement('tr');
+            const awayTeamCell = document.createElement('td');
+            awayTeamCell.className = 'team-name';
+            awayTeamCell.textContent = game.away_team_id || 'Away';
+            awayRow.appendChild(awayTeamCell);
+            
+            // Away team inning scores
+            for (let i = 1; i <= 9; i++) {
+                const td = document.createElement('td');
+                td.textContent = game[`visitor_${i}`] !== null ? game[`visitor_${i}`] : '-';
+                awayRow.appendChild(td);
+            }
+            
+            // Extra innings for away team
+            if (game.visitor_10 !== null || game.home_10 !== null) {
+                const td = document.createElement('td');
+                td.textContent = game.visitor_10 !== null ? game.visitor_10 : '-';
+                awayRow.appendChild(td);
+            }
+            if (game.visitor_11 !== null || game.home_11 !== null) {
+                const td = document.createElement('td');
+                td.textContent = game.visitor_11 !== null ? game.visitor_11 : '-';
+                awayRow.appendChild(td);
+            }
+            if (game.visitor_12 !== null || game.home_12 !== null) {
+                const td = document.createElement('td');
+                td.textContent = game.visitor_12 !== null ? game.visitor_12 : '-';
+                awayRow.appendChild(td);
+            }
+            
+            // Away team totals
+            const awayRuns = document.createElement('td');
+            awayRuns.textContent = game.visitor_runs || '0';
+            if (game.visitor_runs > game.home_runs) {
+                awayRuns.className = 'winning-score';
+            }
+            awayRow.appendChild(awayRuns);
+            
+            const awayHits = document.createElement('td');
+            awayHits.textContent = game.visitor_hits || '0';
+            awayRow.appendChild(awayHits);
+            
+            const awayErrors = document.createElement('td');
+            awayErrors.textContent = game.visitor_errors || '0';
+            awayRow.appendChild(awayErrors);
+            
+            table.appendChild(awayRow);
+            
+            // Home team row
+            const homeRow = document.createElement('tr');
+            const homeTeamCell = document.createElement('td');
+            homeTeamCell.className = 'team-name';
+            homeTeamCell.textContent = game.home_team_id || 'Home';
+            homeRow.appendChild(homeTeamCell);
+            
+            // Home team inning scores
+            for (let i = 1; i <= 9; i++) {
+                const td = document.createElement('td');
+                td.textContent = game[`home_${i}`] !== null ? game[`home_${i}`] : '-';
+                homeRow.appendChild(td);
+            }
+            
+            // Extra innings for home team
+            if (game.visitor_10 !== null || game.home_10 !== null) {
+                const td = document.createElement('td');
+                td.textContent = game.home_10 !== null ? game.home_10 : '-';
+                homeRow.appendChild(td);
+            }
+            if (game.visitor_11 !== null || game.home_11 !== null) {
+                const td = document.createElement('td');
+                td.textContent = game.home_11 !== null ? game.home_11 : '-';
+                homeRow.appendChild(td);
+            }
+            if (game.visitor_12 !== null || game.home_12 !== null) {
+                const td = document.createElement('td');
+                td.textContent = game.home_12 !== null ? game.home_12 : '-';
+                homeRow.appendChild(td);
+            }
+            
+            // Home team totals
+            const homeRuns = document.createElement('td');
+            homeRuns.textContent = game.home_runs || '0';
+            if (game.home_runs > game.visitor_runs) {
+                homeRuns.className = 'winning-score';
+            }
+            homeRow.appendChild(homeRuns);
+            
+            const homeHits = document.createElement('td');
+            homeHits.textContent = game.home_hits || '0';
+            homeRow.appendChild(homeHits);
+            
+            const homeErrors = document.createElement('td');
+            homeErrors.textContent = game.home_errors || '0';
+            homeRow.appendChild(homeErrors);
+            
+            table.appendChild(homeRow);
+            
+            return table;
+        }
+        
+        // Format Date Helper
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}/${month}/${day}`;
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date as default
+            const today = new Date();
+            const todayString = today.toISOString().split('T')[0];
+            document.getElementById('game-date-picker').value = todayString;
+            
+            // Add event listener for date picker
+            document.getElementById('game-date-picker').addEventListener('change', loadRecentGames);
+            
+            // Load initial games
+            loadRecentGames();
+        });
+    </script>
+</body>
+</html>

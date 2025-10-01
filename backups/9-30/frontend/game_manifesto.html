@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details - yakyuu.jp</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Team Links */
+        .team-link {
+            color: #BC002D;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .team-link:hover {
+            color: #a00025;
+            text-decoration: underline;
+        }
+        
+
+        
+        /* Game Header with Line Score */
+        .game-header-with-score {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .game-info-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .game-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 1rem 0;
+        }
+        
+        .game-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin: 0;
+        }
+        
+
+        
+        .line-score-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .line-score-table th {
+            background: #BC002D;
+            color: white;
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            font-weight: 500;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .line-score-table th:last-child {
+            border-right: none;
+        }
+        
+        .line-score-table td {
+            padding: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+        
+        .line-score-table td:last-child {
+            border-right: none;
+        }
+        
+        .line-score-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .line-score-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .team-name {
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+            padding-left: 1rem;
+        }
+        
+        .winning-score {
+            font-weight: bold;
+            color: #BC002D;
+            font-size: 1.1rem;
+        }
+        
+        /* Pitchers Inline Section */
+        .pitchers-inline {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        
+        .pitcher-info-inline {
+            display: inline;
+            margin: 0 1.5rem;
+        }
+        
+        .pitcher-label-inline {
+            font-weight: bold;
+            color: #BC002D;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        
+        .pitcher-name-inline {
+            color: #333;
+            margin-left: 0.5rem;
+        }
+        
+        .pitcher-name-inline a {
+            color: #BC002D;
+            text-decoration: none;
+        }
+        
+        .pitcher-name-inline a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Inline Game Information */
+        .game-info-inline {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .game-info-inline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .game-info-inline-label {
+            font-weight: bold;
+            color: #BC002D;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+        
+        .game-info-inline-value {
+            color: #333;
+            font-size: 0.95rem;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-button {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            color: #666;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .nav-button.active {
+            background: #BC002D;
+            color: white;
+            border-color: #BC002D;
+        }
+        
+        .nav-button:hover {
+            border-color: #BC002D;
+            color: #BC002D;
+        }
+        
+        .nav-button.active:hover {
+            background: #a00025;
+            color: white;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            margin-bottom: 3rem;
+        }
+        
+        .stats-section.hidden {
+            display: none;
+        }
+        
+        .stats-section h2 {
+            color: #BC002D;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Team Section */
+        .team-section {
+            margin-bottom: 2rem;
+        }
+        
+        .team-header {
+            padding: 1rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            background: white;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .team-subheader {
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            background: white;
+        }
+        
+        /* Stats Table */
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+        
+        .stats-table th {
+            background: #BC002D;
+            color: white;
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            font-weight: 500;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stats-table th:last-child {
+            border-right: none;
+        }
+        
+        .stats-table td {
+            padding: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+        
+        .stats-table td:last-child {
+            border-right: none;
+        }
+        
+        .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .stats-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .stats-table tr:hover {
+            background: #e9ecef;
+        }
+        
+        .stats-table tr.starter-row {
+            font-weight: bold;
+        }
+        
+        .player-name {
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+        }
+        
+        .player-name a {
+            color: #BC002D;
+            text-decoration: none;
+        }
+        
+        .player-name a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Narrow columns for Order and Position in batting tables */
+        .stats-table th:nth-child(1),
+        .stats-table td:nth-child(1) {
+            width: 60px;
+            min-width: 60px;
+        }
+        
+        .stats-table th:nth-child(2),
+        .stats-table td:nth-child(2) {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        /* Pitching table specific widths - give more space to player names */
+        .pitching-table th:nth-child(1),
+        .pitching-table td:nth-child(1) {
+            width: 200px !important;
+            min-width: 200px !important;
+        }
+        
+        /* Narrow pitching stat columns */
+        .pitching-table th:nth-child(2),
+        .pitching-table td:nth-child(2) {
+            width: 50px !important;
+            min-width: 50px !important;
+        }
+        
+        .pitching-table th:nth-child(3),
+        .pitching-table td:nth-child(3),
+        .pitching-table th:nth-child(4),
+        .pitching-table td:nth-child(4),
+        .pitching-table th:nth-child(5),
+        .pitching-table td:nth-child(5),
+        .pitching-table th:nth-child(6),
+        .pitching-table td:nth-child(6),
+        .pitching-table th:nth-child(7),
+        .pitching-table td:nth-child(7),
+        .pitching-table th:nth-child(8),
+        .pitching-table td:nth-child(8),
+        .pitching-table th:nth-child(9),
+        .pitching-table td:nth-child(9),
+        .pitching-table th:nth-child(10),
+        .pitching-table td:nth-child(10) {
+            width: 45px !important;
+            min-width: 45px !important;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        /* Event Files Styles */
+        .event-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .event-filter-button {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            color: #666;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .event-filter-button.active {
+            background: #BC002D;
+            color: white;
+            border-color: #BC002D;
+        }
+        
+        .event-filter-button:hover {
+            border-color: #BC002D;
+            color: #BC002D;
+        }
+        
+        .event-filter-button.active:hover {
+            background: #8B0021;
+            color: white;
+        }
+        
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .events-table th {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #BC002D;
+            font-size: 0.9em;
+            color: #495057;
+        }
+        
+        .events-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.9em;
+        }
+        
+        .events-table tr:hover {
+            background-color: rgba(188, 0, 45, 0.05);
+        }
+        
+        .pitching-change-row {
+            background-color: rgba(188, 0, 45, 0.1) !important;
+            font-style: italic;
+            color: #BC002D;
+            font-weight: 600;
+        }
+        
+        .pitching-change-row td {
+            border-top: 2px solid rgba(188, 0, 45, 0.3);
+            border-bottom: 2px solid rgba(188, 0, 45, 0.3);
+        }
+        
+        .event-result {
+            font-weight: 600;
+        }
+        
+        .event-result.home-run { color: #BC002D; }
+        .event-result.triple { color: #e67e22; }
+        .event-result.double { color: #f39c12; }
+        .event-result.single { color: #27ae60; }
+        .event-result.walk { color: #3498db; }
+        .event-result.strikeout { color: #BC002D; }
+        .event-result.hit-by-pitch { color: #e74c3c; }
+        .event-result.sacrifice { color: #9b59b6; }
+        .event-result.ground-into-double-play { color: #34495e; }
+        .event-result.reached-on-error { color: #f39c12; }
+        .event-result.ground-ball-out { color: #7f8c8d; }
+        .event-result.fly-ball-out { color: #95a5a6; }
+        
+        /* Event table column widths */
+        .events-table th:nth-child(1),
+        .events-table td:nth-child(1) { width: 80px; min-width: 80px; } /* Inning */
+        .events-table th:nth-child(2),
+        .events-table td:nth-child(2) { width: 120px; min-width: 120px; } /* Batting */
+        .events-table th:nth-child(3),
+        .events-table td:nth-child(3) { width: 180px; min-width: 180px; } /* Batter */
+        .events-table th:nth-child(4),
+        .events-table td:nth-child(4) { width: 180px; min-width: 180px; } /* Pitcher */
+        .events-table th:nth-child(5),
+        .events-table td:nth-child(5) { width: 60px; min-width: 60px; } /* Outs */
+        .events-table th:nth-child(6),
+        .events-table td:nth-child(6) { width: 80px; min-width: 80px; } /* Count */
+        .events-table th:nth-child(7),
+        .events-table td:nth-child(7) { width: 100px; min-width: 100px; } /* On Base */
+        .events-table th:nth-child(8),
+        .events-table td:nth-child(8) { width: 200px; min-width: 200px; } /* Result */
+        
+        /* Half-inning dividers */
+        .half-inning-divider {
+            background: linear-gradient(135deg, #BC002D, #8B0021);
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        
+        .half-inning-divider td {
+            background: linear-gradient(135deg, #BC002D, #8B0021) !important;
+            color: white !important;
+        }
+        
+        /* Player name styling */
+        .player-link {
+            color: #000 !important;
+            text-decoration: none;
+        }
+        
+        .player-link:hover {
+            color: #BC002D !important;
+            text-decoration: underline;
+        }
+        
+        /* Loading and Error States */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #BC002D;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 2rem;
+            }
+            
+            .game-title {
+                font-size: 1.5rem;
+            }
+            
+            .game-info-inline {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .nav-button {
+                min-width: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-info-inline {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Large Header with Logo -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="/" class="logo-link">
+                <img src="/logo.png" alt="yakyuu.jp" class="logo-image">
+            </a>
+        </div>
+    </header>
+
+    <!-- Red Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-content">
+            <ul class="nav-menu">
+                <li><a href="/games">Games</a></li>
+                <li><a href="/players">Players</a></li>
+                <li><a href="/teams">Teams/Standings</a></li>
+                <li><a href="/ballparks">Ballparks</a></li>
+                <li><a href="/advanced">Advanced Stat Finder</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-container">
+        
+        <div id="loading" class="loading">Loading game data...</div>
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="game-content" style="display: none;">
+            
+            <!-- Game Header with Line Score -->
+            <div class="game-header-with-score">
+                <div class="game-info-header">
+                    <h1 class="game-title" id="game-title">Loading...</h1>
+                    <p class="game-subtitle" id="game-subtitle">Loading...</p>
+                </div>
+                
+                <div class="table-container">
+                    <table class="line-score-table" id="line-score-table">
+                        <thead id="line-score-header">
+                            <!-- Dynamic header will be populated here -->
+                        </thead>
+                        <tbody id="line-score-body">
+                            <!-- Dynamic line score will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pitchers Information (inline with line score) -->
+                <div class="pitchers-inline" id="pitchers-inline">
+                    <!-- Pitcher information will be populated here -->
+                </div>
+                
+                <!-- Inline Game Information (1x4 grid) -->
+                <div class="game-info-inline">
+                    <div class="game-info-inline-item">
+                        <span class="game-info-inline-label">Attendance:</span>
+                        <span class="game-info-inline-value" id="game-attendance">-</span>
+                    </div>
+                    <div class="game-info-inline-item">
+                        <span class="game-info-inline-label">Start Time:</span>
+                        <span class="game-info-inline-value" id="game-start-time">-</span>
+                    </div>
+                    <div class="game-info-inline-item">
+                        <span class="game-info-inline-label">Duration:</span>
+                        <span class="game-info-inline-value" id="game-duration">-</span>
+                    </div>
+                    <div class="game-info-inline-item">
+                        <span class="game-info-inline-label">Ballpark:</span>
+                        <span class="game-info-inline-value" id="game-ballpark">-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="nav-button active" data-section="home-team" id="home-team-button">Home Team</button>
+                <button class="nav-button" data-section="away-team" id="away-team-button">Away Team</button>
+                <button class="nav-button" data-section="events" id="events-button">Play-by-Play</button>
+            </div>
+            
+            <!-- Home Team Stats Section -->
+            <div class="stats-section" id="home-team-section">
+                <h2 id="home-team-title">Home Team Statistics</h2>
+                
+                <!-- Home Team Batting -->
+                <div class="team-section">
+                    <div class="team-header" id="home-batting-header">Home Team Batting</div>
+                    <div class="team-subheader">Starter statistics in bold</div>
+                    <div class="table-container">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Pos</th>
+                                    <th>Player</th>
+                                    <th>AB</th>
+                                    <th>R</th>
+                                    <th>H</th>
+                                    <th>2B</th>
+                                    <th>3B</th>
+                                    <th>HR</th>
+                                    <th>RBI</th>
+                                    <th>BB</th>
+                                    <th>K</th>
+                                </tr>
+                            </thead>
+                            <tbody id="home-batting-body">
+                                <!-- Home batting stats will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Home Team Pitching -->
+                <div class="team-section">
+                    <div class="team-header" id="home-pitching-header">Home Team Pitching</div>
+                    <div class="table-container">
+                        <table class="stats-table pitching-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>IP</th>
+                                    <th>H</th>
+                                    <th>R</th>
+                                    <th>ER</th>
+                                    <th>BB</th>
+                                    <th>K</th>
+                                    <th>HR</th>
+                                    <th>TP</th>
+                                    <th>BF</th>
+                                </tr>
+                            </thead>
+                            <tbody id="home-pitching-body">
+                                <!-- Home pitching stats will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Away Team Stats Section -->
+            <div class="stats-section hidden" id="away-team-section">
+                <h2 id="away-team-title">Away Team Statistics</h2>
+                
+                <!-- Away Team Batting -->
+                <div class="team-section">
+                    <div class="team-header" id="away-batting-header">Away Team Batting</div>
+                    <div class="team-subheader">Starter statistics in bold</div>
+                    <div class="table-container">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Pos</th>
+                                    <th>Player</th>
+                                    <th>AB</th>
+                                    <th>R</th>
+                                    <th>H</th>
+                                    <th>2B</th>
+                                    <th>3B</th>
+                                    <th>HR</th>
+                                    <th>RBI</th>
+                                    <th>BB</th>
+                                    <th>K</th>
+                                </tr>
+                            </thead>
+                            <tbody id="away-batting-body">
+                                <!-- Away batting stats will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Away Team Pitching -->
+                <div class="team-section">
+                    <div class="team-header" id="away-pitching-header">Away Team Pitching</div>
+                    <div class="table-container">
+                        <table class="stats-table pitching-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>IP</th>
+                                    <th>H</th>
+                                    <th>R</th>
+                                    <th>ER</th>
+                                    <th>BB</th>
+                                    <th>K</th>
+                                    <th>HR</th>
+                                    <th>TP</th>
+                                    <th>BF</th>
+                                </tr>
+                            </thead>
+                            <tbody id="away-pitching-body">
+                                <!-- Away pitching stats will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Events Section -->
+            <div class="stats-section hidden" id="events-section">
+                <h2>Play-by-Play</h2>
+                <div class="event-filters">
+                    <button class="event-filter-button active" data-filter="all">All Events</button>
+                    <button class="event-filter-button" data-filter="home-team" id="home-team-filter">Home Team</button>
+                    <button class="event-filter-button" data-filter="away-team" id="away-team-filter">Away Team</button>
+                    <button class="event-filter-button" data-filter="scoring">Scoring</button>
+                    <button class="event-filter-button" data-filter="risp">RISP</button>
+                    <button class="event-filter-button" data-filter="two-outs">2 Outs</button>
+                </div>
+                <div id="events-container">
+                    <!-- Events will be populated here -->
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <script>
+        // Get game ID from URL path
+        const pathParts = window.location.pathname.split('/');
+        const gameId = pathParts.slice(2).join('/') || '2018/0330/g-t-01'; // Extract everything after /games/
+        
+        // API base URL
+        const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        
+        // Global game data
+        let gameData = null;
+        
+        // Load game data
+        async function loadGameData() {
+            try {
+                // Load game metadata
+                const gameResponse = await fetch(`${API_BASE}/games/${gameId}`);
+                if (!gameResponse.ok) {
+                    throw new Error(`Game not found: ${gameResponse.status}`);
+                }
+                gameData = await gameResponse.json();
+                
+                // Load batting data
+                const battingResponse = await fetch(`${API_BASE}/games/${gameId}/batting`);
+                const battingData = battingResponse.ok ? await battingResponse.json() : { home: [], away: [] };
+                
+                // Load pitching data
+                const pitchingResponse = await fetch(`${API_BASE}/games/${gameId}/pitching`);
+                const pitchingData = pitchingResponse.ok ? await pitchingResponse.json() : { home: [], away: [] };
+                
+                // Load events data
+                const eventsResponse = await fetch(`${API_BASE}/games/${gameId}/events`);
+                const eventsData = eventsResponse.ok ? await eventsResponse.json() : [];
+                
+                // Populate the page
+                populateGameData(gameData, battingData, pitchingData);
+                populateEventsData(eventsData);
+                
+                // Hide loading, show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('game-content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading game data:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').textContent = `Error loading game data: ${error.message}`;
+            }
+        }
+        
+        function populateGameData(game, batting, pitching) {
+            // Game header - Format: home_team_name (home_team_name_en) vs away_team_name (away_team_name_en) - HOME TEAM FIRST
+            const homeTeamLink = `<a href="/teams/${game.home_team_id}" class="team-link">${game.home_team_name} (${game.home_team_name_en})</a>`;
+            const awayTeamLink = `<a href="/teams/${game.away_team_id}" class="team-link">${game.away_team_name} (${game.away_team_name_en})</a>`;
+            const gameTitle = `${homeTeamLink} vs ${awayTeamLink}`;
+            // Game subtitle - Format: YYYY/MM/DD | gametype (English) | 第X回戦 (Game X)
+            const gameTypeEn = translateGameType(game.gametype);
+            const gameNumber = game.game_number || 1;
+            const gameSubtitle = `${formatDate(game.date)} | ${game.gametype} (${gameTypeEn}) | 第${gameNumber}回戦 (Game ${gameNumber})`;
+            
+            document.getElementById('game-title').innerHTML = gameTitle;
+            document.getElementById('game-subtitle').textContent = gameSubtitle;
+            
+            // Update navigation buttons
+            document.getElementById('home-team-button').textContent = `${game.home_team_name_en}`;
+            document.getElementById('away-team-button').textContent = `${game.away_team_name_en}`;
+            
+            // Update section titles
+            document.getElementById('home-team-title').textContent = `${game.home_team_name_en} Statistics`;
+            document.getElementById('away-team-title').textContent = `${game.away_team_name_en} Statistics`;
+            document.getElementById('home-batting-header').textContent = `${game.home_team_name_en} Batting`;
+            document.getElementById('home-pitching-header').textContent = `${game.home_team_name_en} Pitching`;
+            document.getElementById('away-batting-header').textContent = `${game.away_team_name_en} Batting`;
+            document.getElementById('away-pitching-header').textContent = `${game.away_team_name_en} Pitching`;
+            
+            // Populate line score
+            populateLineScore(game);
+            
+            // Populate pitchers
+            populatePitchers(game);
+            
+            // Inline game information
+            document.getElementById('game-attendance').textContent = game.attendance ? game.attendance.toLocaleString() : 'N/A';
+            document.getElementById('game-duration').textContent = game.game_duration || 'N/A';
+            
+            // Ballpark with English name in parentheses
+            const ballparkDisplay = game.ballpark_en 
+                ? `${game.ballpark} (${game.ballpark_en})`
+                : (game.ballpark || 'Unknown');
+            document.getElementById('game-ballpark').textContent = ballparkDisplay;
+            
+            document.getElementById('game-start-time').textContent = game.start_time || 'N/A';
+            
+            // Populate batting and pitching tables
+            populateBattingTable('home-batting-body', batting.home || []);
+            populateBattingTable('away-batting-body', batting.away || []);
+            populatePitchingTable('home-pitching-body', pitching.home || []);
+            populatePitchingTable('away-pitching-body', pitching.away || []);
+        }
+        
+        function populateLineScore(game) {
+            const header = document.getElementById('line-score-header');
+            const body = document.getElementById('line-score-body');
+            
+            // Clear existing content
+            header.innerHTML = '';
+            body.innerHTML = '';
+            
+            // Determine number of innings
+            const maxInnings = Math.max(game.line_score.visitor.length, game.line_score.home.length);
+            
+            // Create header
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>Team</th>';
+            for (let i = 1; i <= maxInnings; i++) {
+                headerRow.innerHTML += `<th>${i}</th>`;
+            }
+            headerRow.innerHTML += '<th>R</th><th>H</th><th>E</th>';
+            header.appendChild(headerRow);
+            
+            // Create away team row
+            const awayRow = document.createElement('tr');
+            const awayScore = game.winning_team_id === game.away_team_id ? 'winning-score' : '';
+            const awayTeamName = `<a href="/teams/${game.away_team_id}" class="team-link">${game.away_team_name} (${game.away_team_name_en})</a>`;
+            awayRow.innerHTML = `<td class="team-name">${awayTeamName}</td>`;
+            for (let i = 0; i < maxInnings; i++) {
+                const runs = game.line_score.visitor[i] !== undefined ? game.line_score.visitor[i] : '-';
+                awayRow.innerHTML += `<td>${runs}</td>`;
+            }
+            awayRow.innerHTML += `<td class="${awayScore}">${game.visitor_runs}</td><td>${game.visitor_hits}</td><td>${game.visitor_errors}</td>`;
+            body.appendChild(awayRow);
+            
+            // Create home team row
+            const homeRow = document.createElement('tr');
+            const homeScore = game.winning_team_id === game.home_team_id ? 'winning-score' : '';
+            const homeTeamName = `<a href="/teams/${game.home_team_id}" class="team-link">${game.home_team_name} (${game.home_team_name_en})</a>`;
+            homeRow.innerHTML = `<td class="team-name">${homeTeamName}</td>`;
+            for (let i = 0; i < maxInnings; i++) {
+                const runs = game.line_score.home[i] !== undefined ? game.line_score.home[i] : '-';
+                homeRow.innerHTML += `<td>${runs}</td>`;
+            }
+            homeRow.innerHTML += `<td class="${homeScore}">${game.home_runs}</td><td>${game.home_hits}</td><td>${game.home_errors}</td>`;
+            body.appendChild(homeRow);
+        }
+        
+        function populatePitchers(game) {
+            const pitchersSection = document.getElementById('pitchers-inline');
+            let pitchersHtml = '';
+            
+            // Winning pitcher
+            if (game.winning_pitcher_name) {
+                const winnerName = game.winning_pitcher_name_en 
+                    ? `${game.winning_pitcher_name} (${game.winning_pitcher_name_en})`
+                    : game.winning_pitcher_name;
+                pitchersHtml += `
+                    <span class="pitcher-info-inline">
+                        <span class="pitcher-label-inline">W:</span>
+                        <span class="pitcher-name-inline"><a href="/players/${game.winning_pitcher_id}">${winnerName}</a></span>
+                    </span>
+                `;
+            }
+            
+            // Losing pitcher
+            if (game.losing_pitcher_name) {
+                const loserName = game.losing_pitcher_name_en 
+                    ? `${game.losing_pitcher_name} (${game.losing_pitcher_name_en})`
+                    : game.losing_pitcher_name;
+                pitchersHtml += `
+                    <span class="pitcher-info-inline">
+                        <span class="pitcher-label-inline">L:</span>
+                        <span class="pitcher-name-inline"><a href="/players/${game.losing_pitcher_id}">${loserName}</a></span>
+                    </span>
+                `;
+            }
+            
+            // Save pitcher
+            if (game.save_pitcher_name) {
+                const saveName = game.save_pitcher_name_en 
+                    ? `${game.save_pitcher_name} (${game.save_pitcher_name_en})`
+                    : game.save_pitcher_name;
+                pitchersHtml += `
+                    <span class="pitcher-info-inline">
+                        <span class="pitcher-label-inline">S:</span>
+                        <span class="pitcher-name-inline"><a href="/players/${game.save_pitcher_id}">${saveName}</a></span>
+                    </span>
+                `;
+            }
+            
+            pitchersSection.innerHTML = pitchersHtml;
+        }
+        
+        function populateBattingTable(tableBodyId, players) {
+            const tbody = document.getElementById(tableBodyId);
+            tbody.innerHTML = '';
+            
+            players.forEach(player => {
+                const row = document.createElement('tr');
+                
+                // Check if player is a starter (has lineup position number)
+                const isStarter = player.lineup_position && !isNaN(player.lineup_position);
+                if (isStarter) {
+                    row.classList.add('starter-row');
+                }
+                
+                // Create bilingual player name
+                const playerName = player.player_name_en 
+                    ? `${player.player_name} (${player.player_name_en})`
+                    : (player.player_name || 'Unknown');
+                
+                // Display lineup position or dash for non-starters
+                const battingOrder = isStarter ? player.lineup_position : '-';
+                
+                row.innerHTML = `
+                    <td>${battingOrder}</td>
+                    <td>${player.position || '-'}</td>
+                    <td class="player-name"><a href="/players/${player.player_id}">${playerName}</a></td>
+                    <td>${player.ab || 0}</td>
+                    <td>${player.b_r || 0}</td>
+                    <td>${player.b_h || 0}</td>
+                    <td>${player.b_2b || 0}</td>
+                    <td>${player.b_3b || 0}</td>
+                    <td>${player.b_hr || 0}</td>
+                    <td>${player.b_rbi || 0}</td>
+                    <td>${player.b_bb || 0}</td>
+                    <td>${player.b_k || 0}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            if (players.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="12" style="text-align: center; color: #666;">No batting data available</td>';
+                tbody.appendChild(row);
+            }
+        }
+        
+        function populatePitchingTable(tableBodyId, players) {
+            const tbody = document.getElementById(tableBodyId);
+            tbody.innerHTML = '';
+            
+            players.forEach(player => {
+                const row = document.createElement('tr');
+                
+                const ip = formatInnings(player.ip);
+                
+                // Create bilingual player name
+                const playerName = player.player_name_en 
+                    ? `${player.player_name} (${player.player_name_en})`
+                    : (player.player_name || 'Unknown');
+                
+                row.innerHTML = `
+                    <td class="player-name"><a href="/players/${player.player_id}">${playerName}</a></td>
+                    <td>${ip}</td>
+                    <td>${player.p_h || 0}</td>
+                    <td>${player.r || 0}</td>
+                    <td>${player.er || 0}</td>
+                    <td>${player.p_bb || 0}</td>
+                    <td>${player.p_k || 0}</td>
+                    <td>${player.p_hr || 0}</td>
+                    <td>${player.pitches_thrown || 0}</td>
+                    <td>${player.batters_faced || 0}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            if (players.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="10" style="text-align: center; color: #666;">No pitching data available</td>';
+                tbody.appendChild(row);
+            }
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return 'Unknown';
+            // Convert YYYY-MM-DD to YYYY/MM/DD
+            return dateString.replace(/-/g, '/');
+        }
+        
+        function formatInnings(ip) {
+            if (!ip) return '0.0';
+            const wholeInnings = Math.floor(ip);
+            const fraction = ip - wholeInnings;
+            
+            if (fraction === 0) return `${wholeInnings}.0`;
+            if (fraction === 0.33 || fraction === 0.333 || fraction === 0.3333) return `${wholeInnings}.1`;
+            if (fraction === 0.67 || fraction === 0.667 || fraction === 0.6667) return `${wholeInnings}.2`;
+            
+            return ip.toFixed(1);
+        }
+        
+        function translateGameType(gameType) {
+            const translations = {
+                '公式戦': 'Regular Season',
+                'オールスターゲーム': 'All-Star Game',
+                'ファーストステージ': 'Postseason First',
+                'ファイナルステージ': 'Postseason Final',
+                '日本シリーズ': 'Japan Series',
+                'クライマックスシリーズ': 'Postseason',
+                '交流戦': 'Interleague',
+                'プレシーズン': 'Preseason'
+            };
+            
+            return translations[gameType] || 'Unknown';
+        }
+        
+        // Global events data for filtering
+        let allEventsData = [];
+        
+        function populateEventsData(events) {
+            const container = document.getElementById('events-container');
+            
+            if (!events || events.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: #666;"><p>No event data available for this game.</p></div>';
+                return;
+            }
+            
+            // Store all events for filtering
+            allEventsData = events;
+            
+            // Update filter button labels with team names
+            if (gameData) {
+                document.getElementById('home-team-filter').textContent = gameData.home_team_name_en;
+                document.getElementById('away-team-filter').textContent = gameData.away_team_name_en;
+            }
+            
+            // Apply current filters
+            applyEventFilters();
+        }
+        
+        function getJapaneseResult(englishResult) {
+            const resultMap = {
+                'Walk': 'フォアボール',
+                'Strikeout': '三振',
+                'Single': '単打',
+                'Double': 'ツーベース',
+                'Home Run': 'ホームラン',
+                'Ground Ball Out': 'ゴロアウト',
+                'Fly Ball Out': 'フライアウト',
+                'Out': 'アウト',
+                'Sacrifice': '犠打',
+                'GIDP': '併殺打',
+                'Ground into Double Play': '併殺打',
+                'Hit by Pitch': '死球'
+            };
+            return resultMap[englishResult] || englishResult;
+        }
+        
+        function applyEventFilters() {
+            const container = document.getElementById('events-container');
+            const activeFilters = Array.from(document.querySelectorAll('.event-filter-button.active'))
+                .map(btn => btn.dataset.filter);
+            
+            if (activeFilters.length === 0 || activeFilters.includes('all')) {
+                renderEventsTable(allEventsData);
+                return;
+            }
+            
+            // Filter events based on active filters (AND logic)
+            let filteredEvents = allEventsData.filter(event => {
+                if (event.type === 'pitching_change' || event.type === 'half_inning_divider') return true; // Always show pitching changes and dividers
+                
+                // Check ALL active filters (AND logic)
+                return activeFilters.every(filter => {
+                    switch (filter) {
+                        case 'home-team':
+                            return event.half === 'B'; // Bottom = home team batting
+                        case 'away-team':
+                            return event.half === 'T'; // Top = away team batting
+                        case 'scoring':
+                            return event.stats && event.stats.rbi > 0;
+                        case 'risp':
+                            return event.on_base && (event.on_base.includes('2') || event.on_base.includes('3'));
+                        case 'two-outs':
+                            return event.outs === 2;
+                        default:
+                            return false;
+                    }
+                });
+            });
+            
+            renderEventsTable(filteredEvents);
+        }
+        
+        function renderEventsTable(events) {
+            const container = document.getElementById('events-container');
+            
+            if (!events || events.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: #666;"><p>No events match the selected filters.</p></div>';
+                return;
+            }
+            
+            // Add half-inning dividers and pitching changes
+            const eventsWithAnnouncements = [];
+            const teamPitchers = { 'T': null, 'B': null }; // Track last pitcher for each team
+            const teamPitcherNames = { 'T': null, 'B': null }; // Track pitcher names for changes
+            const teamPitcherNamesJP = { 'T': null, 'B': null }; // Track Japanese pitcher names
+            let lastInningHalf = null;
+            
+            events.forEach(event => {
+                if (event.type === 'event') {
+                    const team = event.half; // 'T' for top (away), 'B' for bottom (home)
+                    const currentInningHalf = `${event.inning}-${event.half}`;
+                    
+                    // Add half-inning divider if this is a new half-inning
+                    if (lastInningHalf !== currentInningHalf) {
+                        const halfNameJP = event.half === 'T' ? '表' : '裏';
+                        const halfNameEN = event.half === 'T' ? 'Top' : 'Bottom';
+                        const teamNameJP = event.half === 'T' ? 
+                            (gameData ? gameData.away_team_name : 'Away Team') : 
+                            (gameData ? gameData.home_team_name : 'Home Team');
+                        const teamNameEN = event.half === 'T' ? 
+                            (gameData ? gameData.away_team_name_en : 'Away Team') : 
+                            (gameData ? gameData.home_team_name_en : 'Home Team');
+                        
+                        eventsWithAnnouncements.push({
+                            type: 'half_inning_divider',
+                            inning: event.inning,
+                            half: event.half,
+                            half_name_jp: halfNameJP,
+                            half_name_en: halfNameEN,
+                            team_name_jp: teamNameJP,
+                            team_name_en: teamNameEN
+                        });
+                    }
+                    lastInningHalf = currentInningHalf;
+                    
+                    // Check if this is a real pitching change for this team
+                    if (teamPitchers[team] !== null && teamPitchers[team] !== event.pitcher_id) {
+                        const oldNameJP = teamPitcherNamesJP[team] || 'Unknown';
+                        const oldNameEN = teamPitcherNames[team] || 'Unknown';
+                        const newNameJP = event.pitcher_name || 'Unknown';
+                        const newNameEN = event.pitcher_name_en || null;
+                        
+                        // Format: Japanese (English) → Japanese (English)
+                        const oldFormatted = (oldNameEN && oldNameEN !== oldNameJP && oldNameEN !== 'Unknown') ? 
+                            `${oldNameJP} (${oldNameEN})` : oldNameJP;
+                        const newFormatted = (newNameEN && newNameEN !== newNameJP) ? 
+                            `${newNameJP} (${newNameEN})` : newNameJP;
+                        
+                        eventsWithAnnouncements.push({
+                            type: 'pitching_change',
+                            old_pitcher_name: oldNameJP,
+                            new_pitcher_name: newNameJP,
+                            old_pitcher_name_en: oldNameEN,
+                            new_pitcher_name_en: newNameEN
+                        });
+                    }
+                    
+                    // Update the last pitcher for this team
+                    teamPitchers[team] = event.pitcher_id;
+                    teamPitcherNames[team] = event.pitcher_name_en || event.pitcher_name;
+                    teamPitcherNamesJP[team] = event.pitcher_name;
+                }
+                
+                eventsWithAnnouncements.push(event);
+            });
+            
+            // Create single table
+            let html = `
+                <table class="events-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 220px;">Batter</th>
+                            <th style="width: 220px;">Pitcher</th>
+                            <th style="width: 25px;">Outs</th>
+                            <th style="width: 30px;">Count</th>
+                            <th style="width: 100px;">On Base</th>
+                            <th style="width: 350px;">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+            
+            eventsWithAnnouncements.forEach(event => {
+                if (event.type === 'half_inning_divider') {
+                    const battingText = event.half === 'T' ? 'の攻撃' : 'の攻撃';
+                    html += `
+                        <tr class="half-inning-divider">
+                            <td colspan="6">${event.inning}回${event.half_name_jp}（${event.team_name_jp}${battingText}）| ${event.half_name_en} ${event.inning} (${event.team_name_en} batting)</td>
+                        </tr>`;
+                } else if (event.type === 'pitching_change') {
+                    html += `
+                        <tr class="pitching-change-row">
+                            <td colspan="6" style="text-align: center;">投手交代 (Pitching Change) | ${event.old_pitcher_name_en || event.old_pitcher_name} → ${event.new_pitcher_name_en || event.new_pitcher_name}</td>
+                        </tr>`;
+                } else if (event.type === 'event') {
+                    const resultClass = event.result.toLowerCase().replace(/\s+/g, '-');
+                    const rbiText = event.stats && event.stats.rbi > 0 ? ` (${event.stats.rbi} RBI)` : '';
+                    const resultWithRbi = event.result + rbiText;
+                    
+                    // Format on-base display
+                    let onBaseDisplay = '';
+                    if (event.on_base) {
+                        const bases = [];
+                        for (let char of event.on_base) {
+                            if (char === '1') bases.push('1B');
+                            else if (char === '2') bases.push('2B');
+                            else if (char === '3') bases.push('3B');
+                            // Skip 'b' and 'B' characters
+                        }
+                        onBaseDisplay = bases.join(', ');
+                    }
+                    
+                    // Create bilingual result
+                    const resultJP = getJapaneseResult(event.result);
+                    const rbiTextJP = event.stats && event.stats.rbi > 0 ? `（打点${event.stats.rbi}）` : '';
+                    const rbiTextEN = event.stats && event.stats.rbi > 0 ? ` (${event.stats.rbi} RBI)` : '';
+                    const bilingualResult = `${resultJP}${rbiTextJP} | ${event.result}${rbiTextEN}`;
+                    
+                    html += `
+                        <tr>
+                            <td><a href="/players/${event.batter_id}" class="player-link">${event.batter_name_en || event.batter_name}</a></td>
+                            <td><a href="/players/${event.pitcher_id}" class="player-link">${event.pitcher_name_en || event.pitcher_name}</a></td>
+                            <td>${event.outs}</td>
+                            <td>${event.count || ''}</td>
+                            <td>${onBaseDisplay}</td>
+                            <td><span class="event-result ${resultClass}">${bilingualResult}</span></td>
+                        </tr>`;
+                }
+            });
+            
+            html += `
+                    </tbody>
+                </table>`;
+            
+            container.innerHTML = html;
+        }
+        
+        // Navigation functionality
+        document.querySelectorAll('.nav-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const sectionType = this.dataset.section;
+                
+                // Update button states
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show/hide sections
+                document.querySelectorAll('.stats-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(sectionType + '-section').classList.remove('hidden');
+            });
+        });
+        
+        // Event filter functionality (multiple selection with Ctrl)
+        document.querySelectorAll('.event-filter-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // If "All Events" is clicked, deactivate all others and activate only this one
+                if (this.dataset.filter === 'all') {
+                    document.querySelectorAll('.event-filter-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                } else {
+                    // If Ctrl is held, allow multiple selection
+                    if (e.ctrlKey || e.metaKey) {
+                        // Deactivate "All Events" if it's active
+                        document.querySelector('.event-filter-button[data-filter="all"]').classList.remove('active');
+                        // Toggle this button
+                        this.classList.toggle('active');
+                    } else {
+                        // Single selection: deactivate all others and activate this one
+                        document.querySelectorAll('.event-filter-button').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                }
+                
+                // Apply filters
+                applyEventFilters();
+            });
+        });
+        
+        // Load data when page loads
+        loadGameData();
+    </script>
+</body>
+</html>
