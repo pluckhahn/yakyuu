@@ -4837,7 +4837,7 @@ def get_pitching_stats_filtered(conn, filters):
     
     # Check if situational filters are present - if so, use event-level calculation
     if has_situational_filters(situational_filters):
-        return get_pitching_stats_from_events(conn, filters)
+        return get_pitching_stats_from_events1(conn, filters)
     
     # Otherwise, use normal aggregated table approach
     game_filters = filters.get('game_filters', {})
@@ -6427,7 +6427,7 @@ def get_batting_stats_from_events1(conn, filters):
     
     return jsonify({'results': results, 'total': len(results)})
 
-def get_pitching_stats_from_events(conn, filters):
+def get_pitching_stats_from_events1(conn, filters):
     """Calculate pitching stats from event table when situational filters are present"""
     game_filters = filters.get('game_filters', {})
     situational_filters = filters.get('situational_filters', {})
