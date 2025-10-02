@@ -657,6 +657,7 @@
                 <li><a href="/teams">Teams/Standings</a></li>
                 <li><a href="/ballparks">Ballparks</a></li>
                 <li><a href="/advanced">Advanced Stat Finder</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
                 <li><a href="/about">About</a></li>
             </ul>
         </div>
@@ -1225,7 +1226,7 @@
         const pitching = leadersData.pitching_leaders || {};
         if (batting.hits && batting.hits.length > 0) {
             const hitsLeader = batting.hits[0];
-            document.getElementById('hits-leader').innerHTML = `<a href="/player?id=${hitsLeader.player_id}">${hitsLeader.name}</a>`;
+            document.getElementById('hits-leader').innerHTML = `<a href="https://yakyuu.jp/players/${hitsLeader.player_id}">${hitsLeader.name}</a>`;
             document.getElementById('hits-stat').textContent = hitsLeader.stat;
         } else {
             document.getElementById('hits-leader').textContent = 'No data';
@@ -1233,7 +1234,7 @@
         }
         if (batting.hr && batting.hr.length > 0) {
             const hrLeader = batting.hr[0];
-            document.getElementById('hr-leader').innerHTML = `<a href="/player?id=${hrLeader.player_id}">${hrLeader.name}</a>`;
+            document.getElementById('hr-leader').innerHTML = `<a href="https://yakyuu.jp/players/${hrLeader.player_id}">${hrLeader.name}</a>`;
             document.getElementById('hr-stat').textContent = hrLeader.stat;
         } else {
             document.getElementById('hr-leader').textContent = 'No data';
@@ -1241,7 +1242,7 @@
         }
         if (batting.rbi && batting.rbi.length > 0) {
             const rbiLeader = batting.rbi[0];
-            document.getElementById('rbi-leader').innerHTML = `<a href="/player?id=${rbiLeader.player_id}">${rbiLeader.name}</a>`;
+            document.getElementById('rbi-leader').innerHTML = `<a href="https://yakyuu.jp/players/${rbiLeader.player_id}">${rbiLeader.name}</a>`;
             document.getElementById('rbi-stat').textContent = rbiLeader.stat;
         } else {
             document.getElementById('rbi-leader').textContent = 'No data';
@@ -1249,7 +1250,7 @@
         }
         if (pitching.era && pitching.era.length > 0) {
             const eraLeader = pitching.era[0];
-            document.getElementById('era-leader').innerHTML = `<a href="/player?id=${eraLeader.player_id}">${eraLeader.name}</a>`;
+            document.getElementById('era-leader').innerHTML = `<a href="https://yakyuu.jp/players/${eraLeader.player_id}">${eraLeader.name}</a>`;
             document.getElementById('era-stat').textContent = eraLeader.stat;
         } else {
             document.getElementById('era-leader').textContent = 'No data';
@@ -1257,7 +1258,7 @@
         }
         if (pitching.whip && pitching.whip.length > 0) {
             const whipLeader = pitching.whip[0];
-            document.getElementById('whip-leader').innerHTML = `<a href="/player?id=${whipLeader.player_id}">${whipLeader.name}</a>`;
+            document.getElementById('whip-leader').innerHTML = `<a href="https://yakyuu.jp/players/${whipLeader.player_id}">${whipLeader.name}</a>`;
             document.getElementById('whip-stat').textContent = whipLeader.stat;
         } else {
             document.getElementById('whip-leader').textContent = 'No data';
@@ -1265,7 +1266,7 @@
         }
         if (pitching.k && pitching.k.length > 0) {
             const kLeader = pitching.k[0];
-            document.getElementById('k-leader').innerHTML = `<a href="/player?id=${kLeader.player_id}">${kLeader.name}</a>`;
+            document.getElementById('k-leader').innerHTML = `<a href="https://yakyuu.jp/players/${kLeader.player_id}">${kLeader.name}</a>`;
             document.getElementById('k-stat').textContent = kLeader.stat;
         } else {
             document.getElementById('k-leader').textContent = 'No data';
