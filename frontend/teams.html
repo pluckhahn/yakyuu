@@ -1284,12 +1284,10 @@
     
     // Add event listeners for recent games controls
     document.addEventListener('DOMContentLoaded', function() {
-        // Fix logo path for localhost
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            const logoImg = document.querySelector('.logo-image');
-            if (logoImg) {
-                logoImg.src = '/logo.png';
-            }
+        // Fix logo path for all web server contexts
+        const logoImg = document.querySelector('.logo-image');
+        if (logoImg && window.location.protocol !== 'file:') {
+            logoImg.src = '/logo.png';
         }
         
         loadTeamData();
