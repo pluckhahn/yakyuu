@@ -247,6 +247,21 @@
             color: white;
         }
 
+        /* Apply Button Special Styling */
+        #apply-filters-btn {
+            background: #28a745 !important;
+            color: white !important;
+            border-color: #28a745 !important;
+        }
+        
+        #apply-filters-btn:hover {
+            background: #218838 !important;
+            color: white !important;
+            border-color: #218838 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
         /* Filter Controls - Compact Layout */
         .filter-controls {
             background: white;
@@ -679,6 +694,7 @@
             <button class="main-btn" id="team-toggle">Team Stats</button>
             <button class="main-btn active" id="batting-toggle">Batting Stats</button>
             <button class="main-btn" id="pitching-toggle">Pitching Stats</button>
+            <button class="main-btn" id="apply-filters-btn">Apply Filters</button>
         </div>
 
         <!-- Game Filters -->
@@ -727,7 +743,7 @@
         <div class="results-section" id="results-section">
             <h2 class="results-title">NPB Player Statistics</h2>
             <div class="loading" id="loading" style="display: none;">Loading player statistics...</div>
-            <div class="no-results" id="no-results" style="display: none;">No players found.</div>
+            <div class="no-results" id="no-results" style="display: block;">To view statistics, select filters and press the 'Apply Filters' button at the top of the page.</div>
             
             <!-- Batting Results Table -->
             <div class="table-container" id="batting-container">
@@ -902,6 +918,9 @@
             document.getElementById('season-toggle').addEventListener('click', () => switchAggregation('season'));
             document.getElementById('career-toggle').addEventListener('click', () => switchAggregation('career'));
             
+            // Apply filters button listener
+            document.getElementById('apply-filters-btn').addEventListener('click', () => loadPlayerStats());
+            
             // Filter button listeners
             document.getElementById('game-types-btn').addEventListener('click', () => openGameTypesModal());
             document.getElementById('splits-btn').addEventListener('click', () => openSplitsModal());
@@ -936,7 +955,6 @@
             // Initial load
             loadAvailableOptions().then(() => {
                 updateFilterButtonStates();
-                loadPlayerStats();
             });
         });
 
@@ -1022,7 +1040,6 @@
             
             updateFilterButtonStates();
             closeModal();
-            loadPlayerStats();
         }
 
         // Modal Content Generators
@@ -1470,15 +1487,12 @@
                 }
                 updateQualifierButtonStates();
             }
-            
-            loadPlayerStats();
         }
 
         function switchAggregation(aggregation) {
             currentAggregation = aggregation;
             document.querySelectorAll('#season-toggle, #career-toggle').forEach(btn => btn.classList.remove('active'));
             document.getElementById(aggregation + '-toggle').classList.add('active');
-            loadPlayerStats();
         }
 
         function switchStatType(statType) {
@@ -1499,8 +1513,6 @@
             } else {
                 situationalFiltersSection.style.display = 'block';
             }
-            
-            loadPlayerStats();
         }
 
         function loadPlayerStats() {
