@@ -33,7 +33,8 @@ body {
     max-width: none;
     margin: auto;
     padding: 0;
-    overflow: hidden; /* Prevent scaled logo from overflowing */
+    overflow: visible; /* Allow full logo visibility on all devices */
+    min-height: 120px; /* Ensure enough space for scaled logo */
 }
 
 .logo-link {
@@ -266,7 +267,8 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Responsive Design */
+/* Responsive Design - DISABLED to force desktop version on all devices */
+/* 
 @media (max-width: 768px) {
     .nav-menu {
         flex-direction: column;
@@ -313,3 +315,4 @@ body {
     
 
 }
+*/
