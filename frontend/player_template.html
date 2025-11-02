@@ -800,6 +800,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     
                     document.getElementById('player-name').textContent = displayName;
                     
+                    // Update page title to show actual player name
+                    document.title = `${displayName} - yakyuu.jp`;
+                    
                     const metadataGrid = document.getElementById('metadata-grid');
                                          metadataGrid.innerHTML = `
                          <div class="metadata-item">
