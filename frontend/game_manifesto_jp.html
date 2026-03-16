@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>Game Details - yakyuu.jp</title>
+    <title>試合詳細 - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -602,7 +602,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image">
             </a>
         </div>
@@ -612,15 +612,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -681,19 +681,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <!-- Inline Game Information (1x4 grid) -->
                 <div class="game-info-inline">
                     <div class="game-info-inline-item">
-                        <span class="game-info-inline-label">Attendance:</span>
+                        <span class="game-info-inline-label">観客数:</span>
                         <span class="game-info-inline-value" id="game-attendance">-</span>
                     </div>
                     <div class="game-info-inline-item">
-                        <span class="game-info-inline-label">Start Time:</span>
+                        <span class="game-info-inline-label">開始時間:</span>
                         <span class="game-info-inline-value" id="game-start-time">-</span>
                     </div>
                     <div class="game-info-inline-item">
-                        <span class="game-info-inline-label">Duration:</span>
+                        <span class="game-info-inline-label">試合時間:</span>
                         <span class="game-info-inline-value" id="game-duration">-</span>
                     </div>
                     <div class="game-info-inline-item">
-                        <span class="game-info-inline-label">Ballpark:</span>
+                        <span class="game-info-inline-label">球場:</span>
                         <span class="game-info-inline-value" id="game-ballpark">-</span>
                     </div>
                 </div>
@@ -703,33 +703,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="nav-buttons">
                 <button class="nav-button active" data-section="home-team" id="home-team-button">Home Team</button>
                 <button class="nav-button" data-section="away-team" id="away-team-button">Away Team</button>
-                <button class="nav-button" data-section="events" id="events-button">Play-by-Play</button>
+                <button class="nav-button" data-section="events" id="events-button">プレイバイプレイ</button>
             </div>
             
             <!-- Home Team Stats Section -->
             <div class="stats-section" id="home-team-section">
-                <h2 id="home-team-title">Home Team Statistics</h2>
+                <h2 id="home-team-title">ホームの成績</h2>
                 
                 <!-- Home Team Batting -->
                 <div class="team-section">
-                    <div class="team-header" id="home-batting-header">Home Team Batting</div>
-                    <div class="team-subheader">Starter statistics in bold</div>
+                    <div class="team-header" id="home-batting-header">打撃成績</div>
+                    <div class="team-subheader">先発の成績は太字</div>
                     <div class="table-container">
                         <table class="stats-table">
                             <thead>
                                 <tr>
-                                    <th>Order</th>
-                                    <th>Pos</th>
-                                    <th>Player</th>
-                                    <th>AB</th>
-                                    <th>R</th>
-                                    <th>H</th>
-                                    <th>2B</th>
-                                    <th>3B</th>
-                                    <th>HR</th>
-                                    <th>RBI</th>
-                                    <th>BB</th>
-                                    <th>K</th>
+                                    <th>打順</th>
+                                    <th>守備</th>
+                                    <th>選手名</th>
+                                    <th>打数</th>
+                                    <th>得点</th>
+                                    <th>安打</th>
+                                    <th>二塁打</th>
+                                    <th>三塁打</th>
+                                    <th>本塁打</th>
+                                    <th>打点</th>
+                                    <th>四球</th>
+                                    <th>三振</th>
                                 </tr>
                             </thead>
                             <tbody id="home-batting-body">
@@ -741,21 +741,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 <!-- Home Team Pitching -->
                 <div class="team-section">
-                    <div class="team-header" id="home-pitching-header">Home Team Pitching</div>
+                    <div class="team-header" id="home-pitching-header">投手成績</div>
                     <div class="table-container">
                         <table class="stats-table pitching-table">
                             <thead>
                                 <tr>
-                                    <th>Player</th>
-                                    <th>IP</th>
-                                    <th>H</th>
-                                    <th>R</th>
-                                    <th>ER</th>
-                                    <th>BB</th>
-                                    <th>K</th>
-                                    <th>HR</th>
-                                    <th>TP</th>
-                                    <th>BF</th>
+                                    <th>選手名</th>
+                                    <th>投球回</th>
+                                    <th>被安打</th>
+                                    <th>失点</th>
+                                    <th>自責点</th>
+                                    <th>与四球</th>
+                                    <th>奪三振</th>
+                                    <th>被本塁打</th>
+                                    <th>投球数</th>
+                                    <th>打者数</th>
                                 </tr>
                             </thead>
                             <tbody id="home-pitching-body">
@@ -768,28 +768,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             <!-- Away Team Stats Section -->
             <div class="stats-section hidden" id="away-team-section">
-                <h2 id="away-team-title">Away Team Statistics</h2>
+                <h2 id="away-team-title">ビジターの成績</h2>
                 
                 <!-- Away Team Batting -->
                 <div class="team-section">
-                    <div class="team-header" id="away-batting-header">Away Team Batting</div>
-                    <div class="team-subheader">Starter statistics in bold</div>
+                    <div class="team-header" id="away-batting-header">打撃成績</div>
+                    <div class="team-subheader">先発の成績は太字</div>
                     <div class="table-container">
                         <table class="stats-table">
                             <thead>
                                 <tr>
-                                    <th>Order</th>
-                                    <th>Pos</th>
-                                    <th>Player</th>
-                                    <th>AB</th>
-                                    <th>R</th>
-                                    <th>H</th>
-                                    <th>2B</th>
-                                    <th>3B</th>
-                                    <th>HR</th>
-                                    <th>RBI</th>
-                                    <th>BB</th>
-                                    <th>K</th>
+                                    <th>打順</th>
+                                    <th>守備</th>
+                                    <th>選手名</th>
+                                    <th>打数</th>
+                                    <th>得点</th>
+                                    <th>安打</th>
+                                    <th>二塁打</th>
+                                    <th>三塁打</th>
+                                    <th>本塁打</th>
+                                    <th>打点</th>
+                                    <th>四球</th>
+                                    <th>三振</th>
                                 </tr>
                             </thead>
                             <tbody id="away-batting-body">
@@ -801,21 +801,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 <!-- Away Team Pitching -->
                 <div class="team-section">
-                    <div class="team-header" id="away-pitching-header">Away Team Pitching</div>
+                    <div class="team-header" id="away-pitching-header">投手成績</div>
                     <div class="table-container">
                         <table class="stats-table pitching-table">
                             <thead>
                                 <tr>
-                                    <th>Player</th>
-                                    <th>IP</th>
-                                    <th>H</th>
-                                    <th>R</th>
-                                    <th>ER</th>
-                                    <th>BB</th>
-                                    <th>K</th>
-                                    <th>HR</th>
-                                    <th>TP</th>
-                                    <th>BF</th>
+                                    <th>選手名</th>
+                                    <th>投球回</th>
+                                    <th>被安打</th>
+                                    <th>失点</th>
+                                    <th>自責点</th>
+                                    <th>与四球</th>
+                                    <th>奪三振</th>
+                                    <th>被本塁打</th>
+                                    <th>投球数</th>
+                                    <th>打者数</th>
                                 </tr>
                             </thead>
                             <tbody id="away-pitching-body">
@@ -828,14 +828,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             <!-- Events Section -->
             <div class="stats-section hidden" id="events-section">
-                <h2>Play-by-Play</h2>
+                <h2>プレイバイプレイ</h2>
                 <div class="event-filters">
-                    <button class="event-filter-button active" data-filter="all">All Events</button>
-                    <button class="event-filter-button" data-filter="home-team" id="home-team-filter">Home Team</button>
-                    <button class="event-filter-button" data-filter="away-team" id="away-team-filter">Away Team</button>
-                    <button class="event-filter-button" data-filter="scoring">Scoring</button>
-                    <button class="event-filter-button" data-filter="risp">RISP</button>
-                    <button class="event-filter-button" data-filter="two-outs">2 Outs</button>
+                    <button class="event-filter-button active" data-filter="all">すべて</button>
+                    <button class="event-filter-button" data-filter="home-team" id="home-team-filter">ホーム</button>
+                    <button class="event-filter-button" data-filter="away-team" id="away-team-filter">ビジター</button>
+                    <button class="event-filter-button" data-filter="scoring">得点</button>
+                    <button class="event-filter-button" data-filter="risp">得点圏</button>
+                    <button class="event-filter-button" data-filter="two-outs">2アウト</button>
                 </div>
                 <div id="events-container">
                     <!-- Events will be populated here -->
@@ -848,7 +848,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script>
         // Get game ID from URL path
         const pathParts = window.location.pathname.split('/');
-        const gameId = pathParts.slice(2).join('/') || '2018/0330/g-t-01'; // Extract everything after /games/
+        const gameId = pathParts.slice(3).join('/') || '2018/0330/g-t-01'; // Extract everything after /jp/games/
         
         // API base URL
         const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
@@ -914,31 +914,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
         
         function populateGameData(game, batting, pitching) {
-            // Game header - English team names only on English page
-            const homeTeamLink = `<a href="${getTeamUrl(game.home_team_id)}" class="team-link">${game.home_team_name_en || game.home_team_name}</a>`;
-            const awayTeamLink = `<a href="${getTeamUrl(game.away_team_id)}" class="team-link">${game.away_team_name_en || game.away_team_name}</a>`;
+            // Game header - Japanese team names only on Japanese page
+            const homeTeamLink = `<a href="${getTeamUrl(game.home_team_id)}" class="team-link">${game.home_team_name || game.home_team_name_en}</a>`;
+            const awayTeamLink = `<a href="${getTeamUrl(game.away_team_id)}" class="team-link">${game.away_team_name || game.away_team_name_en}</a>`;
             const gameTitle = `${homeTeamLink} vs ${awayTeamLink}`;
-            // Game subtitle - English only: YYYY/MM/DD | GameTypeEn | Game X
+            // Game subtitle - Japanese only: YYYY/MM/DD | 日本語ゲーム種別 | 第X回戦
             const gameTypeEn = translateGameType(game.gametype);
             const gameNumber = game.game_number || 1;
-            const gameSubtitle = `${formatDate(game.date)} | ${gameTypeEn} | Game ${gameNumber}`;
+            const gameSubtitle = `${formatDate(game.date)} | ${game.gametype} | 第${gameNumber}回戦`;
             
             document.getElementById('game-title').innerHTML = gameTitle;
             document.getElementById('game-subtitle').textContent = gameSubtitle;
             
-            document.title = `${game.home_team_name_en || game.home_team_name} vs. ${game.away_team_name_en || game.away_team_name} - ${formatDate(game.date)} - yakyuu.jp`;
+            document.title = `${game.home_team_name || game.home_team_name_en} vs. ${game.away_team_name || game.away_team_name_en} - ${formatDate(game.date)} - yakyuu.jp`;
             
-            // Update navigation buttons
-            document.getElementById('home-team-button').textContent = `${game.home_team_name_en}`;
-            document.getElementById('away-team-button').textContent = `${game.away_team_name_en}`;
+            // Update navigation buttons (Japanese team names)
+            document.getElementById('home-team-button').textContent = `${game.home_team_name || game.home_team_name_en}`;
+            document.getElementById('away-team-button').textContent = `${game.away_team_name || game.away_team_name_en}`;
             
-            // Update section titles
-            document.getElementById('home-team-title').textContent = `${game.home_team_name_en} Statistics`;
-            document.getElementById('away-team-title').textContent = `${game.away_team_name_en} Statistics`;
-            document.getElementById('home-batting-header').textContent = `${game.home_team_name_en} Batting`;
-            document.getElementById('home-pitching-header').textContent = `${game.home_team_name_en} Pitching`;
-            document.getElementById('away-batting-header').textContent = `${game.away_team_name_en} Batting`;
-            document.getElementById('away-pitching-header').textContent = `${game.away_team_name_en} Pitching`;
+            // Update section titles and headers (Japanese team names)
+            document.getElementById('home-team-title').textContent = `${game.home_team_name || game.home_team_name_en} の成績`;
+            document.getElementById('away-team-title').textContent = `${game.away_team_name || game.away_team_name_en} の成績`;
+            document.getElementById('home-batting-header').textContent = `${game.home_team_name || game.home_team_name_en} 打撃`;
+            document.getElementById('home-pitching-header').textContent = `${game.home_team_name || game.home_team_name_en} 投手`;
+            document.getElementById('away-batting-header').textContent = `${game.away_team_name || game.away_team_name_en} 打撃`;
+            document.getElementById('away-pitching-header').textContent = `${game.away_team_name || game.away_team_name_en} 投手`;
             
             // Populate line score
             populateLineScore(game);
@@ -978,17 +978,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             // Create header
             const headerRow = document.createElement('tr');
-            headerRow.innerHTML = '<th>Team</th>';
+            headerRow.innerHTML = '<th>チーム</th>';
             for (let i = 1; i <= maxInnings; i++) {
                 headerRow.innerHTML += `<th>${i}</th>`;
             }
-            headerRow.innerHTML += '<th>R</th><th>H</th><th>E</th>';
+            headerRow.innerHTML += '<th>得点</th><th>安打</th><th>失策</th>';
             header.appendChild(headerRow);
             
             // Create away team row
             const awayRow = document.createElement('tr');
             const awayScore = game.winning_team_id === game.away_team_id ? 'winning-score' : '';
-            const awayTeamName = `<a href="${getTeamUrl(game.away_team_id)}" class="team-link">${game.away_team_name_en || game.away_team_name}</a>`;
+            const awayTeamName = `<a href="${getTeamUrl(game.away_team_id)}" class="team-link">${game.away_team_name || game.away_team_name_en}</a>`;
             awayRow.innerHTML = `<td class="team-name">${awayTeamName}</td>`;
             for (let i = 0; i < maxInnings; i++) {
                 const runs = game.line_score.visitor[i] !== undefined ? game.line_score.visitor[i] : '-';
@@ -1000,7 +1000,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             // Create home team row
             const homeRow = document.createElement('tr');
             const homeScore = game.winning_team_id === game.home_team_id ? 'winning-score' : '';
-            const homeTeamName = `<a href="${getTeamUrl(game.home_team_id)}" class="team-link">${game.home_team_name_en || game.home_team_name}</a>`;
+            const homeTeamName = `<a href="${getTeamUrl(game.home_team_id)}" class="team-link">${game.home_team_name || game.home_team_name_en}</a>`;
             homeRow.innerHTML = `<td class="team-name">${homeTeamName}</td>`;
             for (let i = 0; i < maxInnings; i++) {
                 const runs = game.line_score.home[i] !== undefined ? game.line_score.home[i] : '-';
@@ -1016,7 +1016,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             // Winning pitcher
             if (game.winning_pitcher_name) {
-                const winnerName = game.winning_pitcher_name_en || game.winning_pitcher_name;
+                const winnerName = game.winning_pitcher_name || game.winning_pitcher_name_en;
                 pitchersHtml += `
                     <span class="pitcher-info-inline">
                         <span class="pitcher-label-inline">W:</span>
@@ -1027,7 +1027,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             // Losing pitcher
             if (game.losing_pitcher_name) {
-                const loserName = game.losing_pitcher_name_en || game.losing_pitcher_name;
+                const loserName = game.losing_pitcher_name || game.losing_pitcher_name_en;
                 pitchersHtml += `
                     <span class="pitcher-info-inline">
                         <span class="pitcher-label-inline">L:</span>
@@ -1038,7 +1038,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             // Save pitcher
             if (game.save_pitcher_name) {
-                const saveName = game.save_pitcher_name_en || game.save_pitcher_name;
+                const saveName = game.save_pitcher_name || game.save_pitcher_name_en;
                 pitchersHtml += `
                     <span class="pitcher-info-inline">
                         <span class="pitcher-label-inline">S:</span>
@@ -1063,8 +1063,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     row.classList.add('starter-row');
                 }
                 
-                // Player name - English only on English page
-                const playerName = player.player_name_en || player.player_name || 'Unknown';
+                // Player name - Japanese only on Japanese page
+                const playerName = player.player_name || player.player_name_en || 'Unknown';
                 
                 // Display lineup position or dash for non-starters
                 const battingOrder = isStarter ? player.lineup_position : '-';
@@ -1102,8 +1102,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 const ip = formatInnings(player.ip);
                 
-                // Player name - English only on English page
-                const playerName = player.player_name_en || player.player_name || 'Unknown';
+                // Player name - Japanese only on Japanese page
+                const playerName = player.player_name || player.player_name_en || 'Unknown';
                 
                 row.innerHTML = `
                     <td class="player-name"><a href="${getPlayerUrl(player.player_id)}">${playerName}</a></td>
@@ -1174,10 +1174,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             // Store all events for filtering
             allEventsData = events;
             
-            // Update filter button labels with team names
+            // Update filter button labels with team names (Japanese names)
             if (gameData) {
-                document.getElementById('home-team-filter').textContent = gameData.home_team_name_en;
-                document.getElementById('away-team-filter').textContent = gameData.away_team_name_en;
+                document.getElementById('home-team-filter').textContent = gameData.home_team_name || gameData.home_team_name_en;
+                document.getElementById('away-team-filter').textContent = gameData.away_team_name || gameData.away_team_name_en;
             }
             
             // Apply current filters
@@ -1263,11 +1263,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         const halfNameJP = event.half === 'T' ? '表' : '裏';
                         const halfNameEN = event.half === 'T' ? 'Top' : 'Bottom';
                         const teamNameJP = event.half === 'T' ? 
-                            (gameData ? gameData.away_team_name : 'Away Team') : 
-                            (gameData ? gameData.home_team_name : 'Home Team');
+                            (gameData ? (gameData.away_team_name || gameData.away_team_name_en) : 'Away Team') : 
+                            (gameData ? (gameData.home_team_name || gameData.home_team_name_en) : 'Home Team');
                         const teamNameEN = event.half === 'T' ? 
-                            (gameData ? gameData.away_team_name_en : 'Away Team') : 
-                            (gameData ? gameData.home_team_name_en : 'Home Team');
+                            (gameData ? (gameData.away_team_name_en || gameData.away_team_name) : 'Away Team') : 
+                            (gameData ? (gameData.home_team_name_en || gameData.home_team_name) : 'Home Team');
                         
                         eventsWithAnnouncements.push({
                             type: 'half_inning_divider',
@@ -1306,7 +1306,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     // Update the last pitcher for this team
                     teamPitchers[team] = event.pitcher_id;
                     teamPitcherNames[team] = event.pitcher_name_en || event.pitcher_name;
-                    teamPitcherNamesJP[team] = event.pitcher_name;
+                    teamPitcherNamesJP[team] = event.pitcher_name || event.pitcher_name_en;
                 }
                 
                 eventsWithAnnouncements.push(event);
@@ -1317,12 +1317,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <table class="events-table">
                     <thead>
                         <tr>
-                            <th style="width: 220px;">Batter</th>
-                            <th style="width: 220px;">Pitcher</th>
-                            <th style="width: 25px;">Outs</th>
-                            <th style="width: 30px;">Count</th>
-                            <th style="width: 100px;">On Base</th>
-                            <th style="width: 350px;">Result</th>
+                            <th style="width: 220px;">打者</th>
+                            <th style="width: 220px;">投手</th>
+                            <th style="width: 25px;">アウト</th>
+                            <th style="width: 30px;">カウント</th>
+                            <th style="width: 100px;">走者</th>
+                            <th style="width: 350px;">結果</th>
                         </tr>
                     </thead>
                     <tbody>`;
@@ -1331,17 +1331,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 if (event.type === 'half_inning_divider') {
                     html += `
                         <tr class="half-inning-divider">
-                            <td colspan="6">${event.half_name_en} ${event.inning} (${event.team_name_en} batting)</td>
+                            <td colspan="6">${event.inning}回${event.half_name_jp}（${event.team_name_jp}の攻撃）</td>
                         </tr>`;
                 } else if (event.type === 'pitching_change') {
                     html += `
                         <tr class="pitching-change-row">
-                            <td colspan="6" style="text-align: center;">Pitching Change | ${event.old_pitcher_name_en || event.old_pitcher_name} → ${event.new_pitcher_name_en || event.new_pitcher_name}</td>
+                            <td colspan="6" style="text-align: center;">投手交代 | ${event.old_pitcher_name || event.old_pitcher_name_en} → ${event.new_pitcher_name || event.new_pitcher_name_en}</td>
                         </tr>`;
                 } else if (event.type === 'event') {
                     const resultClass = event.result.toLowerCase().replace(/\s+/g, '-');
-                    const rbiText = event.stats && event.stats.rbi > 0 ? ` (${event.stats.rbi} RBI)` : '';
-                    const resultWithRbi = event.result + rbiText;
                     
                     // Format on-base display
                     let onBaseDisplay = '';
@@ -1356,17 +1354,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         onBaseDisplay = bases.join(', ');
                     }
                     
-                    // English-only result for English page
-                    const resultEN = resultWithRbi;
-                                        
+                    // Japanese-only result for Japanese page
+                    const resultJP = getJapaneseResult(event.result);
+                    const rbiTextJP = event.stats && event.stats.rbi > 0 ? `（打点${event.stats.rbi}）` : '';
+                    const resultOnlyJP = `${resultJP}${rbiTextJP}`;
+                    
                     html += `
                         <tr>
-                            <td><a href="${getPlayerUrl(event.batter_id)}" class="player-link">${event.batter_name_en || event.batter_name}</a></td>
-                            <td><a href="${getPlayerUrl(event.pitcher_id)}" class="player-link">${event.pitcher_name_en || event.pitcher_name}</a></td>
+                            <td><a href="${getPlayerUrl(event.batter_id)}" class="player-link">${event.batter_name || event.batter_name_en}</a></td>
+                            <td><a href="${getPlayerUrl(event.pitcher_id)}" class="player-link">${event.pitcher_name || event.pitcher_name_en}</a></td>
                             <td>${event.outs}</td>
                             <td>${event.count || ''}</td>
                             <td>${onBaseDisplay}</td>
-                            <td><span class="event-result ${resultClass}">${resultEN}</span></td>
+                            <td><span class="event-result ${resultClass}">${resultOnlyJP}</span></td>
                         </tr>`;
                 }
             });
@@ -1435,8 +1435,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>Ballpark Details - yakyuu.jp</title>
+    <title>球場詳細 - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css" id="main-stylesheet">
     <style>
@@ -650,7 +650,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image" id="main-logo">
             </a>
         </div>
@@ -660,15 +660,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -768,7 +768,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <button>Wins</button>
                             <button>Losses</button>
                         </div>
-                        <div class="split-helper-text">Hold Ctrl/Cmd to select multiple splits (AND logic). For custom splits, visit <a href="/advanced">Advanced Stat Finder</a></div>
+                        <div class="split-helper-text">Hold Ctrl/Cmd to select multiple splits (AND logic). For custom splits, visit <a href="/jp/advanced">Advanced Stat Finder</a></div>
                     </div>
                     <h2>Batting Statistics</h2>
                     <div class="stats-container">
@@ -777,24 +777,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <table class="stats-table" id="ballpark-batting-basic-table" style="display: none;">
                                 <thead>
                                     <tr>
-                                        <th>Season</th>
-                                        <th>G</th>
-                                        <th>PA</th>
-                                        <th>AB</th>
-                                        <th>H</th>
-                                        <th>R</th>
-                                        <th>2B</th>
-                                        <th>3B</th>
-                                        <th>HR</th>
-                                        <th>TB</th>
-                                        <th>RBI</th>
-                                        <th>K</th>
-                                        <th>BB</th>
-                                        <th>HBP</th>
-                                        <th>SAC</th>
-                                        <th>GIDP</th>
-                                        <th>AVG</th>
-                                        <th>SLG</th>
+                                        <th>シーズン</th>
+                                        <th>試合</th>
+                                        <th>打席</th>
+                                        <th>打数</th>
+                                        <th>安打</th>
+                                        <th>得点</th>
+                                        <th>二塁打</th>
+                                        <th>三塁打</th>
+                                        <th>本塁打</th>
+                                        <th>塁打</th>
+                                        <th>打点</th>
+                                        <th>三振</th>
+                                        <th>四球</th>
+                                        <th>死球</th>
+                                        <th>犠打</th>
+                                        <th>併殺打</th>
+                                        <th>打率</th>
+                                        <th>長打率</th>
                                         <th>ISO</th>
                                         <th>BABIP</th>
                                     </tr>
@@ -815,27 +815,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <table class="stats-table" id="ballpark-pitching-basic-table" style="display: none;">
                                 <thead>
                                     <tr>
-                                        <th>Season</th>
-                                        <th>App</th>
-                                        <th>IP</th>
-                                        <th>W</th>
-                                        <th>L</th>
-                                        <th>SV</th>
-                                        <th>HLD</th>
-                                        <th>K</th>
-                                        <th>BB</th>
-                                        <th>BK</th>
-                                        <th>HBP</th>
-                                        <th>GIDP%</th>
-                                        <th>R</th>
-                                        <th>ER</th>
-                                        <th>H</th>
-                                        <th>2B</th>
-                                        <th>3B</th>
-                                        <th>HR</th>
-                                        <th>ERA</th>
+                                        <th>シーズン</th>
+                                        <th>登板</th>
+                                        <th>投球回</th>
+                                        <th>勝</th>
+                                        <th>敗</th>
+                                        <th>セーブ</th>
+                                        <th>ホールド</th>
+                                        <th>奪三振</th>
+                                        <th>与四球</th>
+                                        <th>ボーク</th>
+                                        <th>与死球</th>
+                                        <th>併殺誘発率</th>
+                                        <th>失点</th>
+                                        <th>自責点</th>
+                                        <th>被安打</th>
+                                        <th>被二塁打</th>
+                                        <th>被三塁打</th>
+                                        <th>被本塁打</th>
+                                        <th>防御率</th>
                                         <th>WHIP</th>
-                                        <th>BAA</th>
+                                        <th>被打率</th>
                                     </tr>
                                 </thead>
                                 <tbody id="ballpark-pitching-basic-tbody">
@@ -1018,7 +1018,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             // Basic info - combine Japanese and English names
             const parkName = ballpark.park_name || 'Unknown';
             const parkNameEn = ballpark.park_name_en || '';
-            const combinedName = parkNameEn ? `${parkNameEn}` : parkName;
+            const combinedName = parkNameEn ? `${parkName} (${parkNameEn})` : parkName;
             document.getElementById('ballpark-name').textContent = combinedName;
             document.getElementById('ballpark-city').textContent = ballpark.city || '-';
             
@@ -1153,8 +1153,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const date = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`;
             
             // Use the data from API with proper formatting
-            const homeTeam = `${game.home_team_name_en}`;
-            const awayTeam = `${game.away_team_name_en}`;
+            const homeTeam = game.home_team_name || game.home_team_name_en || '';
+            const awayTeam = game.away_team_name || game.away_team_name_en || '';
             const homeRuns = game.home_runs;
             const awayRuns = game.away_runs;
             const homeHits = game.home_hits || 0;
@@ -1175,14 +1175,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 '日本シリーズ': 'Japan Series'
             };
             const gameTypeEn = gameTypeMap[game.gametype] || game.gametype;
-            const gameTypeDisplay = `${gameTypeEn}`;
+            const gameTypeDisplay = `${game.gametype} (${gameTypeEn})`;
             
             // Format game number
-            const gameNumberDisplay = game.game_number ? `Game ${game.game_number}` : '';
+            const gameNumberDisplay = game.game_number ? `第${game.game_number}回戦 (Game ${game.game_number})` : '';
             
             // Format ballpark info (since this is a ballpark page, we can show the ballpark name)
             const ballparkDisplay = game.park_name && game.park_name_en ? 
-                `${game.park_name_en}` : 
+                `${game.park_name} (${game.park_name_en})` : 
                 (game.ballpark || '');
             
             // Create the game info header that will go in the table
@@ -1195,10 +1195,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <th colspan="4" class="game-info-header">${gameInfoHeader}</th>
                         </tr>
                         <tr>
-                            <th>Team</th>
-                            <th>R</th>
-                            <th>H</th>
-                            <th>E</th>
+                            <th>チーム</th>
+                            <th>得点</th>
+                            <th>安打</th>
+                            <th>失策</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1590,8 +1590,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 </body>

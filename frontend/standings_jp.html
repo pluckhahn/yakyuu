@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>Teams/Standings - yakyuu.jp</title>
+    <title>チーム／順位 - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css" id="main-stylesheet">
     <style>
@@ -406,7 +406,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image" id="main-logo">
             </a>
         </div>
@@ -416,15 +416,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams" class="active">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams" class="active">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -455,38 +455,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <main class="main-content">
         <div class="page-container">
             <div class="page-header">
-                <h1 class="page-title">Teams/Standings</h1>
+                <h1 class="page-title">チーム／順位</h1>
             </div>
 
             <!-- Standings Section -->
             <section class="standings-section">
-                <h2>League Standings</h2>
+                <h2>順位表</h2>
                 
                 <!-- Season Selector -->
                 <div class="season-selector">
-                    <label for="standings-season-select">Season:</label>
+                    <label for="standings-season-select">シーズン:</label>
                     <select id="standings-season-select" onchange="loadStandings()">
-                        <option value="">Loading seasons...</option>
+                        <option value="">シーズン読み込み中...</option>
                     </select>
                 </div>
                 
                 <div class="leagues-container">
                     <!-- Central League -->
                     <div class="league-standings">
-                        <h3 class="league-title">Central League</h3>
-                        <div id="central-standings-loading" class="loading">Loading standings...</div>
+                        <h3 class="league-title">セントラル・リーグ</h3>
+                        <div id="central-standings-loading" class="loading">順位表を読み込み中...</div>
                         <div id="central-standings-error" class="error" style="display: none;"></div>
                         <table class="standings-table" id="central-standings-table" style="display: none;">
                             <thead>
                                 <tr>
-                                    <th>Place</th>
-                                    <th>Team</th>
-                                    <th>G</th>
-                                    <th>W</th>
-                                    <th>L</th>
-                                    <th>T</th>
-                                    <th>WP</th>
-                                    <th>GB</th>
+                                    <th>順位</th>
+                                    <th>チーム</th>
+                                    <th>試合</th>
+                                    <th>勝</th>
+                                    <th>敗</th>
+                                    <th>分</th>
+                                    <th>勝率</th>
+                                    <th>ゲーム差</th>
                                 </tr>
                             </thead>
                             <tbody id="central-standings-body">
@@ -496,20 +496,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                     <!-- Pacific League -->
                     <div class="league-standings">
-                        <h3 class="league-title">Pacific League</h3>
-                        <div id="pacific-standings-loading" class="loading">Loading standings...</div>
+                        <h3 class="league-title">パシフィック・リーグ</h3>
+                        <div id="pacific-standings-loading" class="loading">順位表を読み込み中...</div>
                         <div id="pacific-standings-error" class="error" style="display: none;"></div>
                         <table class="standings-table" id="pacific-standings-table" style="display: none;">
                             <thead>
                                 <tr>
-                                    <th>Place</th>
-                                    <th>Team</th>
-                                    <th>G</th>
-                                    <th>W</th>
-                                    <th>L</th>
-                                    <th>T</th>
-                                    <th>WP</th>
-                                    <th>GB</th>
+                                    <th>順位</th>
+                                    <th>チーム</th>
+                                    <th>試合</th>
+                                    <th>勝</th>
+                                    <th>敗</th>
+                                    <th>分</th>
+                                    <th>勝率</th>
+                                    <th>ゲーム差</th>
                                 </tr>
                             </thead>
                             <tbody id="pacific-standings-body">
@@ -521,31 +521,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <!-- Team Stats Section -->
             <section class="team-stats-section">
-                <h2>Team Stats</h2>
+                <h2>チーム成績</h2>
                 
                 <!-- Season Toggle Buttons -->
                 <div class="toggle-buttons">
-                    <button id="current-season-btn" class="toggle-btn active" onclick="showCurrentSeason()">Current Season</button>
-                    <button id="all-time-btn" class="toggle-btn" onclick="showAllTime()">All-Time</button>
+                    <button id="current-season-btn" class="toggle-btn active" onclick="showCurrentSeason()">今シーズン</button>
+                    <button id="all-time-btn" class="toggle-btn" onclick="showAllTime()">通算</button>
                 </div>
                 
                 <!-- Stat Type Label and Toggle Buttons -->
                 <div class="stat-type-section">
-                    <label class="stat-type-label">Stat Type:</label>
+                    <label class="stat-type-label">成績タイプ:</label>
                     <div class="stat-type-buttons">
-                        <button id="batting-stats-btn" class="stat-type-btn active" onclick="showBattingStats()">Batting</button>
-                        <button id="pitching-stats-btn" class="stat-type-btn" onclick="showPitchingStats()">Pitching</button>
+                        <button id="batting-stats-btn" class="stat-type-btn active" onclick="showBattingStats()">打撃</button>
+                        <button id="pitching-stats-btn" class="stat-type-btn" onclick="showPitchingStats()">投手</button>
                     </div>
                 </div>
 
                 <!-- Loading State -->
                 <div id="team-stats-loading" class="loading">
-                    Loading team stats...
+                    チーム成績を読み込み中...
                 </div>
 
                 <!-- Error State -->
                 <div id="team-stats-error" class="error" style="display: none;">
-                    Error loading team stats
+                    チーム成績の読み込みに失敗しました
                 </div>
 
                 <!-- Batting Stats Table -->
@@ -553,25 +553,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <table class="stats-table" id="batting-stats-table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th class="sortable" data-column="g">G</th>
-                                <th class="sortable" data-column="pa">PA</th>
-                                <th class="sortable" data-column="ab">AB</th>
-                                <th class="sortable" data-column="h">H</th>
-                                <th class="sortable" data-column="r">R</th>
-                                <th class="sortable" data-column="doubles">2B</th>
-                                <th class="sortable" data-column="triples">3B</th>
-                                <th class="sortable" data-column="hr">HR</th>
-                                <th class="sortable" data-column="tb">TB</th>
-                                <th class="sortable" data-column="rbi">RBI</th>
-                                <th class="sortable" data-column="so">K</th>
-                                <th class="sortable" data-column="bb">BB</th>
-                                <th class="sortable" data-column="hbp">HBP</th>
-                                <th class="sortable" data-column="sac">SAC</th>
-                                <th class="sortable" data-column="gidp">GIDP</th>
-                                <th class="sortable" data-column="avg">AVG</th>
-                                <th class="sortable" data-column="slg">SLG</th>
-                                <th class="sortable" data-column="iso">ISO</th>
+                                <th>チーム名</th>
+                                <th class="sortable" data-column="g">試合</th>
+                                <th class="sortable" data-column="pa">打席</th>
+                                <th class="sortable" data-column="ab">打数</th>
+                                <th class="sortable" data-column="h">安打</th>
+                                <th class="sortable" data-column="r">得点</th>
+                                <th class="sortable" data-column="doubles">二塁打</th>
+                                <th class="sortable" data-column="triples">三塁打</th>
+                                <th class="sortable" data-column="hr">本塁打</th>
+                                <th class="sortable" data-column="tb">塁打</th>
+                                <th class="sortable" data-column="rbi">打点</th>
+                                <th class="sortable" data-column="so">三振</th>
+                                <th class="sortable" data-column="bb">四球</th>
+                                <th class="sortable" data-column="hbp">死球</th>
+                                <th class="sortable" data-column="sac">犠打</th>
+                                <th class="sortable" data-column="gidp">併殺打</th>
+                                <th class="sortable" data-column="avg">打率</th>
+                                <th class="sortable" data-column="slg">長打率</th>
+                                <th class="sortable" data-column="iso">ISO (アイエスオー)</th>
                                 <th class="sortable" data-column="babip">BABIP</th>
                             </tr>
                         </thead>
@@ -585,27 +585,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <table class="stats-table" id="pitching-stats-table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th class="sortable" data-column="app">App</th>
-                                <th class="sortable" data-column="ip">IP</th>
-                                <th class="sortable" data-column="w">W</th>
-                                <th class="sortable" data-column="l">L</th>
-                                <th class="sortable" data-column="sv">SV</th>
-                                <th class="sortable" data-column="hld">HLD</th>
-                                <th class="sortable" data-column="k">K</th>
-                                <th class="sortable" data-column="bb">BB</th>
-                                <th class="sortable" data-column="bk">BK</th>
-                                <th class="sortable" data-column="hbp">HBP</th>
-                                <th class="sortable" data-column="gidp_pct">GIDP%</th>
-                                <th class="sortable" data-column="r">R</th>
-                                <th class="sortable" data-column="er">ER</th>
-                                <th class="sortable" data-column="h">H</th>
-                                <th class="sortable" data-column="doubles">2B</th>
-                                <th class="sortable" data-column="triples">3B</th>
-                                <th class="sortable" data-column="hr">HR</th>
-                                <th class="sortable" data-column="era">ERA</th>
+                                <th>チーム名</th>
+                                <th class="sortable" data-column="app">登板</th>
+                                <th class="sortable" data-column="ip">投球回</th>
+                                <th class="sortable" data-column="w">勝</th>
+                                <th class="sortable" data-column="l">敗</th>
+                                <th class="sortable" data-column="sv">セーブ</th>
+                                <th class="sortable" data-column="hld">ホールド</th>
+                                <th class="sortable" data-column="k">奪三振</th>
+                                <th class="sortable" data-column="bb">与四球</th>
+                                <th class="sortable" data-column="bk">ボーク</th>
+                                <th class="sortable" data-column="hbp">与死球</th>
+                                <th class="sortable" data-column="gidp_pct">併殺誘発率</th>
+                                <th class="sortable" data-column="r">失点</th>
+                                <th class="sortable" data-column="er">自責点</th>
+                                <th class="sortable" data-column="h">被安打</th>
+                                <th class="sortable" data-column="doubles">被二塁打</th>
+                                <th class="sortable" data-column="triples">被三塁打</th>
+                                <th class="sortable" data-column="hr">被本塁打</th>
+                                <th class="sortable" data-column="era">防御率</th>
                                 <th class="sortable" data-column="whip">WHIP</th>
-                                <th class="sortable" data-column="baa">BAA</th>
+                                <th class="sortable" data-column="baa">被打率</th>
                             </tr>
                         </thead>
                         <tbody id="pitching-stats-tbody">
@@ -738,8 +738,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 // Format games behind
                 let gbDisplay = team.games_behind === 0 ? '—' : team.games_behind.toString();
                 
-                // Team name display (English only for better readability)
-                const teamDisplayName = team.team_name_en || team.team_name;
+                // Team name display (Japanese on JP page)
+                const teamDisplayName = team.team_name || team.team_name_en;
                 
                 row.innerHTML = `
                     <td class="place-number">${index + 1}</td>
@@ -892,7 +892,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 if (currentStatType === 'batting') {
                     row.innerHTML = `
-                        <td><a href="${getTeamUrl(team.team_id)}" class="team-name">${team.team_name_en || team.team_name}</a></td>
+                        <td><a href="${getTeamUrl(team.team_id)}" class="team-name">${team.team_name || team.team_name_en}</a></td>
                         <td>${team.g || 0}</td>
                         <td>${team.pa || 0}</td>
                         <td>${team.ab || 0}</td>
@@ -915,7 +915,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `;
                 } else {
                     row.innerHTML = `
-                        <td><a href="${getTeamUrl(team.team_id)}" class="team-name">${team.team_name_en || team.team_name}</a></td>
+                        <td><a href="${getTeamUrl(team.team_id)}" class="team-name">${team.team_name || team.team_name_en}</a></td>
                         <td>${team.app || 0}</td>
                         <td>${team.ip || '0.0'}</td>
                         <td>${team.w || 0}</td>
@@ -1001,8 +1001,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 </body>

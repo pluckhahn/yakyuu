@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>Ballparks - yakyuu.jp</title>
+    <title>球場 - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -320,7 +320,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image">
             </a>
         </div>
@@ -330,15 +330,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks" class="active">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks" class="active">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -369,37 +369,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <main class="page-container">
         <!-- Page Header -->
         <div class="page-header">
-            <h1 class="page-title">Ballparks</h1>
+            <h1 class="page-title">球場</h1>
         </div>
 
         <!-- Search Section -->
         <section class="search-section">
-            <h2>Ballpark Search</h2>
+            <h2>球場検索</h2>
             <div class="search-container">
-                <input type="text" class="search-bar" id="ballparkSearch" placeholder="Search for ballparks by name...">
-                <button class="search-button" onclick="searchBallparks()">Search</button>
+                <input type="text" class="search-bar" id="ballparkSearch" placeholder="名前で球場を検索...">
+                <button class="search-button" onclick="searchBallparks()">検索</button>
             </div>
             <div class="search-results" id="searchResults" style="display: none;"></div>
         </section>
 
         <!-- Stats Section -->
         <section class="stats-section">
-            <h2>Ballpark Stats</h2>
+            <h2>球場データ</h2>
             
             <!-- Toggle Buttons -->
             <div class="toggle-buttons">
-                <button id="current-season-btn" class="toggle-btn active" onclick="showCurrentSeason()">Current Season</button>
-                <button id="all-time-btn" class="toggle-btn" onclick="showAllTime()">All-Time</button>
+                <button id="current-season-btn" class="toggle-btn active" onclick="showCurrentSeason()">今シーズン</button>
+                <button id="all-time-btn" class="toggle-btn" onclick="showAllTime()">通算</button>
             </div>
 
             <!-- Loading State -->
             <div id="loading" class="loading">
-                Loading ballpark stats...
+                球場データを読み込み中...
             </div>
 
             <!-- Error State -->
             <div id="error" class="error" style="display: none;">
-                Error loading ballpark stats
+                データの読み込みに失敗しました
+            </div>
             </div>
 
             <!-- Stats Table -->
@@ -407,23 +408,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <table class="stats-table">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th class="sortable" data-column="g">G</th>
+                            <th>球場名</th>
+                            <th class="sortable" data-column="g">試合</th>
                             <th class="sortable" data-column="pf">PF</th>
-                            <th class="sortable" data-column="pa">PA</th>
-                            <th class="sortable" data-column="ab">AB</th>
-                            <th class="sortable" data-column="h">H</th>
-                            <th class="sortable" data-column="r">R</th>
-                            <th class="sortable" data-column="hr">HR</th>
-                            <th class="sortable" data-column="rbi">RBI</th>
-                            <th class="sortable" data-column="k">K</th>
-                            <th class="sortable" data-column="bb">BB</th>
-                            <th class="sortable" data-column="avg">AVG</th>
-                            <th class="sortable" data-column="slg">SLG</th>
+                            <th class="sortable" data-column="pa">打席</th>
+                            <th class="sortable" data-column="ab">打数</th>
+                            <th class="sortable" data-column="h">安打</th>
+                            <th class="sortable" data-column="r">得点</th>
+                            <th class="sortable" data-column="hr">本塁打</th>
+                            <th class="sortable" data-column="rbi">打点</th>
+                            <th class="sortable" data-column="k">三振</th>
+                            <th class="sortable" data-column="bb">四球</th>
+                            <th class="sortable" data-column="avg">打率</th>
+                            <th class="sortable" data-column="slg">長打率</th>
                             <th class="sortable" data-column="babip">BABIP</th>
-                            <th class="sortable" data-column="era">ERA</th>
+                            <th class="sortable" data-column="era">防御率</th>
                             <th class="sortable" data-column="whip">WHIP</th>
-                            <th class="sortable" data-column="ip">IP</th>
+                            <th class="sortable" data-column="ip">投球回</th>
                         </tr>
                     </thead>
                     <tbody id="stats-tbody">
@@ -436,6 +437,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <script>
         const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        
+        // Helper function to get language-aware URL prefix
+        function getLangPrefix() {
+            const currentPath = window.location.pathname;
+            return currentPath.startsWith('/jp/') ? '/jp' : '';
+        }
+        
+        // Helper function to create language-aware links
+        function getPlayerUrl(playerId) {
+            return `${getLangPrefix()}/players/${playerId}`;
+        }
+        
+        function getTeamUrl(teamId) {
+            return `${getLangPrefix()}/teams/${teamId}`;
+        }
+        
+        function getGameUrl(gameId) {
+            return `${getLangPrefix()}/games/${gameId}`;
+        }
+        
+        function getBallparkUrl(ballparkName) {
+            return `${getLangPrefix()}/ballparks/${encodeURIComponent(ballparkName)}`;
+        }
+        
         let allBallparksForSearch = [];
         let currentStatsData = [];
         let currentSeason = 'current';
@@ -519,7 +544,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             };
             
             row.innerHTML = `
-                <td onclick="goToBallpark('${ballpark.name}')">${ballpark.name || 'Unknown'}</td>
+                <td onclick="goToBallpark('${ballpark.name}')">${ballpark.name_jp || ballpark.name || '不明'}</td>
                 <td>${formatNumber(ballpark.g)}</td>
                 <td>${formatNumber(ballpark.pf, 3)}</td>
                 <td>${formatNumber(ballpark.pa)}</td>
@@ -577,13 +602,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             });
             
             if (filteredBallparks.length === 0) {
-                resultsContainer.innerHTML = '<div style="padding: 1rem; text-align: center; color: #666;">No ballparks found</div>';
+                resultsContainer.innerHTML = '<div style="padding: 1rem; text-align: center; color: #666;">球場が見つかりませんでした</div>';
             } else {
                 resultsContainer.innerHTML = filteredBallparks.map(ballpark => `
-                    <a href="/ballparks/${encodeURIComponent(ballpark.park_name_en || ballpark.park_name)}" class="search-result-item">
-                        <div class="search-result-name">${ballpark.park_name || 'Unknown'}</div>
+                    <a href="${getBallparkUrl(ballpark.park_name_en || ballpark.park_name)}" class="search-result-item">
+                        <div class="search-result-name">${ballpark.park_name_jp || ballpark.park_name || '不明'}</div>
                         <div class="search-result-details">
-                            ${ballpark.park_name_en ? ballpark.park_name_en + ' • ' : ''}${ballpark.city || ''} • ${ballpark.team_name_en || ballpark.team_name || 'No home team'}
+                            ${ballpark.park_name_en ? ballpark.park_name_en + ' • ' : ''}${ballpark.city || ''} • ${ballpark.team_name || ballpark.team_name_en || 'ホームチームなし'}
                         </div>
                     </a>
                 `).join('');
@@ -594,7 +619,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
         // Navigate to ballpark page
         function goToBallpark(ballparkName) {
-            window.location.href = `/ballparks/${encodeURIComponent(ballparkName)}`;
+            window.location.href = getBallparkUrl(ballparkName);
         }
         
         // Sorting functionality
@@ -681,8 +706,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>Player Name - yakyuu.jp</title>
+    <title>選手 - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css" id="main-stylesheet">
     <style>
@@ -427,7 +427,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image" id="main-logo">
             </a>
         </div>
@@ -437,15 +437,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -479,33 +479,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
         <!-- Metadata Section -->
         <div class="metadata-section">
-            <h2>Player Information</h2>
+            <h2>選手情報</h2>
             <div class="metadata-grid" id="metadata-grid">
-                <div class="loading">Loading player information...</div>
+                <div class="loading">選手情報を読み込み中...</div>
             </div>
         </div>
         
                            <!-- Table Toggle -->
           <div class="table-toggle">
               <div class="toggle-section">
-                  <div class="section-label">Stat Type</div>
+                  <div class="section-label">成績種類</div>
                   <div>
-                      <button class="toggle-button active" data-table="batting">Batting Statistics</button>
-                      <button class="toggle-button" data-table="pitching">Pitching Statistics</button>
+                      <button class="toggle-button active" data-table="batting">打撃成績</button>
+                      <button class="toggle-button" data-table="pitching">投手成績</button>
                   </div>
               </div>
               
                              <div class="toggle-section game-type-section">
-                   <div class="section-label">Game Type</div>
+                   <div class="section-label">試合種類</div>
                    <div class="game-type-toggle">
                       <div class="game-type-row">
-                          <button class="game-type-button active" data-game-type="公式戦">Regular Season</button>
-                          <button class="game-type-button" data-game-type="オールスターゲーム">All-Star Game</button>
+                          <button class="game-type-button active" data-game-type="公式戦">公式戦</button>
+                          <button class="game-type-button" data-game-type="オールスターゲーム">オールスターゲーム</button>
                       </div>
                       <div class="game-type-row">
-                          <button class="game-type-button" data-game-type="ファーストステージ">Postseason First</button>
-                          <button class="game-type-button" data-game-type="ファイナルステージ">Postseason Final</button>
-                          <button class="game-type-button" data-game-type="日本シリーズ">Japan Series</button>
+                          <button class="game-type-button" data-game-type="ファーストステージ">ファーストステージ</button>
+                          <button class="game-type-button" data-game-type="ファイナルステージ">ファイナルステージ</button>
+                          <button class="game-type-button" data-game-type="日本シリーズ">日本シリーズ</button>
                       </div>
                   </div>
               </div>
@@ -514,45 +514,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  <!-- Batting Stats Section -->
          <div class="table-section" id="batting-section">
                                                                                                                                                                        <div class="toggle-section">
-                     <div class="section-label">Split</div>
+                     <div class="section-label">区分</div>
                      
                      <div class="split-toggle">
-                         <button class="active">Overall</button>
-                         <button>Home</button>
-                         <button>Road</button>
-                         <button>Wins</button>
-                         <button>Losses</button>
+                         <button class="active">全体</button>
+                         <button>主催</button>
+                         <button>ビジター</button>
+                         <button>勝利</button>
+                         <button>敗戦</button>
                      </div>
                      
-                     <div class="split-helper-text">Hold Ctrl/Cmd to select multiple splits (combines with AND logic). To create custom or event-level splits, visit <a href="/advanced">Advanced Stat Finder</a></div>
+                     <div class="split-helper-text">Ctrl/Cmd を押したまま複数の区分を選択できます（AND 条件で組み合わせ）。カスタムまたは試合単位の区分を作成するには<a href="/jp/advanced">詳細成績検索</a>をご利用ください。</div>
                  </div>
               
-                          <h2>Batting Statistics</h2>
+                          <h2>打撃成績</h2>
              
              <div class="stats-container">
                  <div class="basic-stats">
-                     <div class="stats-title">Basic Statistics</div>
+                     <div class="stats-title">基本成績</div>
                      <div class="loading" id="batting-basic-loading">Loading basic statistics...</div>
                      <table class="stats-table" id="batting-basic-table" style="display: none;">
                                                    <thead>
                               <tr>
-                                  <th>Season</th>
-                                  <th>G</th>
-                                  <th>PA</th>
-                                  <th>AB</th>
-                                  <th>H</th>
-                                  <th>R</th>
-                                  <th>2B</th>
-                                  <th>3B</th>
-                                  <th>HR</th>
-                                  <th>RBI</th>
-                                  <th>K</th>
-                                  <th>BB</th>
-                                  <th>HBP</th>
-                                  <th>SAC</th>
-                                                                     <th>GIDP</th>
-                                   <th>AVG</th>
-                                   <th>SLG</th>
+                                  <th>シーズン</th>
+                                  <th>試合</th>
+                                  <th>打席</th>
+                                  <th>打数</th>
+                                  <th>安打</th>
+                                  <th>得点</th>
+                                  <th>二塁打</th>
+                                  <th>三塁打</th>
+                                  <th>本塁打</th>
+                                  <th>打点</th>
+                                  <th>三振</th>
+                                  <th>四球</th>
+                                  <th>死球</th>
+                                  <th>犠打</th>
+                                                                     <th>併殺打</th>
+                                   <th>打率</th>
+                                   <th>長打率</th>
                               </tr>
                           </thead>
                          <tbody id="batting-basic-tbody">
@@ -561,18 +561,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  </div>
                  
                  <div class="advanced-stats">
-                     <div class="stats-title">Advanced Statistics</div>
+                     <div class="stats-title">詳細成績</div>
                      <div class="loading" id="batting-advanced-loading">Loading advanced statistics...</div>
                      <table class="stats-table" id="batting-advanced-table" style="display: none;">
                          <thead>
                              <tr>
-                                 <th>Season</th>
-                                 <th>K%</th>
-                                 <th>BB%</th>
+                                 <th>シーズン</th>
+                                 <th>三振率</th>
+                                 <th>四球率</th>
                                  <th>FO%</th>
                                  <th>GO%</th>
-                                 <th>XBH%</th>
-                                 <th>TB</th>
+                                 <th>長打割合</th>
+                                 <th>塁打</th>
                                  <th>wRC+</th>
                                  <th>wOBA</th>
                                  <th>ISO</th>
@@ -601,38 +601,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                          <button>Losses</button>
                      </div>
                      
-                     <div class="split-helper-text">Hold Ctrl/Cmd to select multiple splits (combines with AND logic). To create custom or event-level splits, visit <a href="/advanced">Advanced Stat Finder</a></div>
+                     <div class="split-helper-text">Ctrl/Cmd を押したまま複数の区分を選択できます（AND 条件で組み合わせ）。カスタムまたは試合単位の区分を作成するには<a href="/jp/advanced">詳細成績検索</a>をご利用ください。</div>
                  </div>
               
-                          <h2>Pitching Statistics</h2>
+                          <h2>投手成績</h2>
              
              <div class="stats-container">
                  <div class="basic-stats">
-                     <div class="stats-title">Basic Statistics</div>
+                     <div class="stats-title">基本成績</div>
                      <div class="loading" id="pitching-basic-loading">Loading basic statistics...</div>
                      <table class="stats-table" id="pitching-basic-table" style="display: none;">
                          <thead>
                              <tr>
-                                 <th>Season</th>
-                                 <th>App</th>
-                                 <th>IP</th>
-                                 <th>GS</th>
-                                 <th>GF</th>
-                                 <th>CG</th>
-                                 <th>SHO</th>
-                                 <th>W</th>
-                                 <th>L</th>
-                                 <th>W%</th>
-                                 <th>SV</th>
-                                 <th>HLD</th>
-                                 <th>K</th>
-                                 <th>BB</th>
-                                 <th>HBP</th>
-                                 <th>R</th>
-                                 <th>ER</th>
-                                 <th>H</th>
-                                 <th>HR</th>
-                                 <th>ERA</th>
+                                 <th>シーズン</th>
+                                 <th>登板</th>
+                                 <th>投球回</th>
+                                 <th>先発</th>
+                                 <th>救援完了</th>
+                                 <th>完投</th>
+                                 <th>完封</th>
+                                 <th>勝</th>
+                                 <th>敗</th>
+                                 <th>勝率</th>
+                                 <th>セーブ</th>
+                                 <th>ホールド</th>
+                                 <th>奪三振</th>
+                                 <th>与四球</th>
+                                 <th>与死球</th>
+                                 <th>失点</th>
+                                 <th>自責点</th>
+                                 <th>被安打</th>
+                                 <th>被本塁打</th>
+                                 <th>防御率</th>
                                  <th>WHIP</th>
                              </tr>
                          </thead>
@@ -642,23 +642,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  </div>
                  
                  <div class="advanced-stats">
-                     <div class="stats-title">Advanced Statistics</div>
+                     <div class="stats-title">詳細成績</div>
                      <div class="loading" id="pitching-advanced-loading">Loading advanced statistics...</div>
                      <table class="stats-table" id="pitching-advanced-table" style="display: none;">
                          <thead>
                              <tr>
-                                 <th>Season</th>
-                                 <th>BK</th>
-                                 <th>2B</th>
-                                 <th>3B</th>
+                                 <th>シーズン</th>
+                                 <th>ボーク</th>
+                                 <th>被二塁打</th>
+                                 <th>被三塁打</th>
                                  <th>HR/9</th>
                                  <th>K/9</th>
                                  <th>BB/9</th>
                                  <th>FO%</th>
                                  <th>GO%</th>
-                                 <th>GIDP%</th>
+                                 <th>併殺誘発率</th>
                                  <th>FIP</th>
-                                 <th>BAA</th>
+                                 <th>被打率</th>
                                  <th>ERA+</th>
                                  <th>BABIP</th>
                              </tr>
@@ -813,11 +813,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     const teamEnglish = player.team_name_en || '';
                     
                     // Build display name with team information
-                    let displayName = englishName || kanjiName || '';
-                    if (teamEnglish) {
-                        displayName += ` | ${teamEnglish}`;
-                    } else if (teamKanji) {
+                    let displayName = kanjiName || englishName || '';
+                    if (teamKanji) {
                         displayName += ` | ${teamKanji}`;
+                    } else if (teamEnglish) {
+                        displayName += ` | ${teamEnglish}`;
                     }
                     
                     document.getElementById('player-name').textContent = displayName;
@@ -828,36 +828,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     const metadataGrid = document.getElementById('metadata-grid');
                                          metadataGrid.innerHTML = `
                          <div class="metadata-item">
-                             <div class="metadata-label">Bats</div>
+                             <div class="metadata-label">打</div>
                              <div class="metadata-value">${player.bat || 'N/A'}</div>
                          </div>
                          <div class="metadata-item">
-                             <div class="metadata-label">Throws</div>
+                             <div class="metadata-label">投</div>
                              <div class="metadata-value">${player.throw || 'N/A'}</div>
                          </div>
                          <div class="metadata-item">
-                             <div class="metadata-label">Position</div>
+                             <div class="metadata-label">ポジション</div>
                              <div class="metadata-value">${player.position || 'N/A'}</div>
                          </div>
                          <div class="metadata-item">
-                             <div class="metadata-label">Height</div>
-                             <div class="metadata-value">${player.height ? player.height + ' cm' : 'N/A'}</div>
+                             <div class="metadata-label">身長</div>
+                             <div class="metadata-value">${player.height ? player.height + 'cm' : 'N/A'}</div>
                          </div>
                          <div class="metadata-item">
-                             <div class="metadata-label">Weight</div>
-                             <div class="metadata-value">${player.weight ? player.weight + ' kg' : 'N/A'}</div>
+                             <div class="metadata-label">体重</div>
+                             <div class="metadata-value">${player.weight ? player.weight + 'kg' : 'N/A'}</div>
                          </div>
                          <div class="metadata-item">
-                             <div class="metadata-label">Birth Date</div>
+                             <div class="metadata-label">生年月日</div>
                              <div class="metadata-value">${player.birthdate || 'N/A'}</div>
                          </div>
                      `;
                 } else {
-                    metadataGrid.innerHTML = '<div class="error">Failed to load player information</div>';
+                    metadataGrid.innerHTML = '<div class="error">選手情報の読み込みに失敗しました</div>';
                 }
             } catch (error) {
                 console.error('Error loading player metadata:', error);
-                document.getElementById('metadata-grid').innerHTML = '<div class="error">Error loading player information</div>';
+                document.getElementById('metadata-grid').innerHTML = '<div class="error">選手情報の読み込みでエラーが発生しました</div>';
             }
         }
         
@@ -1290,8 +1290,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>About - yakyuu.jp</title>
+    <title>このサイトについて - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -80,7 +80,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp/" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image">
             </a>
         </div>
@@ -90,15 +90,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about" class="active">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about" class="active">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -108,14 +108,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const currentPath = window.location.pathname;
             const search = window.location.search;
             const hash = window.location.hash;
+            
             let newPath;
             if (currentPath.startsWith('/jp/')) {
+                // Remove /jp/ prefix to go to English version
                 newPath = currentPath.replace('/jp/', '/');
             } else if (currentPath === '/jp') {
+                // Special case for /jp (no trailing slash)
                 newPath = '/';
             } else {
+                // Add /jp/ prefix to go to Japanese version
                 newPath = '/jp' + currentPath;
             }
+            
             window.location.href = newPath + search + hash;
         }
     </script>
@@ -125,25 +130,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="page-container">
             <!-- Page Header -->
             <div class="page-header">
-                <h1 class="page-title">About yakyuu.jp</h1>
+                <h1 class="page-title">yakyuu.jpについて</h1>
                 <p class="page-subtitle"></p>
             </div>
+            
+            <p class="main-text" style="margin-bottom: 2rem; font-size: 1rem; color: #555; text-align: center; font-style: italic;">
+                私はアメリカ人で、日本語はまだ勉強中です。このページは自分の言葉で書きたかったので、英語で書いてから翻訳しました。読みにくい点があれば申し訳ございません。
+            </p>
             
             <!-- Main Content Text -->
             <div class="main-text">
                 <p>
-                    All underlying data for this site is owned by Nippon Professional Baseball
-                     and has been compiled independently by yakyuu.jp. Users are free to use this site and its underlying 
-                     data for all purposes.
+                    このサイトの基となるデータはすべて日本野球機構（NPB）が所有しており、yakyuu.jp が独自に収集・整理したものです。利用者はこのサイトおよびそのデータをあらゆる目的で自由にご利用いただけます。
                 </p>
                 
                 <p>
-                    yakyuu.jp was created in 2025 with the goal of fulfilling three important qualities: comprehensiveness, accuracy, and ease-of-use. yakyuu.jp is the only resource that provides integrated player, game, and team pages with advanced statistics, splits, and play-by-play data, as well as automated FIP and wOBA constants, dynamic qualifiers, and regressed park factors. Additionally, yakyuu.jp offers an advanced stat finder that allows users to combine game and event-level filters with customizable statistical thresholds to execute virtually any query.
-                </p>
-                
-                <p>
-                   
-                </p>
+                    yakyuu.jp は 2025 年に、三つの柱——網羅性、正確さ、使いやすさ——を実現することを目指して立ち上げられました。選手・試合・チームの各ページを統合し、詳細な成績・区分・プレイバイプレイデータに加え、FIP や wOBA の定数、動的な出場資格、回帰された球場係数まで提供しているのは yakyuu.jp だけです。さらに、試合単位・打席単位のフィルターと統計のしきい値を組み合わせて、ほぼあらゆる検索ができる詳細成績検索も用意しています。
                 </p>
             </div>
         </div>
@@ -153,8 +155,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p>Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 

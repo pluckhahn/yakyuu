@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>Games - yakyuu.jp</title>
+    <title>試合 - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -947,7 +947,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image">
             </a>
         </div>
@@ -957,15 +957,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games" class="active">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games" class="active">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -996,7 +996,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <main class="page-container">
         <!-- Page Header -->
         <div style="text-align: center; margin-bottom: 3rem;">
-            <h1 style="font-size: 3rem; font-weight: bold; color: #BC002D; margin: 0;">Games</h1>
+            <h1 style="font-size: 3rem; font-weight: bold; color: #BC002D; margin: 0;">試合</h1>
         </div>
 
         <!-- Recent Games Section -->
@@ -1004,7 +1004,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             <div class="date-selector-container">
                 <div class="toggle-section">
-                    <div class="section-label">Game Date</div>
+                    <div class="section-label">試合日</div>
                     <div class="date-controls">
                         <input type="date" id="game-date-picker" class="date-picker">
                     </div>
@@ -1112,20 +1112,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <table id="advanced-games-table" class="advanced-table">
                         <thead>
                             <tr>
-                                <th class="sortable" data-sort="date">Date <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="home_team">Home Team <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="away_team">Away Team <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="home_score">Home Score <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="away_score">Away Score <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="game_number">Game # <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="ballpark">Ballpark <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="game_type">Type <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="attendance">Attendance <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="home_hits">Home Hits <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="away_hits">Away Hits <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="home_errors">Home Errors <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="away_errors">Away Errors <span class="sort-indicator"></span></th>
-                                <th class="sortable" data-sort="duration_minutes">Duration (min) <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="date">日付 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="home_team">ホーム <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="away_team">ビジター <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="home_score">ホーム得点 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="away_score">ビジター得点 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="game_number">回戦 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="ballpark">球場 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="game_type">種類 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="attendance">観客数 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="home_hits">ホーム安打 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="away_hits">ビジター安打 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="home_errors">ホーム失策 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="away_errors">ビジター失策 <span class="sort-indicator"></span></th>
+                                <th class="sortable" data-sort="duration_minutes">試合時間（分） <span class="sort-indicator"></span></th>
                             </tr>
                         </thead>
                         <tbody id="advanced-games-tbody">
@@ -1269,9 +1269,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 const dateParts = game.date.split('-');
                 const date = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`;
                 
-                // Use the enhanced API data structure
-                const homeTeam = game.home_team || 'Home Team';
-                const awayTeam = game.away_team || 'Away Team';
+                // Team names - prefer Japanese fields on JP page
+                const homeTeam = game.home_team_jp || game.home_team || 'Home Team';
+                const awayTeam = game.away_team_jp || game.away_team || 'Away Team';
                 const homeRuns = game.home_runs || 0;
                 const awayRuns = game.visitor_runs || 0;
                 const homeHits = game.home_hits || 0;
@@ -1292,12 +1292,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     '日本シリーズ': 'Japan Series'
                 };
                 const gameTypeEn = gameTypeMap[game.gametype] || game.gametype;
-                const gameTypeDisplay = game.gametype ? `${gameTypeEn}` : '';
+                const gameTypeDisplay = game.gametype ? `${game.gametype}` : '';
                 
                 // Format ballpark info
-                const ballparkDisplay = game.park_name_en ? 
-                `${game.park_name_en}` : 
-                (game.ballpark || '');
+                const ballparkDisplay = game.ballpark || '';
                 
                 // Create the game info header
                 const gameInfoHeader = `${date}${gameTypeDisplay ? ' | ' + gameTypeDisplay : ''}${ballparkDisplay ? ' | ' + ballparkDisplay : ''}`;
@@ -1309,10 +1307,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <th colspan="4" class="game-info-header">${gameInfoHeader}</th>
                             </tr>
                             <tr>
-                                <th>Team</th>
-                                <th>R</th>
-                                <th>H</th>
-                                <th>E</th>
+                                <th>チーム</th>
+                                <th>得点</th>
+                                <th>安打</th>
+                                <th>失策</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -2304,8 +2302,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 </body>

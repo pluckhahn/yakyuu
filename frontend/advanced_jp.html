@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>Advanced Stat Finder - yakyuu.jp</title>
+    <title>詳細成績検索 - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -671,7 +671,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image">
             </a>
         </div>
@@ -681,15 +681,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced" class="active">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced" class="active">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -720,97 +720,97 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <main class="page-container">
         <!-- Page Header -->
         <div class="page-header">
-            <h1 class="page-title">Advanced Stat Finder</h1>
+            <h1 class="page-title">詳細成績検索</h1>
         </div>
 
         <!-- Main Action Buttons -->
         <div class="main-action-buttons">
-            <button class="main-btn active" id="individual-toggle">Individual Stats</button>
-            <button class="main-btn" id="team-toggle">Team Stats</button>
-            <button class="main-btn active" id="batting-toggle">Batting Stats</button>
-            <button class="main-btn" id="pitching-toggle">Pitching Stats</button>
-            <button class="main-btn" id="apply-filters-btn">Apply Filters</button>
+            <button class="main-btn active" id="individual-toggle">個人成績</button>
+            <button class="main-btn" id="team-toggle">チーム成績</button>
+            <button class="main-btn active" id="batting-toggle">打撃成績</button>
+            <button class="main-btn" id="pitching-toggle">投手成績</button>
+            <button class="main-btn" id="apply-filters-btn">条件を適用</button>
         </div>
 
         <!-- Game Filters -->
         <div class="filter-controls">
-            <h3 class="filter-section-title">Game Filters</h3>
+            <h3 class="filter-section-title">試合フィルター</h3>
             <div class="filter-grid">
-                <button class="filter-button" id="game-types-btn">Game Types</button>
-                <button class="filter-button" id="splits-btn">Splits</button>
-                <button class="filter-button" id="date-range-btn">Date Range</button>
-                <button class="filter-button" id="ballpark-btn">Ballpark</button>
-                <button class="filter-button" id="attendance-btn">Attendance</button>
-                <button class="filter-button" id="start-time-btn">Start Time</button>
-                <button class="filter-button" id="season-toggle">Season by Season</button>
-                <button class="filter-button active" id="career-toggle">Career Totals</button>
+                <button class="filter-button" id="game-types-btn">試合種類</button>
+                <button class="filter-button" id="splits-btn">区分</button>
+                <button class="filter-button" id="date-range-btn">期間</button>
+                <button class="filter-button" id="ballpark-btn">球場</button>
+                <button class="filter-button" id="attendance-btn">観客数</button>
+                <button class="filter-button" id="start-time-btn">開始時刻</button>
+                <button class="filter-button" id="season-toggle">シーズン別</button>
+                <button class="filter-button active" id="career-toggle">通算</button>
             </div>
         </div>
 
         <!-- Situational Filters -->
         <div class="filter-controls" id="situational-filters-section">
-            <h3 class="filter-section-title">Situational Filters (Batting Only)</h3>
+            <h3 class="filter-section-title">場面フィルター（打撃のみ）</h3>
             <div class="filter-grid">
-                <button class="filter-button" id="inning-btn">Inning</button>
-                <button class="filter-button" id="outs-btn">Outs</button>
-                <button class="filter-button" id="on-base-btn">On Base</button>
-                <button class="filter-button" id="count-btn">Count</button>
-                <button class="filter-button" id="handedness-btn">Handedness</button>
+                <button class="filter-button" id="inning-btn">回</button>
+                <button class="filter-button" id="outs-btn">アウト</button>
+                <button class="filter-button" id="on-base-btn">走者</button>
+                <button class="filter-button" id="count-btn">カウント</button>
+                <button class="filter-button" id="handedness-btn">利き</button>
             </div>
         </div>
 
         <!-- Qualifiers -->
         <div class="filter-controls" id="qualifiers-section">
-            <h3 class="filter-section-title">Qualifiers (Individual Only)</h3>
+            <h3 class="filter-section-title">出場資格（個人のみ）</h3>
             <div class="filter-grid">
-                <button class="filter-button active has-values" id="ab-btn">At Bats (AB): 100+</button>
-                <button class="filter-button" id="g-btn">Games (G)</button>
+                <button class="filter-button active has-values" id="ab-btn">打数：100以上</button>
+                <button class="filter-button" id="g-btn">試合 (G)</button>
 
-                <button class="filter-button" id="ip-btn">Innings Pitched (IP)</button>
-                <button class="filter-button" id="pa-btn">Plate Appearances (PA)</button>
-                <button class="filter-button" id="h-btn">Hits (H)</button>
-                <button class="filter-button" id="avg-btn">Batting Average (AVG)</button>
-                <button class="filter-button" id="era-btn">ERA</button>
+                <button class="filter-button" id="ip-btn">投球回 (IP)</button>
+                <button class="filter-button" id="pa-btn">打席 (PA)</button>
+                <button class="filter-button" id="h-btn">安打 (H)</button>
+                <button class="filter-button" id="avg-btn">打率 (AVG)</button>
+                <button class="filter-button" id="era-btn">防御率 (ERA)</button>
             </div>
         </div>
 
         <!-- Results Section -->
         <div class="results-section" id="results-section">
-            <h2 class="results-title">NPB Player Statistics</h2>
-            <div class="loading" id="loading" style="display: none;">Loading player statistics...</div>
-            <div class="no-results" id="no-results" style="display: block;">To view statistics, select filters and press the 'Apply Filters' button at the top of the page.</div>
+            <h2 class="results-title">NPB 選手成績</h2>
+            <div class="loading" id="loading" style="display: none;">成績を読み込み中...</div>
+            <div class="no-results" id="no-results" style="display: block;">条件を選んで上にある「条件を適用」を押すと成績が表示されます。</div>
             
             <!-- Batting Results Table -->
             <div class="table-container" id="batting-container">
                 <table class="stats-table" id="batting-results">
                     <thead>
                         <tr>
-                            <th class="sortable" data-column="season">Season</th>
-                            <th class="sortable" data-column="name">Name</th>
-                            <th class="sortable" data-column="g" id="g-header">G</th>
-                            <th class="sortable" data-column="pa">PA</th>
-                            <th class="sortable" data-column="ab">AB</th>
-                            <th class="sortable" data-column="h">H</th>
-                            <th class="sortable" data-column="r" id="batting-r-header">R</th>
-                            <th class="sortable" data-column="doubles">2B</th>
-                            <th class="sortable" data-column="triples">3B</th>
-                            <th class="sortable" data-column="hr">HR</th>
-                            <th class="sortable" data-column="tb">TB</th>
-                            <th class="sortable" data-column="rbi">RBI</th>
-                            <th class="sortable" data-column="k">K</th>
-                            <th class="sortable" data-column="bb">BB</th>
-                            <th class="sortable" data-column="hbp">HBP</th>
-                            <th class="sortable" data-column="sac">SAC</th>
-                            <th class="sortable" data-column="gidp">GIDP</th>
-                            <th class="sortable" data-column="avg">AVG</th>
-                            <th class="sortable" data-column="slg">SLG</th>
+                            <th class="sortable" data-column="season">シーズン</th>
+                            <th class="sortable" data-column="name">選手名</th>
+                            <th class="sortable" data-column="g" id="g-header">試合</th>
+                            <th class="sortable" data-column="pa">打席</th>
+                            <th class="sortable" data-column="ab">打数</th>
+                            <th class="sortable" data-column="h">安打</th>
+                            <th class="sortable" data-column="r" id="batting-r-header">得点</th>
+                            <th class="sortable" data-column="doubles">二塁打</th>
+                            <th class="sortable" data-column="triples">三塁打</th>
+                            <th class="sortable" data-column="hr">本塁打</th>
+                            <th class="sortable" data-column="tb">塁打</th>
+                            <th class="sortable" data-column="rbi">打点</th>
+                            <th class="sortable" data-column="k">三振</th>
+                            <th class="sortable" data-column="bb">四球</th>
+                            <th class="sortable" data-column="hbp">死球</th>
+                            <th class="sortable" data-column="sac">犠打</th>
+                            <th class="sortable" data-column="gidp">併殺打</th>
+                            <th class="sortable" data-column="avg">打率</th>
+                            <th class="sortable" data-column="slg">長打率</th>
                             <th class="sortable" data-column="iso">ISO</th>
                             <th class="sortable" data-column="woba">wOBA</th>
                             <th class="sortable" data-column="wrc_plus">wRC+</th>
                             <th class="sortable" data-column="babip">BABIP</th>
-                            <th class="sortable" data-column="k_pct">K%</th>
-                            <th class="sortable" data-column="bb_pct">BB%</th>
-                            <th class="sortable" data-column="xbh_pct">XBH%</th>
+                            <th class="sortable" data-column="k_pct">三振率</th>
+                            <th class="sortable" data-column="bb_pct">四球率</th>
+                            <th class="sortable" data-column="xbh_pct">長打割合</th>
                         </tr>
                     </thead>
                     <tbody id="batting-results-body">
@@ -823,38 +823,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <table class="stats-table" id="pitching-results">
                     <thead>
                         <tr>
-                            <th class="sortable" data-column="season">Season</th>
-                            <th class="sortable" data-column="name">Name</th>
-                            <th class="sortable" data-column="app">App</th>
-                            <th class="sortable" data-column="ip">IP</th>
-                            <th class="sortable" data-column="gs">GS</th>
-                            <th class="sortable" data-column="gf">GF</th>
-                            <th class="sortable" data-column="cg">CG</th>
-                            <th class="sortable" data-column="sho">SHO</th>
-                            <th class="sortable" data-column="w">W</th>
-                            <th class="sortable" data-column="l">L</th>
-                            <th class="sortable" data-column="w_pct">W%</th>
-                            <th class="sortable" data-column="sv">SV</th>
-                            <th class="sortable" data-column="hld">HLD</th>
-                            <th class="sortable" data-column="k">K</th>
-                            <th class="sortable" data-column="bb">BB</th>
-                            <th class="sortable" data-column="bk">BK</th>
-                            <th class="sortable" data-column="hbp">HBP</th>
-                            <th class="sortable" data-column="r" id="pitching-r-header">R</th>
-                            <th class="sortable" data-column="er">ER</th>
-                            <th class="sortable" data-column="h">H</th>
-                            <th class="sortable" data-column="doubles">2B</th>
-                            <th class="sortable" data-column="triples">3B</th>
-                            <th class="sortable" data-column="hr">HR</th>
-                            <th class="sortable" data-column="era">ERA</th>
+                            <th class="sortable" data-column="season">シーズン</th>
+                            <th class="sortable" data-column="name">選手名</th>
+                            <th class="sortable" data-column="app">登板</th>
+                            <th class="sortable" data-column="ip">投球回</th>
+                            <th class="sortable" data-column="gs">先発</th>
+                            <th class="sortable" data-column="gf">救援完了</th>
+                            <th class="sortable" data-column="cg">完投</th>
+                            <th class="sortable" data-column="sho">完封</th>
+                            <th class="sortable" data-column="w">勝</th>
+                            <th class="sortable" data-column="l">敗</th>
+                            <th class="sortable" data-column="w_pct">勝率</th>
+                            <th class="sortable" data-column="sv">セーブ</th>
+                            <th class="sortable" data-column="hld">ホールド</th>
+                            <th class="sortable" data-column="k">奪三振</th>
+                            <th class="sortable" data-column="bb">与四球</th>
+                            <th class="sortable" data-column="bk">ボーク</th>
+                            <th class="sortable" data-column="hbp">与死球</th>
+                            <th class="sortable" data-column="r" id="pitching-r-header">失点</th>
+                            <th class="sortable" data-column="er">自責点</th>
+                            <th class="sortable" data-column="h">被安打</th>
+                            <th class="sortable" data-column="doubles">被二塁打</th>
+                            <th class="sortable" data-column="triples">被三塁打</th>
+                            <th class="sortable" data-column="hr">被本塁打</th>
+                            <th class="sortable" data-column="era">防御率</th>
                             <th class="sortable" data-column="fip">FIP</th>
                             <th class="sortable" data-column="era_plus">ERA+</th>
                             <th class="sortable" data-column="whip">WHIP</th>
-                            <th class="sortable" data-column="baa">BAA</th>
+                            <th class="sortable" data-column="baa">被打率</th>
                             <th class="sortable" data-column="babip">BABIP</th>
                             <th class="sortable" data-column="k9">K/9</th>
                             <th class="sortable" data-column="bb9">BB/9</th>
-                            <th class="sortable" data-column="gidp_pct">GIDP%</th>
+                            <th class="sortable" data-column="gidp_pct">併殺誘発率</th>
                         </tr>
                     </thead>
                     <tbody id="pitching-results-body">
@@ -868,15 +868,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal" id="modal">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Filter Title</h3>
+                <h3 class="modal-title" id="modal-title">フィルター</h3>
                 <button class="modal-close" id="modal-close">&times;</button>
             </div>
             <div class="modal-content" id="modal-content">
                 <!-- Dynamic content will be inserted here -->
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
-                <button class="btn btn-primary" id="modal-apply">Apply</button>
+                <button class="btn btn-secondary" id="modal-cancel">キャンセル</button>
+                <button class="btn btn-primary" id="modal-apply">適用</button>
             </div>
         </div>
     </div>
@@ -970,14 +970,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             document.getElementById('handedness-btn').addEventListener('click', () => openHandednessModal());
             
             // Qualifier button listeners
-            document.getElementById('ab-btn').addEventListener('click', () => openQualifierModal('ab', 'At Bats'));
-            document.getElementById('g-btn').addEventListener('click', () => openQualifierModal('g', 'Games'));
+            document.getElementById('ab-btn').addEventListener('click', () => openQualifierModal('ab', '打数'));
+            document.getElementById('g-btn').addEventListener('click', () => openQualifierModal('g', '試合'));
 
-            document.getElementById('ip-btn').addEventListener('click', () => openQualifierModal('ip', 'Innings Pitched'));
-            document.getElementById('pa-btn').addEventListener('click', () => openQualifierModal('pa', 'Plate Appearances'));
-            document.getElementById('h-btn').addEventListener('click', () => openQualifierModal('h', 'Hits'));
-            document.getElementById('avg-btn').addEventListener('click', () => openQualifierModal('avg', 'Batting Average'));
-            document.getElementById('era-btn').addEventListener('click', () => openQualifierModal('era', 'ERA'));
+            document.getElementById('ip-btn').addEventListener('click', () => openQualifierModal('ip', '投球回'));
+            document.getElementById('pa-btn').addEventListener('click', () => openQualifierModal('pa', '打席'));
+            document.getElementById('h-btn').addEventListener('click', () => openQualifierModal('h', '安打'));
+            document.getElementById('avg-btn').addEventListener('click', () => openQualifierModal('avg', '打率'));
+            document.getElementById('era-btn').addEventListener('click', () => openQualifierModal('era', '防御率'));
             
             // Modal listeners
             document.getElementById('modal-close').addEventListener('click', closeModal);
@@ -1089,37 +1089,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('Game Types', content);
+            openModal('試合種類', content);
             addMultiSelectListeners();
         }
 
         function openSplitsModal() {
             const winLossOptions = [
-                { value: 'overall', label: 'All Games' },
-                { value: 'wins', label: 'Team Wins' },
-                { value: 'losses', label: 'Team Losses' }
+                { value: 'overall', label: '全試合' },
+                { value: 'wins', label: 'チーム勝利時' },
+                { value: 'losses', label: 'チーム敗戦時' }
             ];
             
             const homeRoadOptions = [
-                { value: 'overall', label: 'All Games' },
-                { value: 'home', label: 'Home Games' },
-                { value: 'road', label: 'Road Games' }
+                { value: 'overall', label: '全試合' },
+                { value: 'home', label: 'ホーム' },
+                { value: 'road', label: 'ビジター' }
             ];
             
             const monthOptions = [
-                { value: 'all', label: 'All Months' },
-                { value: '4', label: 'April' },
-                { value: '5', label: 'May' },
-                { value: '6', label: 'June' },
-                { value: '7', label: 'July' },
-                { value: '8', label: 'August' },
-                { value: '9', label: 'September' },
-                { value: '10', label: 'October' }
+                { value: 'all', label: '全月' },
+                { value: '4', label: '4月' },
+                { value: '5', label: '5月' },
+                { value: '6', label: '6月' },
+                { value: '7', label: '7月' },
+                { value: '8', label: '8月' },
+                { value: '9', label: '9月' },
+                { value: '10', label: '10月' }
             ];
 
             const content = `
                 <div class="range-container">
-                    <label class="range-label">Win/Loss Split</label>
+                    <label class="range-label">勝敗区分</label>
                     <div class="multi-select-list" id="win-loss">
                         ${winLossOptions.map(option => `
                             <div class="multi-select-item ${filterState.splits.winLoss.includes(option.value) ? 'selected' : ''}" data-value="${option.value}">
@@ -1130,7 +1130,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
                 <div class="range-container">
-                    <label class="range-label">Home/Road Split</label>
+                    <label class="range-label">主催／ビジター</label>
                     <div class="multi-select-list" id="home-road">
                         ${homeRoadOptions.map(option => `
                             <div class="multi-select-item ${filterState.splits.homeRoad.includes(option.value) ? 'selected' : ''}" data-value="${option.value}">
@@ -1141,7 +1141,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
                 <div class="range-container">
-                    <label class="range-label">Month</label>
+                    <label class="range-label">月</label>
                     <div class="multi-select-list" id="month">
                         ${monthOptions.map(option => `
                             <div class="multi-select-item ${filterState.splits.month.includes(option.value) ? 'selected' : ''}" data-value="${option.value}">
@@ -1152,22 +1152,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             `;
-            openModal('Splits', content);
+            openModal('区分', content);
             addMultiSelectListeners();
         }
 
         function openDateRangeModal() {
             const content = `
                 <div class="range-container">
-                    <label class="range-label">Date Range</label>
+                    <label class="range-label">期間</label>
                     <div class="range-inputs">
-                        <input type="date" id="start-date" class="range-input" value="${filterState.dateRange.start}" placeholder="Start Date">
-                        <span class="range-separator">to</span>
-                        <input type="date" id="end-date" class="range-input" value="${filterState.dateRange.end}" placeholder="End Date">
+                        <input type="date" id="start-date" class="range-input" value="${filterState.dateRange.start}" placeholder="開始日">
+                        <span class="range-separator">～</span>
+                        <input type="date" id="end-date" class="range-input" value="${filterState.dateRange.end}" placeholder="終了日">
                     </div>
                 </div>
             `;
-            openModal('Date Range', content);
+            openModal('期間', content);
         }
 
         function openBallparkModal() {
@@ -1181,18 +1181,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('Ballpark', content);
+            openModal('球場', content);
             addMultiSelectListeners();
         }
 
         function openAttendanceModal() {
             const content = `
                 <div class="range-container">
-                    <label class="range-label">Attendance Range</label>
+                    <label class="range-label">観客数</label>
                     <div class="range-inputs">
-                        <input type="number" id="attendance-min" class="range-input" value="${filterState.attendance.min}" placeholder="Min">
-                        <span class="range-separator">to</span>
-                        <input type="number" id="attendance-max" class="range-input" value="${filterState.attendance.max}" placeholder="Max">
+                        <input type="number" id="attendance-min" class="range-input" value="${filterState.attendance.min}" placeholder="最小">
+                        <span class="range-separator">～</span>
+                        <input type="number" id="attendance-max" class="range-input" value="${filterState.attendance.max}" placeholder="最大">
                     </div>
                 </div>
             `;
@@ -1202,44 +1202,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         function openStartTimeModal() {
             const content = `
                 <div class="range-container">
-                    <label class="range-label">Start Time Range (24-hour format)</label>
+                    <label class="range-label">開始時刻（24時間表記）</label>
                     <div class="range-inputs">
-                        <input type="time" id="start-time-start" class="range-input" value="${filterState.startTime.start}" placeholder="Start">
-                        <span class="range-separator">to</span>
-                        <input type="time" id="start-time-end" class="range-input" value="${filterState.startTime.end}" placeholder="End">
+                        <input type="time" id="start-time-start" class="range-input" value="${filterState.startTime.start}" placeholder="開始">
+                        <span class="range-separator">～</span>
+                        <input type="time" id="start-time-end" class="range-input" value="${filterState.startTime.end}" placeholder="終了">
                     </div>
                 </div>
             `;
-            openModal('Start Time', content);
+            openModal('開始時刻', content);
         }
 
         function openInningModal() {
             const innings = [
-                { value: 'all', label: 'All Innings' },
-                { value: '1T', label: '1st Inning Top' },
-                { value: '1B', label: '1st Inning Bottom' },
-                { value: '2T', label: '2nd Inning Top' },
-                { value: '2B', label: '2nd Inning Bottom' },
-                { value: '3T', label: '3rd Inning Top' },
-                { value: '3B', label: '3rd Inning Bottom' },
-                { value: '4T', label: '4th Inning Top' },
-                { value: '4B', label: '4th Inning Bottom' },
-                { value: '5T', label: '5th Inning Top' },
-                { value: '5B', label: '5th Inning Bottom' },
-                { value: '6T', label: '6th Inning Top' },
-                { value: '6B', label: '6th Inning Bottom' },
-                { value: '7T', label: '7th Inning Top' },
-                { value: '7B', label: '7th Inning Bottom' },
-                { value: '8T', label: '8th Inning Top' },
-                { value: '8B', label: '8th Inning Bottom' },
-                { value: '9T', label: '9th Inning Top' },
-                { value: '9B', label: '9th Inning Bottom' },
-                { value: '10T', label: '10th Inning Top' },
-                { value: '10B', label: '10th Inning Bottom' },
-                { value: '11T', label: '11th Inning Top' },
-                { value: '11B', label: '11th Inning Bottom' },
-                { value: '12T', label: '12th Inning Top' },
-                { value: '12B', label: '12th Inning Bottom' }
+                { value: 'all', label: '全回' },
+                { value: '1T', label: '1回表' },
+                { value: '1B', label: '1回裏' },
+                { value: '2T', label: '2回表' },
+                { value: '2B', label: '2回裏' },
+                { value: '3T', label: '3回表' },
+                { value: '3B', label: '3回裏' },
+                { value: '4T', label: '4回表' },
+                { value: '4B', label: '4回裏' },
+                { value: '5T', label: '5回表' },
+                { value: '5B', label: '5回裏' },
+                { value: '6T', label: '6回表' },
+                { value: '6B', label: '6回裏' },
+                { value: '7T', label: '7回表' },
+                { value: '7B', label: '7回裏' },
+                { value: '8T', label: '8回表' },
+                { value: '8B', label: '8回裏' },
+                { value: '9T', label: '9回表' },
+                { value: '9B', label: '9回裏' },
+                { value: '10T', label: '10回表' },
+                { value: '10B', label: '10回裏' },
+                { value: '11T', label: '11回表' },
+                { value: '11B', label: '11回裏' },
+                { value: '12T', label: '12回表' },
+                { value: '12B', label: '12回裏' }
             ];
             
             const content = `
@@ -1252,7 +1252,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('Inning', content);
+            openModal('回', content);
             addMultiSelectListeners();
         }
 
@@ -1275,21 +1275,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('Outs', content);
+            openModal('アウト', content);
             addMultiSelectListeners();
         }
 
         function openOnBaseModal() {
             const onBaseOptions = [
-                { value: 'all', label: 'All Situations' },
-                { value: '', label: 'Bases Empty' },
-                { value: '1B', label: '1st Base' },
-                { value: '2B', label: '2nd Base' },
-                { value: '3B', label: '3rd Base' },
-                { value: '12B', label: '1st & 2nd' },
-                { value: '13B', label: '1st & 3rd' },
-                { value: '23B', label: '2nd & 3rd' },
-                { value: '123B', label: 'Bases Loaded' }
+                { value: 'all', label: '全状況' },
+                { value: '', label: '無走者' },
+                { value: '1B', label: '1塁' },
+                { value: '2B', label: '2塁' },
+                { value: '3B', label: '3塁' },
+                { value: '12B', label: '1・2塁' },
+                { value: '13B', label: '1・3塁' },
+                { value: '23B', label: '2・3塁' },
+                { value: '123B', label: '満塁' }
             ];
             
             const content = `
@@ -1302,13 +1302,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('On Base', content);
+            openModal('走者', content);
             addMultiSelectListeners();
         }
 
         function openCountModal() {
             const counts = [
-                { value: 'all', label: 'All Counts' },
+                { value: 'all', label: '全カウント' },
                 { value: '0-0', label: '0-0' }, { value: '0-1', label: '0-1' }, { value: '0-2', label: '0-2' },
                 { value: '1-0', label: '1-0' }, { value: '1-1', label: '1-1' }, { value: '1-2', label: '1-2' },
                 { value: '2-0', label: '2-0' }, { value: '2-1', label: '2-1' }, { value: '2-2', label: '2-2' },
@@ -1332,24 +1332,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         function openHandednessModal() {
             const content = `
                 <div class="modal-section">
-                    <h4>Pitcher Handedness</h4>
+                    <h4>投手の利き腕</h4>
                     <div class="multi-select-list handedness-list">
                         <div class="multi-select-item ${filterState.handedness.includes('all') ? 'selected' : ''}" data-value="all">
-                            <span>All Handedness</span>
+                            <span>指定なし</span>
                             <span class="checkmark">✓</span>
                         </div>
                         <div class="multi-select-item ${filterState.handedness.includes('L') ? 'selected' : ''}" data-value="L">
-                            <span>Left</span>
+                            <span>左</span>
                             <span class="checkmark">✓</span>
                         </div>
                         <div class="multi-select-item ${filterState.handedness.includes('R') ? 'selected' : ''}" data-value="R">
-                            <span>Right</span>
+                            <span>右</span>
                             <span class="checkmark">✓</span>
                         </div>
                     </div>
                 </div>
             `;
-            openModal('Pitcher Handedness', content);
+            openModal('投手の利き腕', content);
             addMultiSelectListeners();
         }
 
@@ -1735,17 +1735,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 const remaining = totalCount - displayedCount;
                 paginationDiv.innerHTML = `
                     <div class="pagination-info">
-                        Showing ${displayedCount} of ${totalCount} players
+                        ${displayedCount} / ${totalCount} 件表示中
                     </div>
                     <button class="btn btn-secondary" onclick="showMoreResults(currentResults)" id="show-more-btn">
-                        Show ${Math.min(PAGE_SIZE, remaining)} More Players
+                        あと${Math.min(PAGE_SIZE, remaining)}件表示
                     </button>
                 `;
                 paginationDiv.style.display = 'block';
             } else {
                 paginationDiv.innerHTML = `
                     <div class="pagination-info">
-                        Showing all ${totalCount} players
+                        全${totalCount}件を表示中
                     </div>
                 `;
                 // Keep showing the info but hide after 3 seconds
@@ -1824,8 +1824,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             if (currentStatType === 'batting') {
                 const gColumn = hasSituationalFilters() ? '' : `<td>${row.g || 0}</td>`;
                 const rColumn = hasSituationalFilters() ? '' : `<td>${row.r || 0}</td>`;
+                const seasonDisplay = (row.season === 'Career' ? '通算' : (row.season || ''));
                 return `
-                    <td>${row.season || ''}</td>
+                    <td>${seasonDisplay}</td>
                     ${nameCell}
                     ${gColumn}
                     <td>${row.pa || 0}</td>
@@ -1853,8 +1854,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <td>${formatPercentage(row.xbh_pct)}</td>
                 `;
             } else {
+                const seasonDisplay = (row.season === 'Career' ? '通算' : (row.season || ''));
                 return `
-                    <td>${row.season || ''}</td>
+                    <td>${seasonDisplay}</td>
                     ${nameCell}
                     <td>${row.app || 0}</td>
                     <td>${formatIP(row.ip)}</td>
@@ -1918,11 +1920,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
 
         function formatPlayerName(jpName, engName) {
-            // EN page: English only
+            // JP page: kanji only
             const jp = jpName || '';
             const eng = engName || '';
-            if (eng) return eng;
             if (jp) return jp;
+            if (eng) return eng;
             return '';
         }
 
@@ -2012,17 +2014,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const content = `
                 <div class="range-inputs">
                     <div class="input-group">
-                        <label for="qualifier-min">Minimum:</label>
-                        <input type="number" id="qualifier-min" placeholder="Min ${label}" value="${minValue}" step="${qualifier === 'avg' || qualifier === 'era' ? '0.001' : '1'}">
+                        <label for="qualifier-min">最小:</label>
+                        <input type="number" id="qualifier-min" placeholder="${label}の最小" value="${minValue}" step="${qualifier === 'avg' || qualifier === 'era' ? '0.001' : '1'}">
                     </div>
                     <div class="input-group">
-                        <label for="qualifier-max">Maximum:</label>
-                        <input type="number" id="qualifier-max" placeholder="Max ${label}" value="${maxValue}" step="${qualifier === 'avg' || qualifier === 'era' ? '0.001' : '1'}">
+                        <label for="qualifier-max">最大:</label>
+                        <input type="number" id="qualifier-max" placeholder="${label}の最大" value="${maxValue}" step="${qualifier === 'avg' || qualifier === 'era' ? '0.001' : '1'}">
                     </div>
                 </div>
             `;
             
-            openModal(`Set ${label} Range`, content);
+            openModal(`${label}の範囲を指定`, content);
         }
 
         function updateQualifierButtonStates() {
@@ -2040,13 +2042,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     
                     // Update button text for AB qualifier
                     if (qualifier === 'ab') {
-                        let text = 'At Bats (AB)';
+                        let text = '打数';
                         if (qual.min && qual.max) {
-                            text = `At Bats (AB): ${qual.min}-${qual.max}`;
+                            text = `打数: ${qual.min}-${qual.max}`;
                         } else if (qual.min) {
-                            text = `At Bats (AB): ${qual.min}+`;
+                            text = `打数: ${qual.min}以上`;
                         } else if (qual.max) {
-                            text = `At Bats (AB): ≤${qual.max}`;
+                            text = `打数: ${qual.max}以下`;
                         }
                         btn.textContent = text;
                         btn.classList.add('active');
@@ -2059,7 +2061,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 filterState.qualifiers = { ab: { min: 100 } };
                 const abBtn = document.getElementById('ab-btn');
                 if (abBtn) {
-                    abBtn.textContent = 'At Bats (AB): 100+';
+                    abBtn.textContent = '打数：100以上';
                     abBtn.classList.add('active', 'has-values');
                 }
             }
@@ -2072,8 +2074,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 </body>

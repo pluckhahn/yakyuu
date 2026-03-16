@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>Players - yakyuu.jp</title>
+    <title>選手 - yakyuu.jp</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -261,7 +261,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Header -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image">
             </a>
         </div>
@@ -271,15 +271,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players" class="active">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players" class="active">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -310,15 +310,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <main class="page-container">
         <!-- Page Header -->
         <div class="page-header">
-            <h1 class="page-title">Players</h1>
+            <h1 class="page-title">選手</h1>
         </div>
 
         <!-- Search Section -->
         <section class="search-section">
-            <h2>Player Search</h2>
+            <h2>選手検索</h2>
             <div class="search-container">
-                <input type="text" class="search-bar" id="playerSearch" placeholder="Search for players by name...">
-                <button class="search-button" onclick="searchPlayers()">Search</button>
+                <input type="text" class="search-bar" id="playerSearch" placeholder="名前で選手を検索...">
+                <button class="search-button" onclick="searchPlayers()">検索</button>
             </div>
             <div class="search-results" id="searchResults" style="display: none;"></div>
         </section>
@@ -328,24 +328,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="leaders-grid">
                 <!-- Batting Leaders -->
                 <div class="leaders-category">
-                    <h2 class="category-title">Batting Leaders</h2>
+                    <h2 class="category-title">打撃成績ランキング</h2>
                     <div class="stat-boxes">
                         <div class="stat-box">
-                            <div class="stat-header">Hits</div>
+                            <div class="stat-header">安打</div>
                             <ul class="stat-leaders" id="hitsLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-header">Home Runs</div>
+                            <div class="stat-header">本塁打</div>
                             <ul class="stat-leaders" id="hrLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-header">RBI</div>
+                            <div class="stat-header">打点</div>
                             <ul class="stat-leaders" id="rbiLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                     </div>
@@ -353,24 +353,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <!-- Pitching Leaders -->
                 <div class="leaders-category">
-                    <h2 class="category-title">Pitching Leaders</h2>
+                    <h2 class="category-title">投手成績ランキング</h2>
                     <div class="stat-boxes">
                         <div class="stat-box">
-                            <div class="stat-header">ERA</div>
+                            <div class="stat-header">防御率</div>
                             <ul class="stat-leaders" id="eraLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
                             <div class="stat-header">WHIP</div>
                             <ul class="stat-leaders" id="whipLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-header">Strikeouts</div>
+                            <div class="stat-header">奪三振</div>
                             <ul class="stat-leaders" id="kLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                     </div>
@@ -381,9 +381,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Advanced Stat Finder Link -->
         <section class="advanced-link">
             <p class="advanced-text">
-                To view more league leaders or set custom qualifiers, visit Advanced Stat Finder
+                ランキングの続きや、条件を指定しての検索は「詳細成績検索」をご覧ください。
             </p>
-            <a href="/advanced" class="advanced-button">Advanced Stat Finder</a>
+            <a href="/jp/advanced" class="advanced-button">詳細成績検索</a>
         </section>
     </main>
 
@@ -391,8 +391,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p>Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 
@@ -405,7 +405,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             if (!query) return;
             
             const resultsDiv = document.getElementById('searchResults');
-            resultsDiv.innerHTML = '<div class="loading">Searching...</div>';
+            resultsDiv.innerHTML = '<div class="loading">検索中...</div>';
             resultsDiv.style.display = 'block';
             
             fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`)
@@ -415,7 +415,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 })
                 .catch(error => {
                     console.error('Search error:', error);
-                    resultsDiv.innerHTML = '<div class="error">Search failed. Please try again.</div>';
+                    resultsDiv.innerHTML = '<div class="error">検索に失敗しました。もう一度お試しください。</div>';
                 });
         }
         
@@ -423,7 +423,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const resultsDiv = document.getElementById('searchResults');
             
             if (players.length === 0) {
-                resultsDiv.innerHTML = '<div class="error">No players found.</div>';
+                resultsDiv.innerHTML = '<div class="error">選手が見つかりませんでした。</div>';
                 return;
             }
             
@@ -432,7 +432,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="player-name">${player.name}</div>
                     <div class="player-details">
                         ${player.name_en ? player.name_en + ' • ' : ''}
-                        Bats: ${player.bat || 'Unknown'} • Throws: ${player.throw || 'Unknown'}
+                        打: ${player.bat || '不明'}・投: ${player.throw || '不明'}
                     </div>
                 </div>
             `).join('');
@@ -530,7 +530,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             const html = leaders.map(leader => `
                 <li class="stat-leader" onclick="window.location.href='${getPlayerUrl(leader.player_id)}'">
-                    <span class="leader-name">${leader.name}</span>
+                    <span class="leader-name">${leader.name_jp || leader.name}</span>
                     <span class="leader-stat">${leader.stat}</span>
                 </li>
             `).join('');

@@ -800,35 +800,70 @@ def index():
     """Serve the main index page"""
     return app.send_static_file('index.html')
 
+@app.route('/jp/')
+def index_jp():
+    """Serve the main index page"""
+    return app.send_static_file('index_jp.html')
+
 @app.route('/players')
 def players_homepage():
     """Serve the players homepage"""
     return app.send_static_file('players.html')
+
+@app.route('/jp/players')
+def players_jp_homepage():
+    """Serve the players homepage"""
+    return app.send_static_file('players_jp.html')
 
 @app.route('/players/<player_id>')
 def player_page(player_id):
     """Serve individual player page"""
     return app.send_static_file('player_template.html')
 
+@app.route('/jp/players/<player_id>')
+def player_jp_page(player_id):
+    """Serve individual player page"""
+    return app.send_static_file('player_template_jp.html')
+
 @app.route('/teams')
 def teams_homepage():
     """Serve the teams/standings homepage"""
     return app.send_static_file('standings.html')
+
+@app.route('/jp/teams')
+def teams_jp_homepage():
+    """Serve the teams/standings homepage"""
+    return app.send_static_file('standings_jp.html')
 
 @app.route('/teams/<team_id>')
 def team_page(team_id):
     """Serve individual team page"""
     return app.send_static_file('teams.html')
 
+@app.route('/jp/teams/<team_id>')
+def team_jp_page(team_id):
+    """Serve individual team page"""
+    return app.send_static_file('teams_jp.html')
+
 @app.route('/games')
 def games_homepage():
     """Serve the games homepage"""
     return app.send_static_file('games.html')
 
+@app.route('/jp/games')
+def games_jp_homepage():
+    """Serve the games homepage"""
+    return app.send_static_file('games_jp.html')
+
 @app.route('/games/<path:game_id>')
 def game_page(game_id):
     """Serve individual game page"""
     return app.send_static_file('game_manifesto.html')
+
+@app.route('/jp/games/<path:game_id>')
+def game_jp_page(game_id):
+    """Serve individual game page"""
+    return app.send_static_file('game_manifesto_jp.html')
 
 @app.route('/api/search')
 def search():
@@ -1413,12 +1448,17 @@ def get_recent_games():
             # Use English team names only
             home_team = row['home_team_name_en'] or row['home_team_name'] or row['home_team_id']
             away_team = row['away_team_name_en'] or row['away_team_name'] or row['away_team_id']
+            # Japanese team names (for /jp frontend)
+            home_team_jp = row['home_team_name'] or row['home_team_name_en'] or row['home_team_id']
+            away_team_jp = row['away_team_name'] or row['away_team_name_en'] or row['away_team_id']
             
             games.append({
                 'game_id': row['game_id'],
                 'date': row['date'],
                 'home_team': home_team,
                 'away_team': away_team,
+                'home_team_jp': home_team_jp,
+                'away_team_jp': away_team_jp,
                 'home_team_id': row['home_team_id'],
                 'away_team_id': row['away_team_id'],
                 'score': f"{row['visitor_runs']}-{row['home_runs']}",  # Away-Home format
@@ -1496,6 +1536,7 @@ def get_league_leaders():
         for row in cursor.fetchall():
             avg_leaders.append({
                 'name': row['player_name_en'] or row['player_name'],
+                'name_jp': row['player_name'],
                 'player_id': row['player_id'],
                 'stat': f"{row['avg']:.3f}"
             })
@@ -1517,6 +1558,7 @@ def get_league_leaders():
         for row in cursor.fetchall():
             hits_leaders.append({
                 'name': row['player_name_en'] or row['player_name'],
+                'name_jp': row['player_name'],
                 'player_id': row['player_id'],
                 'stat': str(row['hits'])
             })
@@ -1538,6 +1580,7 @@ def get_league_leaders():
         for row in cursor.fetchall():
             hr_leaders.append({
                 'name': row['player_name_en'] or row['player_name'],
+                'name_jp': row['player_name'],
                 'player_id': row['player_id'],
                 'stat': str(row['hr'])
             })
@@ -1559,6 +1602,7 @@ def get_league_leaders():
         for row in cursor.fetchall():
             rbi_leaders.append({
                 'name': row['player_name_en'] or row['player_name'],
+                'name_jp': row['player_name'],
                 'player_id': row['player_id'],
                 'stat': str(row['rbi'])
             })
@@ -1581,6 +1625,7 @@ def get_league_leaders():
         for row in cursor.fetchall():
             era_leaders.append({
                 'name': row['player_name_en'] or row['player_name'],
+                'name_jp': row['player_name'],
                 'player_id': row['player_id'],
                 'stat': f"{row['era']:.2f}"
             })
@@ -1603,6 +1648,7 @@ def get_league_leaders():
         for row in cursor.fetchall():
             whip_leaders.append({
                 'name': row['player_name_en'] or row['player_name'],
+                'name_jp': row['player_name'],
                 'player_id': row['player_id'],
                 'stat': f"{row['whip']:.2f}"
             })
@@ -1624,6 +1670,7 @@ def get_league_leaders():
         for row in cursor.fetchall():
             k_leaders.append({
                 'name': row['player_name_en'] or row['player_name'],
+                'name_jp': row['player_name'],
                 'player_id': row['player_id'],
                 'stat': str(row['strikeouts'])
             })
@@ -1645,6 +1692,7 @@ def get_league_leaders():
         for row in cursor.fetchall():
             ip_leaders.append({
                 'name': row['player_name_en'] or row['player_name'],
+                'name_jp': row['player_name'],
                 'player_id': row['player_id'],
                 'stat': format_innings_pitched(row['ip'])
             })
@@ -1715,6 +1763,7 @@ def get_team_leaders(team_id):
         hits_leader = cursor.fetchone()
         batting_leaders['hits'] = [{
             'name': hits_leader['player_name_en'] or hits_leader['player_name'],
+            'name_jp': hits_leader['player_name'],
             'player_id': hits_leader['player_id'],
             'stat': str(hits_leader['hits'])
         }] if hits_leader else []
@@ -1734,6 +1783,7 @@ def get_team_leaders(team_id):
         hr_leader = cursor.fetchone()
         batting_leaders['hr'] = [{
             'name': hr_leader['player_name_en'] or hr_leader['player_name'],
+            'name_jp': hr_leader['player_name'],
             'player_id': hr_leader['player_id'],
             'stat': str(hr_leader['hr'])
         }] if hr_leader else []
@@ -1753,6 +1803,7 @@ def get_team_leaders(team_id):
         rbi_leader = cursor.fetchone()
         batting_leaders['rbi'] = [{
             'name': rbi_leader['player_name_en'] or rbi_leader['player_name'],
+            'name_jp': rbi_leader['player_name'],
             'player_id': rbi_leader['player_id'],
             'stat': str(rbi_leader['rbi'])
         }] if rbi_leader else []
@@ -1777,6 +1828,7 @@ def get_team_leaders(team_id):
         era_leader = cursor.fetchone()
         pitching_leaders['era'] = [{
             'name': era_leader['player_name_en'] or era_leader['player_name'],
+            'name_jp': era_leader['player_name'],
             'player_id': era_leader['player_id'],
             'stat': f"{era_leader['era']:.2f}"
         }] if era_leader else []
@@ -1798,6 +1850,7 @@ def get_team_leaders(team_id):
         whip_leader = cursor.fetchone()
         pitching_leaders['whip'] = [{
             'name': whip_leader['player_name_en'] or whip_leader['player_name'],
+            'name_jp': whip_leader['player_name'],
             'player_id': whip_leader['player_id'],
             'stat': f"{whip_leader['whip']:.2f}"
         }] if whip_leader else []
@@ -1817,6 +1870,7 @@ def get_team_leaders(team_id):
         k_leader = cursor.fetchone()
         pitching_leaders['k'] = [{
             'name': k_leader['player_name_en'] or k_leader['player_name'],
+            'name_jp': k_leader['player_name'],
             'player_id': k_leader['player_id'],
             'stat': str(k_leader['strikeouts'])
         }] if k_leader else []
@@ -2423,6 +2477,9 @@ def get_team_recent_games(team_id):
             game['opponent_name_en'] = opponent_info['name_en']
             game['team_name'] = team_info['name']
             game['team_name_en'] = team_info['name_en']
+            # Explicit JP fields for /jp frontend (safe, backwards compatible)
+            game['opponent_name_jp'] = opponent_info['name']
+            game['team_name_jp'] = team_info['name']
         
         return jsonify({
             'games': games,
@@ -2585,10 +2642,20 @@ def ballparks_listing():
     """Serve the ballparks listing page"""
     return render_template('ballparks.html')
 
+@app.route('/jp/ballparks')
+def ballparks_jp_listing():
+    """Serve the ballparks listing page"""
+    return render_template('ballparks_jp.html')
+
 @app.route('/ballparks/<park_name>')
 def ballpark_page(park_name):
     """Serve the ballpark page"""
     return render_template('ballpark.html')
+
+@app.route('/jp/ballparks/<park_name>')
+def ballpark_jp_page(park_name):
+    """Serve the ballpark page"""
+    return render_template('ballpark_jp.html')
 
 @app.route('/api/ballparks/<park_name>')
 def get_ballpark(park_name):
@@ -2622,7 +2689,8 @@ def get_all_ballparks():
         cursor = conn.execute("""
             SELECT b.park_name, b.park_name_en, b.city, b.home_team, 
                    b.pf_runs, b.games_sample_size, b.pf_confidence,
-                   t.team_name, t.team_name_en
+                   t.team_name, t.team_name_en,
+                   COALESCE(b.park_name, b.park_name_en) as park_name_jp
             FROM ballparks b
             LEFT JOIN teams t ON b.home_team = t.team_id
             ORDER BY b.park_name_en
@@ -2973,6 +3041,7 @@ def get_ballparks_stats():
         query = f"""
             SELECT 
                 COALESCE(b.park_name_en, b.park_name, g.ballpark) as name,
+                COALESCE(b.park_name, g.ballpark) as name_jp,
                 COUNT(DISTINCT g.game_id) as g,
                 b.pf_runs as pf,
                 
@@ -3000,7 +3069,7 @@ def get_ballparks_stats():
             LEFT JOIN pitching p ON g.game_id = p.game_id
             WHERE g.ballpark IS NOT NULL
             {season_condition}
-            GROUP BY COALESCE(b.park_name_en, b.park_name, g.ballpark), b.pf_runs
+            GROUP BY COALESCE(b.park_name_en, b.park_name, g.ballpark), COALESCE(b.park_name, g.ballpark), b.pf_runs
             HAVING SUM(bat.pa) > 0 AND SUM(p.ip) > 0
             ORDER BY COUNT(DISTINCT g.game_id) DESC
         """
@@ -6555,6 +6624,11 @@ def advanced_page():
     """Serve the advanced stats page"""
     return send_from_directory('frontend', 'advanced.html')
 
+@app.route('/jp/advanced')
+def advanced_jp_page():
+    """Serve the advanced stats page"""
+    return send_from_directory('frontend', 'advanced_jp.html')
+
 @app.route('/<path:filename>')
 def serve_static(filename):
     return send_from_directory('frontend', filename)
@@ -6563,6 +6637,21 @@ def serve_static(filename):
 def about_page():
     """Serve the about page"""
     return app.send_static_file('about.html')
+
+@app.route('/jp/about')
+def about_jp_page():
+    """Serve the about page"""
+    return app.send_static_file('about_jp.html')
+
+@app.route('/derivative')
+def derivative_page():
+    """Serve the derivative works page"""
+    return app.send_static_file('derivative.html')
+
+@app.route('/jp/derivative')
+def derivative_jp_page():
+    """Serve the derivative works page (Japanese)"""
+    return app.send_static_file('derivative_jp.html')
 
 
 if __name__ == '__main__':

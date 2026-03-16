@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1400, user-scalable=yes">
-    <title>yakyuu.jp - NPB Statistics Database and Search Engine</title>
+    <title>yakyuu.jp - NPB 成績データベース・検索</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -412,7 +412,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Large Header with Logo -->
     <header class="main-header">
         <div class="header-content">
-            <a href="/" class="logo-link">
+            <a href="/jp" class="logo-link">
                 <img src="/logo.png" alt="yakyuu.jp" class="logo-image">
             </a>
         </div>
@@ -422,15 +422,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="main-nav">
         <div class="nav-content">
             <ul class="nav-menu">
-                <li><a href="/games">Games</a></li>
-                <li><a href="/players">Players</a></li>
-                <li><a href="/teams">Teams/Standings</a></li>
-                <li><a href="/ballparks">Ballparks</a></li>
-                <li><a href="/advanced">Advanced Stat Finder</a></li>
-                <li><a href="https://github.com/pluckhahn/yakyuu">Downloadable Data</a></li>
-                <li><a href="/derivative">Derivative Works</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#" onclick="toggleLanguage(); return false;">日本語</a></li>
+                <li><a href="/jp/games">試合</a></li>
+                <li><a href="/jp/players">選手</a></li>
+                <li><a href="/jp/teams">チーム／順位</a></li>
+                <li><a href="/jp/ballparks">球場</a></li>
+                <li><a href="/jp/advanced">詳細成績検索</a></li>
+                <li><a href="https://github.com/pluckhahn/yakyuu">データダウンロード</a></li>
+                <li><a href="/jp/derivative">派生作品</a></li>
+                <li><a href="/jp/about">このサイトについて</a></li>
+                <li><a href="#" onclick="toggleLanguage(); return false;">English</a></li>
             </ul>
         </div>
     </nav>
@@ -462,21 +462,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-content">
-                <h1>Welcome to yakyuu.jp!</h1>
-                <p>yakyuu.jp is a repository and search engine of Nippon Professional Baseball, containing complete game records,
-                   advanced player statistics and splits, updated standings, and play-by-play data for every game since 2018.</p>
+                <h1>yakyuu.jpへようこそ！</h1>
                 <div class="hero-stats">
                     <div class="hero-stat">
                         <span class="stat-number">1500+</span>
-                        <span class="stat-label">Players</span>
+                        <span class="stat-label">選手</span>
                     </div>
                     <div class="hero-stat">
                         <span class="stat-number">6000+</span>
-                        <span class="stat-label">Games</span>
+                        <span class="stat-label">試合</span>
                     </div>
                     <div class="hero-stat">
                         <span class="stat-number">500,000+</span>
-                        <span class="stat-label">Event Files</span>
+                        <span class="stat-label">イベントファイル</span>
                     </div>
                 </div>
             </div>
@@ -484,25 +482,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- Standings Section (from standings.html) -->
         <section class="standings-section">
-            <h2>League Standings</h2>
+            <h2>チーム順位</h2>
             
             <div class="leagues-container">
                 <!-- Central League -->
                 <div class="league-standings">
-                    <h3 class="league-title">Central League</h3>
-                    <div id="central-standings-loading" class="loading">Loading standings...</div>
+                    <h3 class="league-title">セ・リーグ</h3>
+                    <div id="central-standings-loading" class="loading">順位を読み込み中...</div>
                     <div id="central-standings-error" class="error" style="display: none;"></div>
                     <table class="standings-table" id="central-standings-table" style="display: none;">
                         <thead>
                             <tr>
-                                <th>Place</th>
-                                <th>Team</th>
-                                <th>G</th>
-                                <th>W</th>
-                                <th>L</th>
-                                <th>T</th>
-                                <th>WP</th>
-                                <th>GB</th>
+                                <th>順位</th>
+                                <th>チーム</th>
+                                <th>試合</th>
+                                <th>勝</th>
+                                <th>敗</th>
+                                <th>分</th>
+                                <th>勝率</th>
+                                <th>差</th>
                             </tr>
                         </thead>
                         <tbody id="central-standings-body">
@@ -512,20 +510,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <!-- Pacific League -->
                 <div class="league-standings">
-                    <h3 class="league-title">Pacific League</h3>
-                    <div id="pacific-standings-loading" class="loading">Loading standings...</div>
+                    <h3 class="league-title">パ・リーグ</h3>
+                    <div id="pacific-standings-loading" class="loading">順位を読み込み中...</div>
                     <div id="pacific-standings-error" class="error" style="display: none;"></div>
                     <table class="standings-table" id="pacific-standings-table" style="display: none;">
                         <thead>
                             <tr>
-                                <th>Place</th>
-                                <th>Team</th>
-                                <th>G</th>
-                                <th>W</th>
-                                <th>L</th>
-                                <th>T</th>
-                                <th>WP</th>
-                                <th>GB</th>
+                                <th>順位</th>
+                                <th>チーム</th>
+                                <th>試合</th>
+                                <th>勝</th>
+                                <th>敗</th>
+                                <th>分</th>
+                                <th>勝率</th>
+                                <th>差</th>
                             </tr>
                         </thead>
                         <tbody id="pacific-standings-body">
@@ -537,18 +535,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- Recent Games Section (from games.html) -->
         <div id="recent-games" class="content-section active">
-            <h2 class="section-title">Recent Games</h2>
+            <h2 class="section-title">直近の試合</h2>
             
             <div id="recent-games-container">
                 <!-- Games will be loaded here as individual cards -->
             </div>
             
             <div id="recent-games-loading" class="loading-message" style="display: none;">
-                Loading games...
+                試合を読み込み中...
             </div>
             
             <div id="recent-games-error" class="error-message" style="display: none;">
-                Failed to load games.
+                試合の読み込みに失敗しました。
             </div>
         </div>
 
@@ -557,30 +555,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="leaders-grid">
                 <!-- Batting Leaders -->
                 <div class="leaders-category">
-                    <h2 class="category-title">Batting Leaders</h2>
+                    <h2 class="category-title">打撃リーダー</h2>
                     <div class="stat-boxes">
                         <div class="stat-box">
-                            <div class="stat-header">Batting Average</div>
+                            <div class="stat-header">打率</div>
                             <ul class="stat-leaders" id="avgLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-header">Hits</div>
+                            <div class="stat-header">安打</div>
                             <ul class="stat-leaders" id="hitsLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-header">Home Runs</div>
+                            <div class="stat-header">本塁打</div>
                             <ul class="stat-leaders" id="hrLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-header">RBI</div>
+                            <div class="stat-header">打点</div>
                             <ul class="stat-leaders" id="rbiLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                     </div>
@@ -588,30 +586,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <!-- Pitching Leaders -->
                 <div class="leaders-category">
-                    <h2 class="category-title">Pitching Leaders</h2>
+                    <h2 class="category-title">投手リーダー</h2>
                     <div class="stat-boxes">
                         <div class="stat-box">
-                            <div class="stat-header">ERA</div>
+                            <div class="stat-header">防御率</div>
                             <ul class="stat-leaders" id="eraLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
                             <div class="stat-header">WHIP</div>
                             <ul class="stat-leaders" id="whipLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-header">Strikeouts</div>
+                            <div class="stat-header">奪三振</div>
                             <ul class="stat-leaders" id="kLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-header">Innings Pitched</div>
+                            <div class="stat-header">投球回</div>
                             <ul class="stat-leaders" id="ipLeaders">
-                                <li class="loading">Loading...</li>
+                                <li class="loading">読み込み中...</li>
                             </ul>
                         </div>
                     </div>
@@ -621,7 +619,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- About Section -->
         <section class="about-section">
-            <a href="/about" class="about-button">About yakyuu.jp</a>
+            <a href="/jp/about" class="about-button">yakyuu.jpについて</a>
         </section>
     </main>
 
@@ -629,8 +627,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 yakyuu.jp</p>
-            <p>This website is not affiliated with Nippon Professional Baseball (NPB) or any of its teams.</p>
-            <p> Created by Lukas Pluckhahn (lukas@yakyuu.jp).</p>
+            <p>このサイトは日本野球機構（NPB）およびその加盟球団とは一切関係ありません。</p>
+            <p>制作：Lukas Pluckhahn (lukas@yakyuu.jp)。</p>
         </div>
     </footer>
 
@@ -748,8 +746,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
             } catch (error) {
                 console.error('Error loading standings:', error);
-                showError('central', 'Failed to load Central League standings');
-                showError('pacific', 'Failed to load Pacific League standings');
+                showError('central', 'セ・リーグの順位を読み込めませんでした');
+                showError('pacific', 'パ・リーグの順位を読み込めませんでした');
             }
         }
 
@@ -762,7 +760,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             loadingEl.style.display = 'none';
             
             if (!teams || teams.length === 0) {
-                showError(league, 'No standings data available');
+                showError(league, '順位データがありません');
                 return;
             }
             
@@ -792,8 +790,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 // Format games behind
                 let gbDisplay = team.games_behind === 0 ? '—' : team.games_behind.toString();
                 
-                // Team name display (English only for better readability)
-                const teamDisplayName = team.team_name_en || team.team_name;
+                // Team name display (Japanese on JP page)
+                const teamDisplayName = team.team_name || team.team_name_en;
                 
                 row.innerHTML = `
                     <td class="place-number">${index + 1}</td>
@@ -873,13 +871,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 const gameCard = document.createElement('div');
                 gameCard.className = 'game-card';
                 
-                // Format date as yyyy/mm/dd - avoid timezone issues by parsing manually
+                // Format date as yyyy/mm/dd
                 const dateParts = game.date.split('-');
                 const date = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`;
                 
-                // Use the enhanced API data structure
-                const homeTeam = game.home_team || 'Home Team';
-                const awayTeam = game.away_team || 'Away Team';
+                // Team names in Japanese (same format as games_jp)
+                const homeTeam = game.home_team_jp || game.home_team || 'ホーム';
+                const awayTeam = game.away_team_jp || game.away_team || 'ビジター';
                 const homeRuns = game.home_runs || 0;
                 const awayRuns = game.visitor_runs || 0;
                 const homeHits = game.home_hits || 0;
@@ -887,20 +885,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 const homeErrors = game.home_errors || 0;
                 const awayErrors = game.visitor_errors || 0;
                 
-                // Determine winning team styling
                 const homeScoreClass = homeRuns > awayRuns ? 'winning-score' : '';
                 const awayScoreClass = awayRuns > homeRuns ? 'winning-score' : '';
                 
-                // Don't show game type for regular season games
-                const gameTypeDisplay = '';
-                
-                // Format ballpark info
+                // Game number and ballpark in Japanese (same format as games_jp boxes)
+                const gameNumberPart = game.game_number != null ? ` | 第${game.game_number}戦` : '';
                 const ballparkDisplay = game.ballpark || '';
-                
-                // Create the game info header with Date | Game Number | Park Name (EN)
-                const gameNumber = game.game_number ? ` | Game ${game.game_number}` : '';
-                const ballparkEn = game.ballpark_en || ballparkDisplay;
-                const gameInfoHeader = `${date}${gameNumber}${ballparkEn ? ' | ' + ballparkEn : ''}`;
+                const gameInfoHeader = `${date}${gameNumberPart}${ballparkDisplay ? ' | ' + ballparkDisplay : ''}`;
                 
                 gameCard.innerHTML = `
                     <table class="game-line-score">
@@ -909,10 +900,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <th colspan="4" class="game-info-header">${gameInfoHeader}</th>
                             </tr>
                             <tr>
-                                <th>Team</th>
-                                <th>R</th>
-                                <th>H</th>
-                                <th>E</th>
+                                <th>チーム</th>
+                                <th>得点</th>
+                                <th>安打</th>
+                                <th>失策</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -968,7 +959,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     // Show error in all leader boxes
                     const leaderBoxes = ['avgLeaders', 'hitsLeaders', 'hrLeaders', 'rbiLeaders', 'eraLeaders', 'whipLeaders', 'kLeaders', 'ipLeaders'];
                     leaderBoxes.forEach(boxId => {
-                        document.getElementById(boxId).innerHTML = '<li class="error">Failed to load</li>';
+                        document.getElementById(boxId).innerHTML = '<li class="error">読み込みに失敗しました</li>';
                     });
                 });
         }
@@ -982,7 +973,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
             
             if (!leaders || leaders.length === 0) {
-                element.innerHTML = '<li class="error">No data available</li>';
+                element.innerHTML = '<li class="error">データがありません</li>';
                 return;
             }
             
@@ -990,7 +981,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             const html = leaders.map(leader => `
                 <li class="stat-leader" onclick="window.location.href='${getPlayerUrl(leader.player_id)}'">
-                    <span class="leader-name">${leader.name}</span>
+                    <span class="leader-name">${leader.name_jp || leader.name}</span>
                     <span class="leader-stat">${leader.stat}</span>
                 </li>
             `).join('');
