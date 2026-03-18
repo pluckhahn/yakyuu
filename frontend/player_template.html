@@ -708,11 +708,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             // Look for /players/{playerId} pattern
             const playersIndex = segments.indexOf('players');
             if (playersIndex !== -1 && segments[playersIndex + 1]) {
-                return segments[playersIndex + 1];
+                const id = segments[playersIndex + 1];
+                // Reject template literals or invalid IDs (e.g. from bad crawler links)
+                if (!id || id.includes('{') || id.includes('}') || id.includes('Leader')) {
+                    return null; // Caller should redirect
+                }
+                return id;
             }
             // Fallback to URL parameters for backward compatibility
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('id') || '81985118'; // Default to test player
+            const paramId = urlParams.get('id');
+            if (paramId && !paramId.includes('{') && !paramId.includes('}')) return paramId;
+            return '81985118'; // Default when no path segment
         }
         
         // Table sorting functionality
@@ -802,6 +809,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         // Load player metadata
         async function loadPlayerMetadata() {
             const playerId = getPlayerId();
+            if (playerId == null) {
+                window.location.href = '/players';
+                return;
+            }
             try {
                 const response = await fetch(`${API_BASE}/players/${playerId}`);
                 const player = await response.json();
@@ -864,6 +875,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                   // Load batting statistics
          async function loadBattingStats() {
              const playerId = getPlayerId();
+             if (playerId == null) return;
              
                            // Get current filter values
               const activeGameTypes = Array.from(document.querySelectorAll('.game-type-button.active'))
@@ -1019,6 +1031,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                   // Load pitching statistics
          async function loadPitchingStats() {
              const playerId = getPlayerId();
+             if (playerId == null) return;
              
                            // Get current filter values
               const activeGameTypes = Array.from(document.querySelectorAll('.game-type-button.active'))

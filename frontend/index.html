@@ -988,12 +988,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             console.log(`Displaying ${leaders.length} leaders for ${elementId}:`, leaders);
             
-            const html = leaders.map(leader => `
-                <li class="stat-leader" onclick="window.location.href='${getPlayerUrl(leader.player_id)}'">
-                    <span class="leader-name">${leader.name}</span>
-                    <span class="leader-stat">${leader.stat}</span>
-                </li>
-            `).join('');
+            const isValidId = (id) => id && !String(id).includes('{') && !String(id).includes('}');
+            const html = leaders.map(leader => {
+                const url = isValidId(leader.player_id) ? getPlayerUrl(leader.player_id) : null;
+                if (url) {
+                    return `<li class="stat-leader" onclick="window.location.href='${url}'"><a href="${url}" class="leader-name">${leader.name}</a><span class="leader-stat">${leader.stat}</span></li>`;
+                }
+                return `<li class="stat-leader"><span class="leader-name">${leader.name}</span><span class="leader-stat">${leader.stat}</span></li>`;
+            }).join('');
             
             element.innerHTML = html;
         }

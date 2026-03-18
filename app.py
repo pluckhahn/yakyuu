@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template, send_from_directory
+from flask import Flask, jsonify, request, render_template, send_from_directory, redirect
 from flask_cors import CORS
 import sqlite3
 import os
@@ -795,6 +795,11 @@ def get_pitching_stats_from_events(player_id, game_types=None, splits=['overall'
     
     return career_query, season_query, params
 
+@app.route('/favicon.ico')
+def favicon_ico():
+    """Redirect browsers and bots that request favicon.ico to the PNG favicon"""
+    return redirect('/favicon.png', code=302)
+
 @app.route('/')
 def index():
     """Serve the main index page"""
@@ -1506,7 +1511,7 @@ def get_league_leaders():
             FROM (
                 SELECT b_qualifier, p_qualifier
                 FROM teams 
-                WHERE b_qualifier > 0 AND p_qualifier > 50  -- Exclude All-Star teams
+                WHERE b_qualifier > 0 AND p_qualifier > 0  -- Exclude All-Star teams
                 ORDER BY p_qualifier DESC
                 LIMIT 12  -- Top 12 teams (main NPB teams)
             )

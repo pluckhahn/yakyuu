@@ -124,27 +124,24 @@ async function loadLeagueLeaders() {
         if (data.batting_leaders && data.pitching_leaders) {
             let leadersHtml = '<div class="leaders-section">';
             
+            const isValidId = (id) => id && !String(id).includes('{') && !String(id).includes('}');
             // Batting leaders
             leadersHtml += '<div class="batting-leaders"><h4>Batting Average</h4>';
             data.batting_leaders.forEach(leader => {
-                leadersHtml += `
-                    <div class="leader-item">
-                        <a href="/players/${leader.player_id}">${leader.name}</a>
-                        <span class="stat">${leader.stat}</span>
-                    </div>
-                `;
+                const url = isValidId(leader.player_id) ? `/players/${leader.player_id}` : null;
+                leadersHtml += url
+                    ? `<div class="leader-item"><a href="${url}">${leader.name}</a><span class="stat">${leader.stat}</span></div>`
+                    : `<div class="leader-item"><span>${leader.name}</span><span class="stat">${leader.stat}</span></div>`;
             });
             leadersHtml += '</div>';
             
             // Pitching leaders
             leadersHtml += '<div class="pitching-leaders"><h4>ERA</h4>';
             data.pitching_leaders.forEach(leader => {
-                leadersHtml += `
-                    <div class="leader-item">
-                        <a href="/players/${leader.player_id}">${leader.name}</a>
-                        <span class="stat">${leader.stat}</span>
-                    </div>
-                `;
+                const url = isValidId(leader.player_id) ? `/players/${leader.player_id}` : null;
+                leadersHtml += url
+                    ? `<div class="leader-item"><a href="${url}">${leader.name}</a><span class="stat">${leader.stat}</span></div>`
+                    : `<div class="leader-item"><span>${leader.name}</span><span class="stat">${leader.stat}</span></div>`;
             });
             leadersHtml += '</div>';
             
