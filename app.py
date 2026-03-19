@@ -5037,17 +5037,17 @@ def get_pitching_stats_filtered(conn, filters):
                 having_params.append(max_val)
         elif qualifier_name == 'ip':  # Innings Pitched
             if min_val is not None:
-                having_conditions.append("SUM(pi.ip) >= ?")
+                having_conditions.append("SUM(p.ip) >= ?")
                 having_params.append(min_val)
             if max_val is not None:
-                having_conditions.append("SUM(pi.ip) <= ?")
+                having_conditions.append("SUM(p.ip) <= ?")
                 having_params.append(max_val)
         elif qualifier_name == 'era':  # ERA
             if min_val is not None:
-                having_conditions.append("CAST(SUM(pi.er) AS FLOAT) * 9 / NULLIF(SUM(pi.ip), 0) >= ?")
+                having_conditions.append("CAST(SUM(p.er) AS FLOAT) * 9 / NULLIF(SUM(p.ip), 0) >= ?")
                 having_params.append(min_val)
             if max_val is not None:
-                having_conditions.append("CAST(SUM(pi.er) AS FLOAT) * 9 / NULLIF(SUM(pi.ip), 0) <= ?")
+                having_conditions.append("CAST(SUM(p.er) AS FLOAT) * 9 / NULLIF(SUM(p.ip), 0) <= ?")
                 having_params.append(max_val)
     
     # Build HAVING clause
@@ -5055,7 +5055,7 @@ def get_pitching_stats_filtered(conn, filters):
     if having_conditions:
         having_clause = "HAVING " + " AND ".join(having_conditions)
     elif min_ip > 0:  # Fallback to min_ip if no qualifiers
-        having_clause = "HAVING SUM(pi.ip) >= ?"
+        having_clause = "HAVING SUM(p.ip) >= ?"
         having_params.append(min_ip)
     
     if aggregate_by_season:

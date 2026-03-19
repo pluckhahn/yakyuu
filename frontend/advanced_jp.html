@@ -1516,9 +1516,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 filterState.qualifiers = {};
             } else {
                 qualifiersSection.style.display = 'block';
-                // Restore default AB qualifier for individual stats
+                // Default AB qualifier only for batting; no default for pitching
                 if (Object.keys(filterState.qualifiers).length === 0) {
-                    filterState.qualifiers = { ab: { min: 100 } };
+                    filterState.qualifiers = currentStatType === 'batting' ? { ab: { min: 100 } } : {};
                 }
                 updateQualifierButtonStates();
             }
@@ -1545,9 +1545,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 filterState.onBase = ['all'];
                 filterState.count = ['all'];
                 filterState.handedness = ['all'];
+                // Remove batting-only default (AB) when switching to pitching
+                if (filterState.qualifiers.ab && Object.keys(filterState.qualifiers).length === 1) {
+                    filterState.qualifiers = {};
+                }
             } else {
                 situationalFiltersSection.style.display = 'block';
+                // Restore default AB qualifier for batting if none set
+                if (Object.keys(filterState.qualifiers).length === 0) {
+                    filterState.qualifiers = { ab: { min: 100 } };
+                }
             }
+            updateQualifierButtonStates();
         }
 
         function loadPlayerStats() {
@@ -2056,8 +2065,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 }
             });
             
-            // Set default AB qualifier if no qualifiers exist
-            if (Object.keys(filterState.qualifiers).length === 0) {
+            // Set default AB qualifier only for batting when no qualifiers exist
+            if (Object.keys(filterState.qualifiers).length === 0 && currentStatType === 'batting') {
                 filterState.qualifiers = { ab: { min: 100 } };
                 const abBtn = document.getElementById('ab-btn');
                 if (abBtn) {
