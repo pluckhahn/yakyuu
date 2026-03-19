@@ -4409,7 +4409,7 @@ def get_batting_stats(conn, aggregate_by_season=False, limit=None):
             ROUND(CAST(SUM(b.b_h) - SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.ab) - SUM(b.b_k) - SUM(b.b_hr), 0), 3) as babip,
             ROUND(CAST(SUM(b.b_k) AS FLOAT) / NULLIF(SUM(b.pa), 0) * 100, 1) as k_pct,
             ROUND(CAST(SUM(b.b_bb) AS FLOAT) / NULLIF(SUM(b.pa), 0) * 100, 1) as bb_pct,
-            ROUND(CAST(SUM(b.b_2b) + SUM(b.b_3b) + SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.b_h), 0) * 100, 1) as xbh_pct
+            ROUND(CAST(SUM(b.b_2b) + SUM(b.b_3b) + SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.ab), 0) * 100, 1) as xbh_pct
             
         FROM batting b
         JOIN games g ON b.game_id = g.game_id
@@ -4460,7 +4460,7 @@ def get_batting_stats(conn, aggregate_by_season=False, limit=None):
             ROUND(CAST(SUM(b.b_h) - SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.ab) - SUM(b.b_k) - SUM(b.b_hr), 0), 3) as babip,
             ROUND(CAST(SUM(b.b_k) AS FLOAT) / NULLIF(SUM(b.pa), 0) * 100, 1) as k_pct,
             ROUND(CAST(SUM(b.b_bb) AS FLOAT) / NULLIF(SUM(b.pa), 0) * 100, 1) as bb_pct,
-            ROUND(CAST(SUM(b.b_2b) + SUM(b.b_3b) + SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.b_h), 0) * 100, 1) as xbh_pct
+            ROUND(CAST(SUM(b.b_2b) + SUM(b.b_3b) + SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.ab), 0) * 100, 1) as xbh_pct
             
         FROM batting b
         JOIN games g ON b.game_id = g.game_id
@@ -4824,7 +4824,7 @@ def get_batting_stats_filtered(conn, filters):
             ROUND(CAST(SUM(b.b_h) - SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.ab) - SUM(b.b_k) - SUM(b.b_hr), 0), 3) as babip,
             ROUND(CAST(SUM(b.b_k) AS FLOAT) / NULLIF(SUM(b.pa), 0) * 100, 1) as k_pct,
             ROUND(CAST(SUM(b.b_bb) AS FLOAT) / NULLIF(SUM(b.pa), 0) * 100, 1) as bb_pct,
-            ROUND(CAST(SUM(b.b_2b) + SUM(b.b_3b) + SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.b_h), 0) * 100, 1) as xbh_pct
+            ROUND(CAST(SUM(b.b_2b) + SUM(b.b_3b) + SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.ab), 0) * 100, 1) as xbh_pct
             
         FROM batting b
         JOIN games g ON b.game_id = g.game_id
@@ -4873,7 +4873,7 @@ def get_batting_stats_filtered(conn, filters):
             ROUND(CAST(SUM(b.b_h) - SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.ab) - SUM(b.b_k) - SUM(b.b_hr), 0), 3) as babip,
             ROUND(CAST(SUM(b.b_k) AS FLOAT) / NULLIF(SUM(b.pa), 0) * 100, 1) as k_pct,
             ROUND(CAST(SUM(b.b_bb) AS FLOAT) / NULLIF(SUM(b.pa), 0) * 100, 1) as bb_pct,
-            ROUND(CAST(SUM(b.b_2b) + SUM(b.b_3b) + SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.b_h), 0) * 100, 1) as xbh_pct
+            ROUND(CAST(SUM(b.b_2b) + SUM(b.b_3b) + SUM(b.b_hr) AS FLOAT) / NULLIF(SUM(b.ab), 0) * 100, 1) as xbh_pct
             
         FROM batting b
         JOIN games g ON b.game_id = g.game_id
@@ -5673,7 +5673,7 @@ def get_team_batting_stats_from_events(conn, filters):
         -- Percentage stats
         ROUND(CAST(SUM(e.k) AS FLOAT) / NULLIF(COUNT(*), 0) * 100, 1) as k_pct,
         ROUND(CAST(SUM(e.bb) AS FLOAT) / NULLIF(COUNT(*), 0) * 100, 1) as bb_pct,
-        ROUND(CAST(SUM(e."2b") + SUM(e."3b") + SUM(e.hr) AS FLOAT) / NULLIF(SUM(e.h), 0) * 100, 1) as xbh_pct
+        ROUND(CAST(SUM(e."2b") + SUM(e."3b") + SUM(e.hr) AS FLOAT) / NULLIF(SUM(CASE WHEN e.bb = 0 AND e.hbp = 0 AND e.sac = 0 THEN 1 ELSE 0 END), 0) * 100, 1) as xbh_pct
         
     FROM event e
     JOIN games g ON e.game_id = g.game_id
@@ -6430,7 +6430,7 @@ def get_batting_stats_from_events1(conn, filters):
         -- Percentage stats
         ROUND(CAST(SUM(e.k) AS FLOAT) / NULLIF(COUNT(*), 0) * 100, 1) as k_pct,
         ROUND(CAST(SUM(e.bb) AS FLOAT) / NULLIF(COUNT(*), 0) * 100, 1) as bb_pct,
-        ROUND(CAST(SUM(e."2b") + SUM(e."3b") + SUM(e.hr) AS FLOAT) / NULLIF(SUM(e.h), 0) * 100, 1) as xbh_pct
+        ROUND(CAST(SUM(e."2b") + SUM(e."3b") + SUM(e.hr) AS FLOAT) / NULLIF(SUM(CASE WHEN e.bb = 0 AND e.hbp = 0 AND e.sac = 0 THEN 1 ELSE 0 END), 0) * 100, 1) as xbh_pct
         
     FROM event e
     JOIN games g ON e.game_id = g.game_id

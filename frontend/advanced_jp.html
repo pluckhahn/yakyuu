@@ -888,6 +888,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         let currentSort = { column: null, direction: 'desc' };
         let currentResults = [];
         let currentModalType = '';  // Track modal type for handling different modals
+        let activeModalFilterKey = '';  // Stable key for apply (not localized title)
         
         // Filter state - Updated to support multiple selections for all filters
         let filterState = {
@@ -994,7 +995,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         });
 
         // Modal Management
-        function openModal(title, content) {
+        function openModal(title, content, filterKey = '') {
+            activeModalFilterKey = filterKey;
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-content').innerHTML = content;
             document.getElementById('modal-overlay').classList.add('show');
@@ -1004,11 +1006,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             document.getElementById('modal-overlay').classList.remove('show');
             currentModalType = '';
             currentQualifier = '';
+            activeModalFilterKey = '';
         }
 
         function applyModalFilter() {
-            const activeFilter = document.getElementById('modal-title').textContent;
-            
             // Handle qualifier modals
             if (currentModalType === 'qualifier') {
                 const minVal = document.getElementById('qualifier-min').value;
@@ -1031,44 +1032,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 return;
             }
             
-            switch(activeFilter) {
-                case 'Game Types':
+            switch (activeModalFilterKey) {
+                case 'gameTypes':
                     filterState.gameTypes = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
                     break;
-                case 'Splits':
+                case 'splits':
                     filterState.splits.winLoss = Array.from(document.querySelectorAll('#win-loss .multi-select-item.selected')).map(item => item.dataset.value);
                     filterState.splits.homeRoad = Array.from(document.querySelectorAll('#home-road .multi-select-item.selected')).map(item => item.dataset.value);
                     filterState.splits.month = Array.from(document.querySelectorAll('#month .multi-select-item.selected')).map(item => item.dataset.value);
                     break;
-                case 'Date Range':
+                case 'dateRange':
                     filterState.dateRange.start = document.getElementById('start-date').value;
                     filterState.dateRange.end = document.getElementById('end-date').value;
                     break;
-                case 'Ballpark':
+                case 'ballpark':
                     filterState.ballparks = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
                     break;
-                case 'Attendance':
+                case 'attendance':
                     filterState.attendance.min = document.getElementById('attendance-min').value;
                     filterState.attendance.max = document.getElementById('attendance-max').value;
                     break;
-                case 'Start Time':
+                case 'startTime':
                     filterState.startTime.start = document.getElementById('start-time-start').value;
                     filterState.startTime.end = document.getElementById('start-time-end').value;
                     break;
-                case 'Inning':
+                case 'inning':
                     filterState.inning = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
                     break;
-                case 'Outs':
+                case 'outs':
                     filterState.outs = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
                     break;
-                case 'On Base':
+                case 'onBase':
                     filterState.onBase = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
                     break;
-                case 'Count':
+                case 'count':
                     filterState.count = Array.from(document.querySelectorAll('#modal-content .multi-select-item.selected')).map(item => item.dataset.value);
                     break;
-                case 'Handedness Filter':
-                    // Save handedness selections
+                case 'handedness':
                     filterState.handedness = Array.from(document.querySelectorAll('.handedness-list .multi-select-item.selected')).map(item => item.dataset.value);
                     break;
             }
@@ -1089,7 +1089,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('試合種類', content);
+            openModal('試合種類', content, 'gameTypes');
             addMultiSelectListeners();
         }
 
@@ -1152,7 +1152,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             `;
-            openModal('区分', content);
+            openModal('区分', content, 'splits');
             addMultiSelectListeners();
         }
 
@@ -1167,7 +1167,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             `;
-            openModal('期間', content);
+            openModal('期間', content, 'dateRange');
         }
 
         function openBallparkModal() {
@@ -1181,7 +1181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('球場', content);
+            openModal('球場', content, 'ballpark');
             addMultiSelectListeners();
         }
 
@@ -1196,7 +1196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             `;
-            openModal('Attendance', content);
+            openModal('観客数', content, 'attendance');
         }
 
         function openStartTimeModal() {
@@ -1210,7 +1210,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             `;
-            openModal('開始時刻', content);
+            openModal('開始時刻', content, 'startTime');
         }
 
         function openInningModal() {
@@ -1252,7 +1252,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('回', content);
+            openModal('回', content, 'inning');
             addMultiSelectListeners();
         }
 
@@ -1275,7 +1275,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('アウト', content);
+            openModal('アウト', content, 'outs');
             addMultiSelectListeners();
         }
 
@@ -1302,7 +1302,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('走者', content);
+            openModal('走者', content, 'onBase');
             addMultiSelectListeners();
         }
 
@@ -1325,7 +1325,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     `).join('')}
                 </div>
             `;
-            openModal('Count', content);
+            openModal('カウント', content, 'count');
             addMultiSelectListeners();
         }
 
@@ -1349,7 +1349,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             `;
-            openModal('投手の利き腕', content);
+            openModal('投手の利き腕', content, 'handedness');
             addMultiSelectListeners();
         }
 
@@ -2024,7 +2024,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             `;
             
-            openModal(`${label}の範囲を指定`, content);
+            openModal(`${label}の範囲を指定`, content, '');
         }
 
         function updateQualifierButtonStates() {
