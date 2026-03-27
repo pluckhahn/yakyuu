@@ -1,15 +1,25 @@
 import sys
 import os
 import sqlite3
-from typing import List
+from typing import List, Optional
 
 # Import our existing modules
 from player_extractor import PlayerExtractor
 from player_parser_db import PlayerParserDB
 
+
+def _default_db_path() -> str:
+    """Y/yakyuu.db relative to this repo (this file is under Final/imports)."""
+    return os.path.normpath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "yakyuu.db")
+    )
+
+
 class UnifiedPlayerParser:
-    def __init__(self, db_path: str = r"C:\Users\pluck\Documents\yakyuu\yakyuu.db"):
+    def __init__(self, db_path: Optional[str] = None):
         """Initialize the unified player parser"""
+        if db_path is None:
+            db_path = _default_db_path()
         self.db_path = db_path
         self.extractor = PlayerExtractor(db_path)
         self.parser = PlayerParserDB(db_path)

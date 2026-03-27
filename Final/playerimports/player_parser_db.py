@@ -1,3 +1,4 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -12,6 +13,13 @@ import pykakasi
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; yakyuu.jp-scraper/1.0; +https://yakyuu.jp/; contact: lukas@yakyuu.jp; free service, not for resale)"
 }
+
+
+def _default_db_path() -> str:
+    """Y/yakyuu.db relative to this repo (this file is under Final/playerimports)."""
+    return os.path.normpath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "yakyuu.db")
+    )
 
 def convert_japanese_date_to_iso(japanese_date: str) -> str:
     """Convert Japanese date format (1989年11月4日) to ISO format (1989-11-04)"""
@@ -157,8 +165,10 @@ def convert_japanese_position_to_abbreviation(japanese_position: str) -> str:
     return position_clean
 
 class PlayerParserDB:
-    def __init__(self, db_path: str = r"C:\Users\pluck\Documents\yakyuu\yakyuu.db"):
+    def __init__(self, db_path: Optional[str] = None):
         """Initialize the player parser with database connection"""
+        if db_path is None:
+            db_path = _default_db_path()
         self.base_url_jp = "https://npb.jp/bis/players/"
         self.base_url_en = "https://npb.jp/bis/eng/players/"
         self.db_path = db_path

@@ -1,10 +1,21 @@
+import os
 import sqlite3
 import sys
-from typing import Set, List
+from typing import List, Optional, Set
+
+
+def _default_db_path() -> str:
+    """Y/yakyuu.db relative to this repo (this file is under Final/playerimports)."""
+    return os.path.normpath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "yakyuu.db")
+    )
+
 
 class PlayerExtractor:
-    def __init__(self, db_path="C:\\Users\\pluck\\Documents\\yakyuu\\yakyuu.db"):
+    def __init__(self, db_path: Optional[str] = None):
         """Initialize the player extractor with database connection"""
+        if db_path is None:
+            db_path = _default_db_path()
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
     
@@ -162,7 +173,7 @@ def main():
     if len(sys.argv) > 1:
         db_path = sys.argv[1]
     else:
-        db_path = "C:\\Users\\pluck\\Documents\\yakyuu\\yakyuu.db"
+        db_path = _default_db_path()
     
     print(f"Using database: {db_path}")
     

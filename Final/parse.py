@@ -29,8 +29,10 @@ import time
 import random
 from collections import defaultdict
 
-# Database connection
-DB_PATH = '../yakyuu.db'
+# Database: one level above this folder (e.g. Y/yakyuu.db for Y/Final/parse.py).
+# Resolve from __file__ so the path does not depend on the process working directory.
+_DB_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.normpath(os.path.join(_DB_DIR, '..', 'yakyuu.db'))
 
 # Add import paths for existing parsers
 sys.path.append(os.path.join(os.path.dirname(__file__), 'imports'))
@@ -153,12 +155,12 @@ def run_player_discovery_and_parsing():
     try:
         # Step 1: Extract unique player IDs
         print("\n📋 STEP 1: Extracting unique player IDs...")
-        extractor = PlayerExtractor()
+        extractor = PlayerExtractor(DB_PATH)
         extractor.extract_and_insert_players()
         
         # Step 2: Parse personal information
         print("\n🔍 STEP 2: Parsing player personal information...")
-        parser = PlayerParserDB()
+        parser = PlayerParserDB(DB_PATH)
         parser.populate_all_players()
         
         print("✅ Player discovery and parsing completed!")
@@ -586,7 +588,7 @@ def check_url_exists(url):
     except:
         return False
 
-def parse_game_data(base_url, db_path='yakyuu.db'):
+def parse_game_data(base_url, db_path=DB_PATH):
     """
     Parse all data for a game from a base URL
     """
