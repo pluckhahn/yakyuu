@@ -8,7 +8,7 @@ HEADERS = {
 }
 
 class PitchingParser:
-    def __init__(self, db_path="C:\\Users\\pluck\\Documents\\yakyuu\\yakyuu.db"):
+    def __init__(self, db_path="../yakyuu.db"):
         """Initialize parser with database connection"""
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()

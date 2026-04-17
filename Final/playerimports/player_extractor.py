@@ -3,7 +3,7 @@ import sys
 from typing import Set, List
 
 class PlayerExtractor:
-    def __init__(self, db_path="C:\\Users\\pluck\\Documents\\yakyuu\\yakyuu.db"):
+    def __init__(self, db_path="../yakyuu.db"):
         """Initialize the player extractor with database connection"""
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
@@ -162,7 +162,7 @@ def main():
     if len(sys.argv) > 1:
         db_path = sys.argv[1]
     else:
-        db_path = "C:\\Users\\pluck\\Documents\\yakyuu\\yakyuu.db"
+        db_path = "../yakyuu.db"
     
     print(f"Using database: {db_path}")
     

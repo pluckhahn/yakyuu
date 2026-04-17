@@ -1,6 +1,9 @@
-https://npb.jp/scores/2026/0414/s-db-04/
-https://npb.jp/scores/2026/0414/d-c-04/
-https://npb.jp/scores/2026/0414/t-g-04/
-https://npb.jp/scores/2026/0414/m-f-04/
-https://npb.jp/scores/2026/0414/b-l-04/
-https://npb.jp/scores/2026/0414/h-e-04/
+https://npb.jp/scores/2026/0415/d-c-05/
+https://npb.jp/scores/2026/0415/m-f-05/
+https://npb.jp/scores/2026/0415/b-l-05/
+https://npb.jp/scores/2026/0415/h-e-05/
+https://npb.jp/scores/2026/0416/s-db-05/
+https://npb.jp/scores/2026/0416/t-g-05/
+https://npb.jp/scores/2026/0416/m-f-06/
+https://npb.jp/scores/2026/0416/b-l-06/
+https://npb.jp/scores/2026/0416/h-e-06/

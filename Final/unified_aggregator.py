@@ -50,7 +50,7 @@ def read_game_ids_from_file(file_path: str) -> List[str]:
         print(f"Error reading game IDs file: {e}")
         return []
 
-def aggregate_batch(game_ids: List[str] = None, db_path: str = "C:\\Users\\pluck\\Documents\\yakyuu\\yakyuu.db"):
+def aggregate_batch(game_ids: List[str] = None, db_path: str = "../yakyuu.db"):
     """
     Run both aggregators on the specified game IDs or all games if None
     

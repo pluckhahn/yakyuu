@@ -3,7 +3,7 @@ import sys
 
 def add_position_column():
     """Add position column to players table"""
-    db_path = r"C:\Users\pluck\Documents\yakyuu\yakyuu.db"
+    db_path = "../yakyuu.db"
     
     try:
         # Connect to database

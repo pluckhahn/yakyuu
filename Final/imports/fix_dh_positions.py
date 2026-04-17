@@ -8,7 +8,7 @@ import sqlite3
 
 def fix_dh_positions():
     """Update existing batting records to convert '指' to 'DH'"""
-    db_path = "C:\\Users\\pluck\\Documents\\yakyuu\\yakyuu.db"
+    db_path = "../yakyuu.db"
     
     try:
         # Connect to database

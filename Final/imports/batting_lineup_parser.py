@@ -9,7 +9,7 @@ HEADERS = {
 }
 
 class BattingLineupParser:
-    def __init__(self, db_path="C:\\Users\\pluck\\Documents\\yakyuu\\yakyuu.db"):
+    def __init__(self, db_path="../yakyuu.db"):
         self.db_path = db_path
         self.base_url = "https://npb.jp/scores/"
         

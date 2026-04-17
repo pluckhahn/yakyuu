@@ -10,7 +10,7 @@ from datetime import datetime
 
 def get_database_connection():
     """Get database connection"""
-    db_path = r"c:\Users\pluck\Documents\yakyuu\yakyuu.db"
+    db_path = "../yakyuu.db"
     if not os.path.exists(db_path):
         raise FileNotFoundError(f"Database not found: {db_path}")
     return sqlite3.connect(db_path)

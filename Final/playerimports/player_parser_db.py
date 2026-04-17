@@ -157,7 +157,7 @@ def convert_japanese_position_to_abbreviation(japanese_position: str) -> str:
     return position_clean
 
 class PlayerParserDB:
-    def __init__(self, db_path: str = r"C:\Users\pluck\Documents\yakyuu\yakyuu.db"):
+    def __init__(self, db_path: str = "../yakyuu.db"):
         """Initialize the player parser with database connection"""
         self.base_url_jp = "https://npb.jp/bis/players/"
         self.base_url_en = "https://npb.jp/bis/eng/players/"

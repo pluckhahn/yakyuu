@@ -523,7 +523,7 @@ if __name__ == '__main__':
             print(f"Event {i:2d}: {db_row}")
         
         # Optionally save to database
-        db_path = r"C:\Users\pluck\Documents\yakyuu\yakyuu.db"
+        db_path = "../yakyuu.db"
         try:
             upsert_events(db_path, events)
             print(f"\nSuccessfully saved {len(events)} events to database")

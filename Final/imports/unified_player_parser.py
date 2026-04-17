@@ -8,7 +8,7 @@ from player_extractor import PlayerExtractor
 from player_parser_db import PlayerParserDB
 
 class UnifiedPlayerParser:
-    def __init__(self, db_path: str = r"C:\Users\pluck\Documents\yakyuu\yakyuu.db"):
+    def __init__(self, db_path: str = r"C:\Users\pluck\Documents\Y\yakyuu.db"):
         """Initialize the unified player parser"""
         self.db_path = db_path
         self.extractor = PlayerExtractor(db_path)

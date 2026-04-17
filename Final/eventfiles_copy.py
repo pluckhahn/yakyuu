@@ -514,7 +514,7 @@ if __name__ == '__main__':
                 low_event_games.append((url, game_id, len(events)))
                 print(f"⚠️  [{idx}/{len(urls)}] {game_id}: Only {len(events)} events found (< 40)")
             
-            db_path = r"C:\Users\pluck\Documents\yakyuu\yakyuu.db"
+            db_path = "../yakyuu.db"
             try:
                 upsert_events(db_path, events)
                 successful_games += 1
